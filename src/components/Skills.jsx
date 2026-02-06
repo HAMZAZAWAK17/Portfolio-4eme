@@ -225,31 +225,6 @@ const Skills = () => {
                         direction="normal"
                     />
                 </div>
-
-                {/* Floating Stats */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
-                >
-                    {[
-                        { number: "25+", label: t.skills.stats.technologies },
-                        { number: "7+", label: t.skills.stats.projects },
-                        { number: "5+", label: t.skills.stats.years },
-                        { number: "100%", label: t.skills.stats.passion },
-                    ].map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            whileHover={{ scale: 1.05 }}
-                            className="text-center p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors"
-                        >
-                            <div className="text-4xl font-black text-black dark:text-white mb-2">{stat.number}</div>
-                            <div className="text-sm text-gray-500 uppercase tracking-wider">{stat.label}</div>
-                        </motion.div>
-                    ))}
-                </motion.div>
             </div>
         </section>
     );

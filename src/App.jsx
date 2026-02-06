@@ -61,7 +61,6 @@ function App() {
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
-        <AboutMe />
         <About />
         <Skills />
         <Projects />

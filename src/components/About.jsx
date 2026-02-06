@@ -1,53 +1,91 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight } from 'react-icons/fa';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight, FaChevronLeft, FaCode, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
+import { projects, skills } from '../data/portfolioData';
 
 const About = () => {
     const { t } = useLanguage();
-    const [activeTab, setActiveTab] = useState('experience');
-    const containerRef = useRef(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const bioRef = useRef(null);
 
-    // Fallback if lists are missing
+    // Dynamic Stats Calculation
     const experiences = t.about.experiencesList || [];
     const formations = t.about.educationList || [];
+    const internalProjectsCount = projects.length;
+    const internShipsCount = experiences.filter(exp => exp.title.toLowerCase().includes('stage') || exp.title.toLowerCase().includes('internship')).length;
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end end"]
+    // Calculate total techs from skills data
+    const totalTechsCount = Object.values(skills).flat().length;
+
+    // Split bio into words for reveal
+    const words = (t.about.bio || "").split(' ');
+
+    const { scrollYProgress: bioProgress } = useScroll({
+        target: bioRef,
+        offset: ["start end", "center center"]
     });
 
-    const scaleY = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
+    const combinedTimeline = [
+        ...experiences.map(exp => ({ ...exp, type: 'experience' })),
+        ...formations.map(edu => ({ ...edu, type: 'education' }))
+    ].sort((a, b) => {
+        const yearA = parseInt(a.year.match(/\d{4}/)?.[0] || 0);
+        const yearB = parseInt(b.year.match(/\d{4}/)?.[0] || 0);
+        return yearB - yearA;
     });
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.2 }
-        },
-        exit: {
-            opacity: 0,
-            transition: { staggerChildren: 0.1, staggerDirection: -1 }
+    const nextStep = () => {
+        if (currentIndex < combinedTimeline.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+        }
+    };
+
+    const prevStep = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(prev => prev - 1);
         }
     };
 
     return (
-        <section
-            id="about"
-            ref={containerRef}
-            className="section-padding bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden"
-        >
-            <div className="max-w-7xl mx-auto">
-                {/* Section Title */}
+        <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
+            {/* 1. Who Am I - Bio with Scroll Reveal */}
+            <div ref={bioRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-12"
+                >
+                    <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
+                        {t.about.bioTitle}
+                    </h2>
+                    <div className="w-12 h-[2px] bg-black dark:bg-white mx-auto"></div>
+                </motion.div>
+
+                <p className="text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[1.2] tracking-tight text-black dark:text-white flex flex-wrap justify-center gap-x-[0.3em] gap-y-[0.1em]">
+                    {words.map((word, i) => {
+                        const start = i / words.length;
+                        const end = start + 1 / words.length;
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        const opacity = useTransform(bioProgress, [start, end], [0.1, 1]);
+
+                        return (
+                            <motion.span key={i} style={{ opacity }} className="inline-block">
+                                {word}
+                            </motion.span>
+                        );
+                    })}
+                </p>
+            </div>
+
+            <div className="section-padding max-w-7xl mx-auto">
+                {/* 2. Timeline Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-16"
                 >
                     <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
                         {t.about.title} <span className="gradient-text">{t.about.titleHighlight}</span>
@@ -58,189 +96,147 @@ const About = () => {
                     </p>
                 </motion.div>
 
-                {/* Cyber-Toggle System */}
-                <div className="flex justify-center mb-24">
-                    <div className="relative flex bg-gray-100 dark:bg-gray-900/50 p-2 rounded-2xl border border-gray-200 dark:border-gray-800 w-full max-w-lg backdrop-blur-xl">
-                        <motion.div
-                            className="absolute inset-y-2 bg-black dark:bg-white rounded-xl z-0 shadow-2xl"
-                            initial={false}
-                            animate={{
-                                x: activeTab === 'experience' ? '0%' : '100%',
-                            }}
-                            transition={{ type: "spring", stiffness: 300, damping: 35 }}
-                            style={{ width: 'calc(50% - 8px)' }}
-                        />
+                {/* 3. Horizontal Interactive Timeline */}
+                <div className="relative group/timeline">
+                    <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 flex justify-between pointer-events-none -mx-4 md:-mx-8">
+                        <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
+                        <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
+                    </div>
 
-                        <button
-                            onClick={() => setActiveTab('experience')}
-                            className={`flex-1 relative z-10 py-4 px-8 rounded-xl text-base font-black transition-all duration-500 flex items-center justify-center gap-3 ${activeTab === 'experience' ? 'text-white dark:text-black scale-105' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
-                                }`}
-                        >
-                            <FaBriefcase className={activeTab === 'experience' ? 'animate-pulse' : ''} />
-                            <span className="uppercase tracking-widest">{t.about.experiences}</span>
-                        </button>
+                    <div className="min-h-[500px] flex items-center justify-center relative">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentIndex}
+                                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                                className="w-full max-w-4xl"
+                            >
+                                <TimelineCard item={combinedTimeline[currentIndex]} />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
 
-                        <button
-                            onClick={() => setActiveTab('education')}
-                            className={`flex-1 relative z-10 py-4 px-8 rounded-xl text-base font-black transition-all duration-500 flex items-center justify-center gap-3 ${activeTab === 'education' ? 'text-white dark:text-black scale-105' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
-                                }`}
-                        >
-                            <FaGraduationCap className={activeTab === 'education' ? 'animate-pulse' : ''} />
-                            <span className="uppercase tracking-widest">{t.about.formation}</span>
-                        </button>
+                    <div className="mt-12 flex justify-center items-center gap-3">
+                        {combinedTimeline.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentIndex(index)}
+                                className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
+                                    ? 'w-16 bg-black dark:bg-white'
+                                    : 'w-4 bg-gray-200 dark:bg-gray-800'
+                                    }`}
+                            />
+                        ))}
                     </div>
                 </div>
 
-                {/* Interactive Timeline */}
-                <div className="relative max-w-5xl mx-auto px-4">
-                    {/* Animated Drawing Path */}
-                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-100 dark:bg-gray-900 transform md:-translate-x-1/2">
-                        <motion.div
-                            className="absolute top-0 left-0 right-0 bg-black dark:bg-white origin-top"
-                            style={{ scaleY, height: '100%' }}
+                {/* 4. Logical Dynamic Stats */}
+                <div className="mt-40">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl">
+                        <StatItem
+                            number={internalProjectsCount}
+                            label={t.about.stats.projects}
+                            icon={<FaRocket />}
+                        />
+                        <StatItem
+                            number={internShipsCount}
+                            label={t.about.stats.internships}
+                            icon={<FaBriefcase />}
+                        />
+                        <StatItem
+                            number={`${totalTechsCount}+`}
+                            label={t.about.stats.technologies}
+                            icon={<FaCode />}
+                        />
+                        <StatItem
+                            number="5"
+                            label={t.about.stats.years}
+                            icon={<FaCalendar />}
                         />
                     </div>
-
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeTab}
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            className="relative"
-                        >
-                            {(activeTab === 'experience' ? experiences : formations).map((item, index) => (
-                                <TimelineItem
-                                    key={index}
-                                    item={item}
-                                    index={index}
-                                    type={activeTab}
-                                />
-                            ))}
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* Premium Bento Stats */}
-                <div className="mt-32 grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {[
-                        { number: "5+", label: t.about.stats.years, color: "from-blue-500/10" },
-                        { number: "3", label: t.about.stats.internships, color: "from-purple-500/10" },
-                        { number: "7+", label: t.about.stats.projects, color: "from-green-500/10" },
-                        { number: "20+", label: t.about.stats.technologies, color: "from-orange-500/10" },
-                    ].map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -10, scale: 1.02 }}
-                            className={`relative overflow-hidden p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl shadow-xl group`}
-                        >
-                            <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${stat.color} to-transparent`} />
-                            <div className="relative z-10 text-center">
-                                <span className="text-6xl font-black text-black dark:text-white block mb-2 transition-transform duration-500 group-hover:scale-110">
-                                    {stat.number}
-                                </span>
-                                <span className="text-xs font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500">
-                                    {stat.label}
-                                </span>
-                            </div>
-                        </motion.div>
-                    ))}
                 </div>
             </div>
         </section>
     );
 };
 
-const TimelineItem = ({ item, index, type }) => {
-    const isEven = index % 2 === 0;
+const NavButton = ({ onClick, disabled, icon }) => (
+    <button
+        onClick={onClick}
+        disabled={disabled}
+        className={`p-6 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white pointer-events-auto transition-all duration-500 shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none ${disabled ? 'opacity-0 scale-50' : 'opacity-100 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_rgba(0,0,0,1)]'
+            }`}
+    >
+        {icon}
+    </button>
+);
+
+const StatItem = ({ number, label, icon }) => (
+    <div className="bg-white dark:bg-black p-10 flex flex-col items-center justify-center group hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors">
+        <div className="text-gray-200 dark:text-gray-800 text-3xl mb-4 transition-colors group-hover:text-black dark:group-hover:text-white">
+            {icon}
+        </div>
+        <div className="text-6xl font-black text-black dark:text-white mb-2 tracking-tighter">
+            {number}<span className="text-gray-300"></span>
+        </div>
+        <div className="text-xs font-black uppercase tracking-[0.3em] text-gray-400 text-center">
+            {label}
+        </div>
+    </div>
+);
+
+const TimelineCard = ({ item }) => {
+    const isExp = item.type === 'experience';
 
     return (
-        <motion.div
-            variants={{
-                hidden: { opacity: 0, x: isEven ? -100 : 100 },
-                visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20, stiffness: 100 } }
-            }}
-            className={`relative flex flex-col md:flex-row items-center justify-center w-full mb-16 md:mb-24 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-        >
-            {/* Timeline Node */}
-            <div className="absolute left-4 md:left-1/2 w-8 h-8 md:w-10 md:h-10 bg-white dark:bg-black rounded-full border-4 border-black dark:border-white transform md:-translate-x-1/2 z-20 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                {type === 'experience' ? <FaBriefcase className="text-xs md:text-sm text-black dark:text-white" /> : <FaGraduationCap className="text-xs md:text-sm text-black dark:text-white" />}
+        <div className="relative p-10 md:p-20 bg-gray-50 dark:bg-gray-900/50 border-2 border-black dark:border-white shadow-[20px_20px_0px_rgba(0,0,0,1)] dark:shadow-[20px_20px_0px_rgba(255,255,255,0.1)] overflow-hidden">
+            <div className="absolute -top-10 -right-10 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
+                {isExp ? <FaBriefcase size={300} /> : <FaGraduationCap size={300} />}
             </div>
 
-            {/* Content Side */}
-            <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-20' : 'md:pl-20'}`}>
-                <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="relative p-8 md:p-10 bg-gray-50 dark:bg-gray-900/40 border-2 border-transparent hover:border-black dark:hover:border-white transition-all duration-500 shadow-2xl overflow-hidden group rounded-None"
-                >
-                    {/* Decorative Background Icon */}
-                    <div className="absolute -right-8 -bottom-8 opacity-[0.03] dark:opacity-[0.05] rotate-12 transition-transform duration-700 group-hover:scale-150">
-                        {type === 'experience' ? <FaBriefcase size={200} /> : <FaGraduationCap size={200} />}
+            <div className="relative z-10">
+                <div className="flex flex-wrap items-center gap-4 mb-8">
+                    <span className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-xs">
+                        {item.year}
+                    </span>
+                    <span className={`px-6 py-2 border-2 border-black dark:border-white font-black uppercase tracking-widest text-[10px] ${isExp ? 'text-blue-500' : 'text-purple-500'}`}>
+                        {isExp ? 'Expérience' : 'Formation'}
+                    </span>
+                    <div className="flex items-center gap-2 text-xs font-bold text-gray-400 ml-auto">
+                        <FaMapMarkerAlt />
+                        {item.location}
                     </div>
+                </div>
 
-                    {/* Top Meta Info */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                        <span className="px-4 py-1.5 bg-black dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
-                            {item.year}
-                        </span>
-                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
-                            <FaMapMarkerAlt />
-                            {item.location}
-                        </div>
-                    </div>
+                <h3 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-4 tracking-tighter leading-none">
+                    {item.title}
+                </h3>
 
-                    {/* Main Title */}
-                    <h3 className="text-2xl md:text-3xl font-black text-black dark:text-white mb-2 leading-tight tracking-tighter">
-                        {item.title}
-                    </h3>
+                <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-600 dark:text-gray-300 mb-8">
+                    <div className="w-12 h-1 bg-black dark:bg-white" />
+                    {isExp ? item.company : item.institution}
+                </div>
 
-                    {/* Subtitle / Company */}
-                    <div className="flex items-center gap-2 text-lg font-bold text-gray-600 dark:text-gray-300 mb-6">
-                        <span className="w-6 h-[2px] bg-black dark:bg-white" />
-                        {type === 'experience' ? item.company : item.institution}
-                    </div>
+                <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-3xl font-medium">
+                    {item.description}
+                </p>
 
-                    {/* Description */}
-                    <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-base mb-8">
-                        {item.description}
-                    </p>
-
-                    {/* Tech Badges for Experience */}
-                    {type === 'experience' && item.technologies && (
-                        <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-200 dark:border-gray-800">
-                            {item.technologies.map((tech, i) => (
-                                <span
-                                    key={i}
-                                    className="px-3 py-1 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 text-[9px] font-black uppercase tracking-widest text-black dark:text-white group-hover:border-black dark:group-hover:border-white transition-all"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Visual Indicator for Education */}
-                    {type === 'education' && (
-                        <div className="flex justify-end mt-4">
-                            <motion.div
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ repeat: Infinity, duration: 2 }}
+                {isExp && item.technologies && (
+                    <div className="flex flex-wrap gap-3">
+                        {item.technologies.map((tech, i) => (
+                            <span
+                                key={i}
+                                className="px-4 py-1.5 bg-white dark:bg-black border-2 border-black dark:border-white text-[10px] font-black uppercase tracking-widest text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                             >
-                                <FaChevronRight className="text-gray-300 dark:text-gray-700 group-hover:text-black dark:group-hover:text-white transition-colors" />
-                            </motion.div>
-                        </div>
-                    )}
-                </motion.div>
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
-
-            {/* Empty Side (Desktop only) */}
-            <div className="hidden md:block md:w-1/2"></div>
-        </motion.div>
+        </div>
     );
 };
 
