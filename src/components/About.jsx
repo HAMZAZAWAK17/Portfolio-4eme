@@ -98,12 +98,13 @@ const About = () => {
 
                 {/* 3. Horizontal Interactive Timeline */}
                 <div className="relative group/timeline">
-                    <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 flex justify-between pointer-events-none -mx-4 md:-mx-8">
+                    {/* Navigation Buttons - Repositioned for mobile */}
+                    <div className="flex justify-between items-center md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:right-0 z-30 pointer-events-none md:-mx-8 mb-8 md:mb-0">
                         <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
                         <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
                     </div>
 
-                    <div className="min-h-[500px] flex items-center justify-center relative">
+                    <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentIndex}
@@ -134,7 +135,7 @@ const About = () => {
 
                 {/* 4. Logical Dynamic Stats */}
                 <div className="mt-40">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
                         <StatItem
                             number={internalProjectsCount}
                             label={t.about.stats.projects}
@@ -166,7 +167,7 @@ const NavButton = ({ onClick, disabled, icon }) => (
     <button
         onClick={onClick}
         disabled={disabled}
-        className={`p-6 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white pointer-events-auto transition-all duration-500 shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none ${disabled ? 'opacity-0 scale-50' : 'opacity-100 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_rgba(0,0,0,1)]'
+        className={`p-4 md:p-6 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white pointer-events-auto transition-all duration-500 shadow-[4px_4px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.1)] md:dark:shadow-[8px_8px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none ${disabled ? 'opacity-0 scale-50' : 'opacity-100 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] md:hover:shadow-[12px_12px_0px_rgba(0,0,0,1)]'
             }`}
     >
         {icon}
@@ -174,14 +175,17 @@ const NavButton = ({ onClick, disabled, icon }) => (
 );
 
 const StatItem = ({ number, label, icon }) => (
-    <div className="bg-white dark:bg-black p-10 flex flex-col items-center justify-center group hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors">
-        <div className="text-gray-200 dark:text-gray-800 text-3xl mb-4 transition-colors group-hover:text-black dark:group-hover:text-white">
+    <div className="bg-white dark:bg-black p-6 md:p-10 flex flex-col items-center justify-center group hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-500 relative overflow-hidden border-r last:border-r-0 border-gray-100 dark:border-gray-900 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
+        {/* Intensive White Ombre Fade (Dark Mode only) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.1] to-transparent opacity-0 dark:opacity-100 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+        <div className="text-gray-200 dark:text-gray-800 text-2xl md:text-3xl mb-4 transition-colors group-hover:text-black dark:group-hover:text-white relative z-10">
             {icon}
         </div>
-        <div className="text-6xl font-black text-black dark:text-white mb-2 tracking-tighter">
-            {number}<span className="text-gray-300"></span>
+        <div className="text-4xl md:text-6xl font-black text-black dark:text-white mb-2 tracking-tighter relative z-10">
+            {number}
         </div>
-        <div className="text-xs font-black uppercase tracking-[0.3em] text-gray-400 text-center">
+        <div className="text-xs font-black uppercase tracking-[0.3em] text-gray-400 text-center relative z-10">
             {label}
         </div>
     </div>
@@ -191,44 +195,44 @@ const TimelineCard = ({ item }) => {
     const isExp = item.type === 'experience';
 
     return (
-        <div className="relative p-10 md:p-20 bg-gray-50 dark:bg-gray-900/50 border-2 border-black dark:border-white shadow-[20px_20px_0px_rgba(0,0,0,1)] dark:shadow-[20px_20px_0px_rgba(255,255,255,0.1)] overflow-hidden">
+        <div className="relative p-6 md:p-20 bg-gray-50 dark:bg-gray-900/50 border-2 border-black dark:border-white shadow-[10px_10px_0px_rgba(0,0,0,1)] md:shadow-[20px_20px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_rgba(255,255,255,0.1)] md:dark:shadow-[20px_20px_0px_rgba(255,255,255,0.1)] overflow-hidden">
             <div className="absolute -top-10 -right-10 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
-                {isExp ? <FaBriefcase size={300} /> : <FaGraduationCap size={300} />}
+                {isExp ? <FaBriefcase size={200} className="md:size-[300px]" /> : <FaGraduationCap size={200} className="md:size-[300px]" />}
             </div>
 
             <div className="relative z-10">
-                <div className="flex flex-wrap items-center gap-4 mb-8">
-                    <span className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-xs">
+                <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-6 md:mb-8">
+                    <span className="px-4 md:px-6 py-1.5 md:py-2 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-[10px] md:text-xs">
                         {item.year}
                     </span>
-                    <span className={`px-6 py-2 border-2 border-black dark:border-white font-black uppercase tracking-widest text-[10px] ${isExp ? 'text-blue-500' : 'text-purple-500'}`}>
+                    <span className={`px-4 md:px-6 py-1.5 md:py-2 border-2 border-black dark:border-white font-black uppercase tracking-widest text-[9px] md:text-[10px] ${isExp ? 'text-blue-500' : 'text-purple-500'}`}>
                         {isExp ? 'Expérience' : 'Formation'}
                     </span>
-                    <div className="flex items-center gap-2 text-xs font-bold text-gray-400 ml-auto">
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-gray-400 ml-auto">
                         <FaMapMarkerAlt />
                         {item.location}
                     </div>
                 </div>
 
-                <h3 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-4 tracking-tighter leading-none">
+                <h3 className="text-2xl md:text-6xl font-black text-black dark:text-white mb-4 tracking-tighter leading-tight md:leading-none">
                     {item.title}
                 </h3>
 
-                <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-600 dark:text-gray-300 mb-8">
-                    <div className="w-12 h-1 bg-black dark:bg-white" />
+                <div className="flex items-center gap-3 md:gap-4 text-base md:text-2xl font-bold text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
+                    <div className="w-8 md:w-12 h-1 bg-black dark:bg-white" />
                     {isExp ? item.company : item.institution}
                 </div>
 
-                <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-3xl font-medium">
+                <p className="text-gray-500 dark:text-gray-400 text-sm md:text-xl leading-relaxed mb-8 md:mb-10 max-w-3xl font-medium">
                     {item.description}
                 </p>
 
                 {isExp && item.technologies && (
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 md:gap-3">
                         {item.technologies.map((tech, i) => (
                             <span
                                 key={i}
-                                className="px-4 py-1.5 bg-white dark:bg-black border-2 border-black dark:border-white text-[10px] font-black uppercase tracking-widest text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                                className="px-3 md:px-4 py-1 md:py-1.5 bg-white dark:bg-black border-2 border-black dark:border-white text-[8px] md:text-[10px] font-black uppercase tracking-widest text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                             >
                                 {tech}
                             </span>
