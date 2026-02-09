@@ -170,7 +170,7 @@ export const interests = [
 ];
 
 export const socialLinks = {
-    github: "https://github.com/ezzouekhamza",
+    github: "https://github.com/HAMZAZAWAK17?tab=repositories",
     linkedin: "https://linkedin.com/in/ezzouekhamza",
     twitter: "https://twitter.com/ezzouekhamza",
     instagram: "https://instagram.com/ezzouekhamza",
