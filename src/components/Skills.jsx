@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
     FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
-    FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma
+    FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma, FaCode, FaServer, FaTools
 } from 'react-icons/fa';
 import {
     SiTailwindcss, SiMysql, SiMongodb, SiExpress,
@@ -11,6 +11,7 @@ import {
 } from 'react-icons/si';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
+import { HiCode, HiDatabase, HiCommandLine } from 'react-icons/hi';
 
 const CategoryCard = ({ title, skills, color, icon: HeaderIcon }) => {
     return (
@@ -37,11 +38,16 @@ const CategoryCard = ({ title, skills, color, icon: HeaderIcon }) => {
                 {skills.map((skill, index) => (
                     <motion.div
                         key={index}
-                        whileHover={{ scale: 1.1, y: -5 }}
-                        className="relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white dark:bg-black border border-gray-100 dark:border-white/5 shadow-sm transition-all duration-300 hover:shadow-md cursor-help group/item"
+                        whileHover={{
+                            scale: 1.35,
+                            zIndex: 40,
+                            boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 10px 15px -6px rgb(0 0 0 / 0.1)"
+                        }}
+                        transition={{ type: "spring", stiffness: 350, damping: 12 }}
+                        className="relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white dark:bg-black border border-gray-100 dark:border-white/5 shadow-sm transition-all duration-300 cursor-help group/item"
                     >
                         <skill.icon
-                            className="text-2xl md:text-3xl transition-colors duration-300"
+                            className="text-2xl md:text-3xl transition-transform duration-300 group-hover/item:scale-110"
                             style={{ color: skill.color }}
                         />
 
@@ -69,7 +75,7 @@ const Skills = () => {
         {
             title: "Frontend",
             color: "#61DAFB",
-            icon: FaReact,
+            icon: HiCode,
             skills: [
                 { name: "ReactJS", icon: FaReact, color: "#61DAFB" },
                 { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
@@ -82,7 +88,7 @@ const Skills = () => {
         {
             title: "Backend",
             color: "#6DB33F",
-            icon: SiSpringboot,
+            icon: HiDatabase,
             skills: [
                 { name: "NodeJS", icon: FaNodeJs, color: "#339933" },
                 { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
@@ -97,7 +103,7 @@ const Skills = () => {
         {
             title: "Tools & Mobile",
             color: "#F2C811",
-            icon: FaGitAlt,
+            icon: HiCommandLine,
             skills: [
                 { name: "Flutter", icon: SiFlutter, color: "#02569B" },
                 { name: "Expo", icon: SiExpo, color: "#000020" },
