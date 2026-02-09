@@ -1,8 +1,25 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaClock } from 'react-icons/fa';
+import {
+    FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
+    FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
+    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase
+} from 'react-icons/fa';
+import { SiFlutter } from 'react-icons/si';
 import { projects } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
+
+const iconMap = {
+    FaTooth: FaTooth,
+    SiFlutter: SiFlutter,
+    FaCloudSun: FaCloudSun,
+    FaRegNewspaper: FaRegNewspaper,
+    FaChalkboardTeacher: FaChalkboardTeacher,
+    FaTasks: FaTasks,
+    FaPaperPlane: FaPaperPlane,
+    FaShieldAlt: FaShieldAlt,
+    FaDatabase: FaDatabase,
+};
 
 const Projects = () => {
     const { t } = useLanguage();
@@ -75,94 +92,110 @@ const Projects = () => {
                 </motion.div>
 
                 {/* Projects Grid */}
-                <motion.div
-                    layout
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((project) => (
-                            <motion.div
-                                key={project.id}
-                                layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3 }}
-                                className="group relative bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 overflow-hidden hover:border-black dark:hover:border-white transition-colors"
-                            >
-                                {/* Project Image */}
-                                <div className="relative h-48 overflow-hidden">
-                                    <motion.img
-                                        whileHover={{ scale: 1.1 }}
-                                        transition={{ duration: 0.6, ease: "easeOut" }}
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        {filteredProjects.map((project) => {
+                            const IconComponent = iconMap[project.icon] || FaTasks;
 
-                                    {/* In Progress Badge */}
-                                    {project.inProgress && (
-                                        <div className="absolute top-4 right-4 bg-black dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-bold flex items-center gap-1 uppercase z-10">
-                                            <FaClock />
-                                            {t.projects.inProgress}
+                            return (
+                                <motion.div
+                                    key={project.id}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="group relative bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 overflow-hidden hover:border-black dark:hover:border-white transition-all duration-300"
+                                >
+                                    {/* Project Icon Container */}
+                                    <div className="relative h-56 overflow-hidden bg-gray-50 dark:bg-gray-900 group-hover:bg-gray-100 dark:group-hover:bg-gray-800 transition-colors duration-500">
+                                        {/* Animated Background Elements */}
+                                        <div className="absolute inset-0 overflow-hidden opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                                            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-black dark:bg-white blur-3xl animate-pulse"></div>
+                                            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-black dark:bg-white blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                                         </div>
-                                    )}
 
-                                    {/* Hover Buttons */}
-                                    <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                                        <motion.a
-                                            initial={{ y: 20, opacity: 0 }}
-                                            whileHover={{ scale: 1.1 }}
-                                            animate={filter ? { y: 0, opacity: 1 } : {}} // Hack to trigger animation on hover if needed, or rely on CSS group-hover
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-3 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors shadow-xl"
-                                            title={t.projects.viewCode}
-                                        >
-                                            <FaGithub size={20} />
-                                        </motion.a>
-                                        {project.demo && (
+                                        <div className="relative h-full flex items-center justify-center p-8">
+                                            <motion.div
+                                                whileHover={{ scale: 1.2, rotate: 5 }}
+                                                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                                className="text-7xl md:text-8xl text-black dark:text-white filter drop-shadow-lg"
+                                            >
+                                                <IconComponent />
+                                            </motion.div>
+                                        </div>
+
+                                        {/* In Progress Badge */}
+                                        {project.inProgress && (
+                                            <div className="absolute top-4 right-4 bg-black dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-bold flex items-center gap-1 uppercase z-10">
+                                                <FaClock />
+                                                {t.projects.inProgress}
+                                            </div>
+                                        )}
+
+                                        {/* Hover Overlay with Buttons */}
+                                        <div className="absolute inset-0 bg-black/60 dark:bg-black/80 flex items-center justify-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                                             <motion.a
-                                                whileHover={{ scale: 1.1 }}
-                                                href={project.demo}
+                                                whileHover={{ scale: 1.1, y: -5 }}
+                                                href={project.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="p-3 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors shadow-xl"
-                                                title={t.projects.viewDemo}
+                                                className="flex flex-col items-center gap-2 text-white dark:text-white hover:text-gray-300 transition-colors"
                                             >
-                                                <FaExternalLinkAlt size={20} />
+                                                <div className="p-4 rounded-full border-2 border-white/50 hover:border-white transition-colors">
+                                                    <FaGithub size={24} />
+                                                </div>
+                                                <span className="text-xs font-bold uppercase tracking-widest">{t.projects.viewCode}</span>
                                             </motion.a>
-                                        )}
+
+                                            {project.demo && (
+                                                <motion.a
+                                                    whileHover={{ scale: 1.1, y: -5 }}
+                                                    href={project.demo}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex flex-col items-center gap-2 text-white dark:text-white hover:text-gray-300 transition-colors"
+                                                >
+                                                    <div className="p-4 rounded-full border-2 border-white/50 hover:border-white transition-colors">
+                                                        <FaExternalLinkAlt size={24} />
+                                                    </div>
+                                                    <span className="text-xs font-bold uppercase tracking-widest">{t.projects.viewDemo}</span>
+                                                </motion.a>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Project Info */}
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-black dark:text-white mb-2">
-                                        {project.title}
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
-                                        {project.description}
-                                    </p>
-
-                                    {/* Technologies */}
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.technologies.map((tech, index) => (
-                                            <span
-                                                key={index}
-                                                className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-black dark:text-white border border-gray-300 dark:border-gray-700 text-xs font-medium uppercase tracking-wider"
-                                            >
-                                                {tech}
+                                    {/* Project Info */}
+                                    <div className="p-6">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <h3 className="text-xl font-bold text-black dark:text-white">
+                                                {project.title}
+                                            </h3>
+                                            <span className="text-[10px] px-2 py-0.5 border border-black dark:border-white text-black dark:text-white font-black uppercase tracking-tighter">
+                                                {project.category}
                                             </span>
-                                        ))}
+                                        </div>
+                                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-2 leading-relaxed">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Technologies */}
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.technologies.map((tech, index) => (
+                                                <span
+                                                    key={index}
+                                                    className="px-2 py-1 bg-gray-50 dark:bg-gray-900 text-[10px] font-bold text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 uppercase tracking-widest group-hover:border-black dark:group-hover:border-white group-hover:text-black dark:group-hover:text-white transition-colors duration-300"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            );
+                        })}
                     </AnimatePresence>
-                </motion.div>
+                </div>
 
                 {/* No Projects Message */}
                 {filteredProjects.length === 0 && (
