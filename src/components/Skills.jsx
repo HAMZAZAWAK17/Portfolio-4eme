@@ -69,7 +69,8 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
             >
                 {skills.map((skill, index) => {
                     const angle = (index / skills.length) * 360;
-                    const radius = 170; // Increased radius for desktop
+                    // Responsive radius
+                    const radius = typeof window !== 'undefined' && window.innerWidth < 768 ? 130 : 170;
                     const rad = (angle * Math.PI) / 180;
                     const x = Math.cos(rad) * radius;
                     const y = Math.sin(rad) * radius;
