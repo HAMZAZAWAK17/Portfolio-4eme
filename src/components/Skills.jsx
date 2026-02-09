@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
     FaLaravel, FaNodeJs, FaJava, FaCode, FaGitAlt, FaDocker, FaFigma
@@ -15,7 +15,17 @@ import { useLanguage } from '../LanguageContext';
 
 const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [radius, setRadius] = useState(170);
     const [activeSkill, setActiveSkill] = useState(null);
+
+    useEffect(() => {
+        const updateRadius = () => {
+            setRadius(window.innerWidth < 768 ? 120 : 170);
+        };
+        updateRadius();
+        window.addEventListener('resize', updateRadius);
+        return () => window.removeEventListener('resize', updateRadius);
+    }, []);
 
     return (
         <div
@@ -32,10 +42,6 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
                     @keyframes pulse-glow {
                         0%, 100% { opacity: 0.3; transform: scale(1); }
                         50% { opacity: 0.6; transform: scale(1.1); }
-                    }
-                    @keyframes float-slow {
-                        0%, 100% { transform: translateY(0); }
-                        50% { transform: translateY(-10px); }
                     }
                 `}
             </style>
@@ -69,8 +75,6 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
             >
                 {skills.map((skill, index) => {
                     const angle = (index / skills.length) * 360;
-                    // Responsive radius
-                    const radius = typeof window !== 'undefined' && window.innerWidth < 768 ? 130 : 170;
                     const rad = (angle * Math.PI) / 180;
                     const x = Math.cos(rad) * radius;
                     const y = Math.sin(rad) * radius;
@@ -80,7 +84,7 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
                             key={index}
                             className="absolute top-1/2 left-1/2 flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl md:rounded-3xl backdrop-blur-xl bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-125 hover:rotate-6 hover:border-white/40 transition-all duration-500 cursor-pointer z-20 group/icon"
                             style={{
-                                transform: `translate(${x - 32}px, ${y - 32}px)`,
+                                transform: `translate(${x - (radius < 150 ? 24 : 32)}px, ${y - (radius < 150 ? 24 : 32)}px)`,
                             }}
                             onMouseEnter={() => setActiveSkill(skill)}
                             onMouseLeave={() => setActiveSkill(null)}
