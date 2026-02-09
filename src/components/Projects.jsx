@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
     FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
-    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase
+    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight
 } from 'react-icons/fa';
 import { SiFlutter } from 'react-icons/si';
-import { projects } from '../data/portfolioData';
+import { projects, socialLinks } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
 
 const iconMap = {
@@ -217,10 +217,39 @@ const Projects = () => {
                         className="text-center py-12"
                     >
                         <p className="text-gray-600 dark:text-gray-400 text-lg">
-                            Aucun projet dans cette catégorie
+                            {t.projects.noProjects}
                         </p>
                     </motion.div>
                 )}
+
+                {/* Discover All My Projects Button */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                    className="mt-16 text-center"
+                >
+                    <motion.a
+                        href={socialLinks.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-sm hover:bg-gray-900 dark:hover:bg-gray-100 transition-colors shadow-2xl relative group overflow-hidden"
+                    >
+                        {/* Shimmer Effect */}
+                        <div className="absolute inset-0 w-1/2 h-full bg-white/10 dark:bg-black/10 -skew-x-12 translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-700 ease-in-out"></div>
+
+                        <FaGithub size={20} />
+                        {t.github.viewAll}
+                        <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
+                    </motion.a>
+
+                    <p className="text-gray-400 dark:text-gray-600 text-xs mt-4 font-medium tracking-tighter uppercase italic">
+                        +50 More repositories waiting for you
+                    </p>
+                </motion.div>
             </div>
         </section>
     );
