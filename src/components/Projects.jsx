@@ -108,7 +108,12 @@ const Projects = () => {
                                     className="group relative bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 overflow-hidden hover:border-black dark:hover:border-white transition-all duration-300"
                                 >
                                     {/* Project Icon Container */}
-                                    <div className="relative h-56 overflow-hidden bg-gray-50 dark:bg-gray-900 group-hover:bg-gray-100 dark:group-hover:bg-gray-800 transition-colors duration-500">
+                                    <div className="relative h-56 overflow-hidden bg-gray-50 dark:bg-[#050505] group-hover:bg-gray-100 dark:group-hover:bg-[#080808] transition-colors duration-500">
+                                        {/* Decorative Grid Pattern */}
+                                        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+                                            style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px), radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px' }}>
+                                        </div>
+
                                         {/* Animated Background Elements */}
                                         <div className="absolute inset-0 overflow-hidden opacity-10 group-hover:opacity-20 transition-opacity duration-500">
                                             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-black dark:bg-white blur-3xl animate-pulse"></div>
@@ -117,9 +122,16 @@ const Projects = () => {
 
                                         <div className="relative h-full flex items-center justify-center p-8">
                                             <motion.div
+                                                animate={{
+                                                    y: [0, -10, 0],
+                                                }}
+                                                transition={{
+                                                    duration: 4,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                }}
                                                 whileHover={{ scale: 1.2, rotate: 5 }}
-                                                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                                className="text-7xl md:text-8xl text-black dark:text-white filter drop-shadow-lg"
+                                                className="text-7xl md:text-8xl text-black dark:text-white filter drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_10px_10px_rgba(255,255,255,0.1)]"
                                             >
                                                 <IconComponent />
                                             </motion.div>
