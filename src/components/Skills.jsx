@@ -19,7 +19,7 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
 
     return (
         <div
-            className="relative w-[300px] h-[300px] md:w-[350px] md:h-[350px] flex items-center justify-center"
+            className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] flex items-center justify-center group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => { setIsHovered(false); setActiveSkill(null); }}
         >
@@ -29,16 +29,33 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
                         from { transform: rotate(0deg); }
                         to { transform: rotate(360deg); }
                     }
+                    @keyframes pulse-glow {
+                        0%, 100% { opacity: 0.3; transform: scale(1); }
+                        50% { opacity: 0.6; transform: scale(1.1); }
+                    }
+                    @keyframes float-slow {
+                        0%, 100% { transform: translateY(0); }
+                        50% { transform: translateY(-10px); }
+                    }
                 `}
             </style>
 
-            {/* Background Circle */}
+            {/* Premium Background Glow */}
             <div
-                className="absolute inset-0 rounded-full border-2 border-dashed opacity-20 transition-all duration-300"
-                style={{
-                    borderColor: color,
-                    transform: isHovered ? 'scale(1.05)' : 'scale(1)'
-                }}
+                className="absolute inset-0 rounded-full blur-[100px] transition-all duration-700 opacity-20 group-hover:opacity-40"
+                style={{ backgroundColor: color }}
+            />
+
+            {/* Outer Orbit Path */}
+            <div
+                className="absolute inset-0 rounded-full border border-dashed opacity-10 transition-all duration-500 group-hover:opacity-30 group-hover:scale-110"
+                style={{ borderColor: color, animation: `orbit 100s linear infinite ${direction === 'reverse' ? 'reverse' : 'normal'}` }}
+            />
+
+            {/* Inner Orbit Path */}
+            <div
+                className="absolute inset-[15%] rounded-full border border-dotted opacity-20 transition-all duration-500 group-hover:opacity-40"
+                style={{ borderColor: color, animation: `orbit 80s linear infinite ${direction === 'reverse' ? 'normal' : 'reverse'}` }}
             />
 
             {/* Rotating Orbit Container */}
@@ -52,7 +69,7 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
             >
                 {skills.map((skill, index) => {
                     const angle = (index / skills.length) * 360;
-                    const radius = 145; // Increased radius
+                    const radius = 170; // Increased radius for desktop
                     const rad = (angle * Math.PI) / 180;
                     const x = Math.cos(rad) * radius;
                     const y = Math.sin(rad) * radius;
@@ -60,13 +77,19 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
                     return (
                         <div
                             key={index}
-                            className="absolute top-1/2 left-1/2 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-black rounded-full shadow-lg border-2 border-gray-100 dark:border-gray-800 hover:scale-125 hover:border-black dark:hover:border-white transition-all duration-300 cursor-pointer z-20"
+                            className="absolute top-1/2 left-1/2 flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl md:rounded-3xl backdrop-blur-xl bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-125 hover:rotate-6 hover:border-white/40 transition-all duration-500 cursor-pointer z-20 group/icon"
                             style={{
-                                transform: `translate(${x - 28}px, ${y - 28}px)`, // -28 is half of w-14 (56px)
+                                transform: `translate(${x - 32}px, ${y - 32}px)`,
                             }}
                             onMouseEnter={() => setActiveSkill(skill)}
                             onMouseLeave={() => setActiveSkill(null)}
                         >
+                            {/* Icon Glow */}
+                            <div
+                                className="absolute inset-0 rounded-2xl md:rounded-3xl blur-md opacity-0 group-hover/icon:opacity-50 transition-opacity duration-300"
+                                style={{ backgroundColor: skill.color }}
+                            />
+
                             {/* Counter-rotate to keep icon upright */}
                             <div
                                 style={{
@@ -74,12 +97,20 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
                                     animationDirection: direction === 'normal' ? 'reverse' : 'normal',
                                     animationPlayState: isHovered ? 'paused' : 'running'
                                 }}
-                                className="flex items-center justify-center w-full h-full"
+                                className="relative flex items-center justify-center w-full h-full"
                             >
                                 <skill.icon
-                                    className="text-xl md:text-2xl transition-colors duration-300"
-                                    style={{ color: skill.color }}
+                                    className="text-xl md:text-3xl transition-all duration-300 group-hover/icon:scale-110"
+                                    style={{
+                                        color: skill.color,
+                                        filter: `drop-shadow(0 0 8px ${skill.color}40)`
+                                    }}
                                 />
+                            </div>
+
+                            {/* Tooltip */}
+                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/80 dark:bg-white/90 text-white dark:text-black text-xs font-bold rounded-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-white/10 dark:border-black/10">
+                                {skill.name}
                             </div>
                         </div>
                     );
@@ -87,51 +118,59 @@ const SkillOrbit = ({ title, skills, color, direction = "normal" }) => {
             </div>
 
             {/* Central Information Hub */}
-            <div
-                className="relative z-30 flex flex-col items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-white dark:bg-black border-4 shadow-2xl transition-all duration-300 overflow-hidden"
-                style={{
-                    borderColor: color,
-                    boxShadow: activeSkill ? `0 0 40px ${activeSkill.color}40` : `0 0 20px ${color}20`
-                }}
-            >
-                <AnimatePresence mode="wait">
-                    {activeSkill ? (
-                        <motion.div
-                            key="skill"
-                            initial={{ opacity: 0, scale: 0.5, y: 10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.5, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex flex-col items-center justify-center text-center p-2"
-                        >
-                            <activeSkill.icon
-                                className="text-4xl md:text-5xl mb-2 filter drop-shadow-md"
-                                style={{ color: activeSkill.color }}
-                            />
-                            <span
-                                className="text-sm md:text-base font-bold text-black dark:text-white"
+            <div className="relative z-30 group/center">
+                {/* Pulsing Aura */}
+                <div
+                    className="absolute inset-[-20px] rounded-full blur-2xl opacity-20 transition-all duration-500 group-hover/center:opacity-40"
+                    style={{ backgroundColor: color, animation: 'pulse-glow 4s ease-in-out infinite' }}
+                />
+
+                <div
+                    className="relative flex flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full backdrop-blur-2xl bg-white/5 dark:bg-white/5 border border-white/20 dark:border-white/10 shadow-2xl transition-all duration-500 overflow-hidden"
+                    style={{
+                        boxShadow: activeSkill ? `0 0 60px ${activeSkill.color}30` : `0 0 40px ${color}20`
+                    }}
+                >
+                    <AnimatePresence mode="wait">
+                        {activeSkill ? (
+                            <motion.div
+                                key="skill"
+                                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.5, y: -20 }}
+                                transition={{ type: "spring", damping: 15 }}
+                                className="flex flex-col items-center justify-center text-center p-4"
                             >
-                                {activeSkill.name}
-                            </span>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="title"
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.5 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex items-center justify-center text-center w-full h-full p-2 group cursor-default"
-                        >
-                            <span
-                                className="text-lg md:text-2xl font-black uppercase tracking-widest break-words w-full"
-                                style={{ color: color }}
+                                <activeSkill.icon
+                                    className="text-5xl md:text-7xl mb-4 filter drop-shadow-lg"
+                                    style={{ color: activeSkill.color }}
+                                />
+                                <span className="text-xl md:text-2xl font-black tracking-tight text-black dark:text-white">
+                                    {activeSkill.name}
+                                </span>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="title"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                className="flex flex-col items-center justify-center text-center w-full h-full p-4"
                             >
-                                {title}
-                            </span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                                <span
+                                    className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] leading-tight"
+                                    style={{
+                                        color: color,
+                                        textShadow: `0 0 20px ${color}40`
+                                    }}
+                                >
+                                    {title}
+                                </span>
+                                <div className="mt-4 w-12 h-1 rounded-full opacity-50" style={{ backgroundColor: color }} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
         </div>
     );
@@ -185,27 +224,37 @@ const Skills = () => {
     };
 
     return (
-        <section id="skills" className="section-padding bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4">
+        <section id="skills" className="relative section-padding bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
+                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 relative z-10">
                 {/* Section Title */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="flex flex-col items-center text-center mb-24"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-4">
-                        {t.skills.title} <span className="gradient-text">{t.skills.titleHighlight}</span>
-                    </h2>
-                    <div className="w-24 h-1 bg-black dark:bg-white mx-auto mb-6"></div>
-                    <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+                    <div className="flex items-center gap-6 mb-4">
+                        <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border-2 border-black dark:border-white">
+                            <div className="w-4 h-4 rounded-full bg-black dark:bg-white animate-pulse"></div>
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white uppercase tracking-tighter">
+                            {t.skills.title} <span className="text-outline text-black dark:text-white opacity-40">{t.skills.titleHighlight}</span>
+                        </h2>
+                    </div>
+                    <div className="w-32 h-1.5 bg-black dark:bg-white mb-8"></div>
+                    <p className="text-gray-600 dark:text-gray-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
                         {t.skills.subtitle}
                     </p>
                 </motion.div>
 
                 {/* Orbits Grid */}
-                <div className="flex flex-wrap xl:flex-nowrap items-center justify-center gap-8 lg:gap-12">
+                <div className="flex flex-wrap items-center justify-center gap-16 lg:gap-24">
                     <SkillOrbit
                         title="Front End"
                         skills={skillCategories.frontend.skills}
