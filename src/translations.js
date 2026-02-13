@@ -323,6 +323,26 @@ export const translations = {
             },
         },
 
+        // Services
+        services: {
+            title: "My",
+            titleHighlight: "Services",
+            subtitle: "Professional solutions I can offer to bring your projects to life",
+            fullstack: "Full-Stack Sites",
+            fullstackDesc: "Complete web application development with React.js, Node.js, and databases. Scalable and high-performance solutions from A to Z.",
+            websites: "Presentation Websites",
+            websitesDesc: "Creation of modern and elegant showcase websites to present your company, services, or portfolio professionally.",
+            mobile: "Mobile Applications",
+            mobileDesc: "Development of native and cross-platform mobile applications with React Native and Flutter for iOS and Android.",
+            ecommerce: "E-commerce Sites",
+            ecommerceDesc: "Design of complete online stores with product management, secure payments, and intuitive user interface.",
+            landing: "Landing Pages",
+            landingDesc: "Creation of conversion-optimized landing pages with attractive design and effective calls to action.",
+            design: "Design & UI/UX",
+            designDesc: "Design of modern and intuitive user interfaces, with special attention to user experience and aesthetics.",
+            cta: "Let's discuss your project",
+        },
+
         // GitHub
         github: {
             titlePrefix: "GitHub",
