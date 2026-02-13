@@ -114,6 +114,26 @@ export const translations = {
             },
         },
 
+        // Services
+        services: {
+            title: "Mes",
+            titleHighlight: "Services",
+            subtitle: "Solutions professionnelles que je peux vous offrir pour concrétiser vos projets",
+            fullstack: "Sites Full-Stack",
+            fullstackDesc: "Développement complet d'applications web avec React.js, Node.js, et bases de données. Solutions évolutives et performantes de A à Z.",
+            websites: "Sites Web Présentatifs",
+            websitesDesc: "Création de sites vitrines modernes et élégants pour présenter votre entreprise, vos services ou votre portfolio de manière professionnelle.",
+            mobile: "Applications Mobile",
+            mobileDesc: "Développement d'applications mobiles natives et cross-platform avec React Native et Flutter pour iOS et Android.",
+            ecommerce: "Sites E-commerce",
+            ecommerceDesc: "Conception de boutiques en ligne complètes avec gestion des produits, paiements sécurisés et interface utilisateur intuitive.",
+            landing: "Landing Pages",
+            landingDesc: "Création de pages d'atterrissage optimisées pour la conversion, avec design attractif et appels à l'action efficaces.",
+            design: "Design & UI/UX",
+            designDesc: "Conception d'interfaces utilisateur modernes et intuitives, avec une attention particulière à l'expérience utilisateur et l'esthétique.",
+            cta: "Discutons de votre projet",
+        },
+
         // GitHub
         github: {
             titlePrefix: "Activité",
