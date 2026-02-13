@@ -7,16 +7,7 @@ import { useLanguage } from '../LanguageContext';
 const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-    const { language, changeLanguage, t } = useLanguage();
-    const dropdownRef = useRef(null);
-
-    const languages = [
-        { code: 'fr', name: 'Français', flag: '🇫🇷' },
-        { code: 'en', name: 'English', flag: '🇬🇧' },
-    ];
-
-    const currentLang = languages.find(lang => lang.code === language);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,15 +17,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setLangDropdownOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     const navLinks = [
         { name: t.nav.home, href: '#home' },
@@ -52,10 +34,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         }
     };
 
-    const handleLanguageChange = (langCode) => {
-        changeLanguage(langCode);
-        setLangDropdownOpen(false);
-    };
 
     return (
         <>
@@ -105,42 +83,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
                         {/* Right Side Actions */}
                         <div className="flex items-center gap-4 md:gap-6">
-                            {/* Language Dropdown */}
-                            <div className="relative hidden md:block" ref={dropdownRef}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white hover:border-black dark:hover:border-white transition-all"
-                                >
-                                    <span className="text-xl">{currentLang?.flag}</span>
-                                    <span className="text-xs font-bold uppercase">{currentLang?.code}</span>
-                                    <FaChevronDown className={`text-xs transition-transform ${langDropdownOpen ? 'rotate-180' : ''}`} />
-                                </motion.button>
-
-                                <AnimatePresence>
-                                    {langDropdownOpen && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: -10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -10 }}
-                                            className="absolute top-full mt-2 right-0 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 shadow-lg min-w-[150px]"
-                                        >
-                                            {languages.map((lang) => (
-                                                <button
-                                                    key={lang.code}
-                                                    onClick={() => handleLanguageChange(lang.code)}
-                                                    className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors ${language === lang.code ? 'bg-gray-100 dark:bg-gray-900' : ''
-                                                        }`}
-                                                >
-                                                    <span className="text-xl">{lang.flag}</span>
-                                                    <span className="text-sm font-medium text-black dark:text-white">{lang.name}</span>
-                                                </button>
-                                            ))}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
 
                             {/* Email Button */}
                             <motion.a
@@ -228,27 +170,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                     </motion.a>
                                 ))}
 
-                                {/* Language Selector Mobile */}
-                                <div className="pt-6 border-t border-gray-200 dark:border-gray-800">
-                                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3 block">
-                                        {language === 'ar' ? 'اللغة' : language === 'en' ? 'Language' : 'Langue'}
-                                    </span>
-                                    <div className="space-y-2">
-                                        {languages.map((lang) => (
-                                            <button
-                                                key={lang.code}
-                                                onClick={() => handleLanguageChange(lang.code)}
-                                                className={`w-full flex items-center gap-3 px-4 py-3 transition-all ${language === lang.code
-                                                    ? 'bg-black dark:bg-white text-white dark:text-black'
-                                                    : 'border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white hover:border-black dark:hover:border-white'
-                                                    }`}
-                                            >
-                                                <span className="text-2xl">{lang.flag}</span>
-                                                <span className="text-sm font-bold">{lang.name}</span>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
 
                                 {/* Email Button Mobile */}
                                 <motion.a
@@ -257,7 +178,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                     className="flex items-center justify-center gap-2 px-6 py-4 bg-black dark:bg-white text-white dark:text-black font-semibold text-sm uppercase tracking-wider mt-6"
                                 >
                                     <FaEnvelope />
-                                    {language === 'ar' ? 'إرسال بريد' : language === 'en' ? 'Send Email' : 'Envoyer un email'}
+                                    Send Email
                                 </motion.a>
                             </div>
                         </motion.div>

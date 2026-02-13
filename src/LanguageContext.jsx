@@ -12,23 +12,13 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('fr');
+    const [language] = useState('en');
 
     useEffect(() => {
-        const savedLanguage = localStorage.getItem('language');
-        if (savedLanguage && (savedLanguage === 'fr' || savedLanguage === 'en')) {
-            setLanguage(savedLanguage);
-            document.documentElement.lang = savedLanguage;
-        }
+        document.documentElement.lang = 'en';
     }, []);
 
-    const changeLanguage = (lang) => {
-        if (lang === 'fr' || lang === 'en') {
-            setLanguage(lang);
-            localStorage.setItem('language', lang);
-            document.documentElement.lang = lang;
-        }
-    };
+    const changeLanguage = () => { };
 
     const t = translations[language];
 
