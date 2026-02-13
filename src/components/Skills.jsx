@@ -11,7 +11,6 @@ import {
 } from 'react-icons/si';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
-import { HiCode, HiDatabase, HiCommandLine } from 'react-icons/hi';
 
 const CategoryCard = ({ title, skills, color, icon: HeaderIcon }) => {
     return (
@@ -75,7 +74,7 @@ const Skills = () => {
         {
             title: "Frontend",
             color: "#61DAFB",
-            icon: HiCode,
+            icon: FaCode,
             skills: [
                 { name: "ReactJS", icon: FaReact, color: "#61DAFB" },
                 { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
@@ -88,7 +87,7 @@ const Skills = () => {
         {
             title: "Backend",
             color: "#6DB33F",
-            icon: HiDatabase,
+            icon: FaServer,
             skills: [
                 { name: "NodeJS", icon: FaNodeJs, color: "#339933" },
                 { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
@@ -103,7 +102,7 @@ const Skills = () => {
         {
             title: "Tools & Mobile",
             color: "#F2C811",
-            icon: HiCommandLine,
+            icon: FaTools,
             skills: [
                 { name: "Flutter", icon: SiFlutter, color: "#02569B" },
                 { name: "Expo", icon: SiExpo, color: "#000020" },
