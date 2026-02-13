@@ -1,15 +1,10 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaCodeBranch } from 'react-icons/fa';
-import { HiCalendar } from 'react-icons/hi';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
-import DynamicContributionGraph from './DynamicContributionGraph';
 
 const GitHubStats = () => {
     const { t } = useLanguage();
-    const currentYear = new Date().getFullYear();
-    const [selectedYear, setSelectedYear] = useState(currentYear);
-    const availableYears = [2025, 2026];
 
     const [profile, setProfile] = useState(null);
     const [repos, setRepos] = useState([]);
@@ -190,59 +185,6 @@ const GitHubStats = () => {
                             />
                         </motion.div>
                     ))}
-                </motion.div>
-
-                {/* Contribution Graph - Real GitHub Data */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="mb-16 bg-gradient-to-br from-gray-900 to-black dark:from-gray-50 dark:to-white border-2 border-gray-800 dark:border-gray-200 p-8"
-                >
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <h3 className="text-2xl font-bold text-white dark:text-black flex items-center gap-3 mb-4 md:mb-0">
-                            <HiCalendar className="text-3xl" />
-                            {t.github.chartTitle} {selectedYear}
-                        </h3>
-
-                        {/* Year Selector */}
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-400 dark:text-gray-600">{t.github.year}:</span>
-                            <div className="flex gap-2 flex-wrap">
-                                {availableYears.map((year) => (
-                                    <button
-                                        key={year}
-                                        onClick={() => setSelectedYear(year)}
-                                        className={`px-4 py-2 text-sm font-semibold transition-all duration-300 ${selectedYear === year
-                                            ? 'bg-white dark:bg-black text-black dark:text-white'
-                                            : 'bg-gray-800 dark:bg-gray-200 text-gray-400 dark:text-gray-600 hover:bg-gray-700 dark:hover:bg-gray-300'
-                                            }`}
-                                    >
-                                        {year}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Dynamic Contribution Graph */}
-                    <div className="w-full bg-gradient-to-br from-gray-900 to-black dark:from-white dark:to-gray-50 p-6 rounded-lg border-2 border-gray-800 dark:border-gray-200">
-                        <DynamicContributionGraph username={username} selectedYear={selectedYear} />
-                    </div>
-
-                    {/* Link to GitHub - Dynamic */}
-                    <div className="mt-6 text-center">
-                        <a
-                            href={`https://github.com/${username}?tab=overview&from=${selectedYear}-01-01&to=${selectedYear}-12-31`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm text-gray-400 dark:text-gray-600 hover:text-white dark:hover:text-black transition-colors inline-flex items-center gap-2"
-                        >
-                            <FaGithub />
-                            {t.github.viewDetails} →
-                        </a>
-                    </div>
                 </motion.div>
 
                 {/* Top Languages */}
