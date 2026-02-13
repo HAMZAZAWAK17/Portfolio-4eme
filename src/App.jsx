@@ -59,7 +59,7 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <ScrollToTop />
-      <VoiceCommands />
+      <VoiceCommands darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
