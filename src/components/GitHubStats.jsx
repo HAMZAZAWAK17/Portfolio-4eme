@@ -11,6 +11,7 @@ const GitHubStats = () => {
     const availableYears = [2025, 2026];
 
     const [profile, setProfile] = useState(null);
+    const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -26,7 +27,7 @@ const GitHubStats = () => {
                 const userData = await userRes.json();
                 setProfile(userData);
 
-                // Fetch Repositories
+                // Fetch Repositories (needed for language stats and total stars)
                 const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
                 if (!reposRes.ok) throw new Error('Failed to fetch repositories');
                 const reposData = await reposRes.json();
@@ -68,10 +69,10 @@ const GitHubStats = () => {
     const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
 
     const stats = [
-        { label: t.github.stats.repos, value: profile?.public_repos || 0, icon: FaBook, color: "#61DAFB" },
+        { label: t.github.stats.repos, value: profile?.public_repos || 0, icon: FaGithub, color: "#61DAFB" },
         { label: t.github.stats.followers, value: profile?.followers || 0, icon: FaGithub, color: "#6DB33F" },
         { label: t.github.stats.following, value: profile?.following || 0, icon: FaGithub, color: "#F2C811" },
-        { label: t.github.stats.stars, value: totalStars, icon: FaStar, color: "#FF2D20" },
+        { label: t.github.stats.stars, value: totalStars, icon: FaGithub, color: "#FF2D20" },
     ];
 
     // Calculate Top Languages
@@ -101,19 +102,6 @@ const GitHubStats = () => {
     };
 
     const topLanguages = calculateTopLanguages();
-
-    // Get Popular Repositories (sorted by stars)
-    const popularRepos = [...repos]
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-        .slice(0, 6)
-        .map(repo => ({
-            name: repo.name,
-            description: repo.description,
-            language: repo.language || "Unknown",
-            languageColor: getLanguageColor(repo.language),
-            stars: repo.stargazers_count,
-            url: repo.html_url
-        }));
 
     if (loading) {
         return (
