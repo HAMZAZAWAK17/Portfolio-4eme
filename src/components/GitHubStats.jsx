@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaStar, FaBook, FaCodeBranch } from 'react-icons/fa';
-import { BiGitRepoForked } from 'react-icons/bi';
+import { FaGithub, FaCodeBranch } from 'react-icons/fa';
 import { HiCalendar } from 'react-icons/hi';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
@@ -12,7 +11,6 @@ const GitHubStats = () => {
     const availableYears = [2025, 2026];
 
     const [profile, setProfile] = useState(null);
-    const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -305,85 +303,6 @@ const GitHubStats = () => {
                             </div>
                         ))}
                     </div>
-                </motion.div>
-
-                {/* Popular Repositories */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                    <h3 className="text-3xl font-bold text-white dark:text-black mb-8 flex items-center gap-3">
-                        <BiGitRepoForked className="text-4xl" />
-                        {t.github.popularRepos}
-                    </h3>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {popularRepos.map((repo, index) => (
-                            <motion.a
-                                key={index}
-                                href={repo.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                whileHover={{ y: -10, scale: 1.02 }}
-                                className="bg-gradient-to-br from-gray-900 to-black dark:from-gray-50 dark:to-white border-2 border-gray-800 dark:border-gray-200 p-6 hover:border-white dark:hover:border-black transition-all duration-300 group"
-                            >
-                                {/* Repo Name */}
-                                <div className="flex items-start justify-between mb-3">
-                                    <h4 className="text-xl font-bold text-white dark:text-black group-hover:text-gray-300 dark:group-hover:text-gray-700 transition-colors flex items-center gap-2">
-                                        <FaBook className="text-lg" />
-                                        {repo.name}
-                                    </h4>
-                                    {repo.stars > 0 && (
-                                        <div className="flex items-center gap-1 text-yellow-400">
-                                            <FaStar className="text-sm" />
-                                            <span className="text-sm font-semibold">{repo.stars}</span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Description */}
-                                <p className="text-gray-400 dark:text-gray-600 text-sm mb-4 line-clamp-2">
-                                    {repo.description || "No description provided."}
-                                </p>
-
-                                {/* Language */}
-                                <div className="flex items-center gap-2">
-                                    <span
-                                        className="w-3 h-3 rounded-full"
-                                        style={{ backgroundColor: repo.languageColor }}
-                                    ></span>
-                                    <span className="text-sm text-gray-400 dark:text-gray-600">
-                                        {repo.language}
-                                    </span>
-                                </div>
-                            </motion.a>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Call to Action */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="mt-16 text-center"
-                >
-                    <a
-                        href={`https://github.com/${username}?tab=repositories`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-3 bg-white dark:bg-black text-black dark:text-white px-8 py-4 font-bold text-lg hover:bg-gray-200 dark:hover:bg-gray-900 transition-all duration-300 group"
-                    >
-                        <FaGithub className="text-2xl group-hover:rotate-12 transition-transform" />
-                        {t.github.viewAll}
-                    </a>
                 </motion.div>
             </div>
         </section>
