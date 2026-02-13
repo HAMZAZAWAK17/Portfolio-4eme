@@ -3,6 +3,7 @@ import { FaGithub, FaCodeBranch } from 'react-icons/fa';
 import { HiCalendar } from 'react-icons/hi';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
+import DynamicContributionGraph from './DynamicContributionGraph';
 
 const GitHubStats = () => {
     const { t } = useLanguage();
@@ -225,15 +226,9 @@ const GitHubStats = () => {
                         </div>
                     </div>
 
-                    {/* GitHub Contribution Graph Image - Dynamic */}
-                    <div className="w-full overflow-x-auto bg-white dark:bg-gray-100 p-4 rounded-lg">
-                        <img
-                            key={selectedYear}
-                            src={`https://ghchart.rshah.org/${username}`}
-                            alt={`Contributions GitHub ${selectedYear}`}
-                            className="w-full h-auto"
-                            style={{ minWidth: '800px' }}
-                        />
+                    {/* Dynamic Contribution Graph */}
+                    <div className="w-full bg-gradient-to-br from-gray-900 to-black dark:from-white dark:to-gray-50 p-6 rounded-lg border-2 border-gray-800 dark:border-gray-200">
+                        <DynamicContributionGraph username={username} selectedYear={selectedYear} />
                     </div>
 
                     {/* Link to GitHub - Dynamic */}

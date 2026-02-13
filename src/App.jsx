@@ -4,8 +4,9 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import GitHubStats from './components/GitHubStats';
+import Services from './components/Services';
 import Certificates from './components/Certificates';
+import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
@@ -63,6 +64,7 @@ function App() {
         <About />
         <Skills />
         <Projects />
+        <Services />
         <Certificates />
         <GitHubStats />
         <Contact />
