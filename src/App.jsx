@@ -13,6 +13,7 @@ import Loader from './components/Loader';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 import CustomCursor from './components/CustomCursor';
+import VoiceCommands from './components/VoiceCommands';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -58,6 +59,7 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <ScrollToTop />
+      <VoiceCommands />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
