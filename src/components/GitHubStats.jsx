@@ -171,7 +171,7 @@ const GitHubStats = () => {
                                     style={{ color: stat.color }}
                                 />
                                 <div className="text-4xl font-black text-white mb-2">
-                                    {stat.value}
+                                    {index === 0 ? `${stat.value}+` : stat.value}
                                 </div>
                                 <div className="text-sm text-gray-400 uppercase tracking-wider">
                                     {stat.label}
