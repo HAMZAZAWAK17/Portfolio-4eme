@@ -255,97 +255,106 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
         <>
             {/* Voice Command Button */}
             <motion.button
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
                 onClick={toggleListening}
-                className={`fixed bottom-24 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 ${isListening
-                        ? 'bg-red-500 hover:bg-red-600 animate-pulse'
-                        : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
-                    } text-white`}
-                whileHover={{ scale: 1.1 }}
+                className={`fixed bottom-24 right-6 z-50 p-5 rounded-full shadow-2xl transition-all duration-300 border-2 ${isListening
+                        ? 'bg-red-500 border-red-200 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                        : 'bg-white dark:bg-black border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
+                    }`}
+                whileHover={{ scale: 1.1, translateY: -5 }}
                 whileTap={{ scale: 0.9 }}
                 title="Voice Commands (Click to activate)"
             >
-                {isListening ? (
-                    <FaMicrophone className="text-2xl" />
-                ) : (
-                    <FaMicrophoneSlash className="text-2xl" />
-                )}
+                <div className="relative">
+                    {isListening ? (
+                        <FaMicrophone className="text-2xl" />
+                    ) : (
+                        <FaMicrophoneSlash className="text-2xl opacity-80" />
+                    )}
 
-                {/* Listening Animation */}
-                {isListening && (
-                    <>
-                        <motion.div
-                            className="absolute inset-0 rounded-full border-4 border-white"
-                            animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [0.5, 0, 0.5],
-                            }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                            }}
-                        />
-                        <motion.div
-                            className="absolute inset-0 rounded-full border-4 border-white"
-                            animate={{
-                                scale: [1, 1.8, 1],
-                                opacity: [0.3, 0, 0.3],
-                            }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                                delay: 0.5,
-                            }}
-                        />
-                    </>
-                )}
+                    {/* Listening Pulse Rings */}
+                    {isListening && (
+                        <>
+                            <motion.div
+                                className="absolute inset-0 -m-2 rounded-full border-2 border-red-400"
+                                animate={{
+                                    scale: [1, 2, 1],
+                                    opacity: [0.6, 0, 0.6],
+                                }}
+                                transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
+                                }}
+                            />
+                            <motion.div
+                                className="absolute inset-0 -m-2 rounded-full border-2 border-red-400"
+                                animate={{
+                                    scale: [1, 2.5, 1],
+                                    opacity: [0.3, 0, 0.3],
+                                }}
+                                transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
+                                    delay: 0.5,
+                                }}
+                            />
+                        </>
+                    )}
+                </div>
             </motion.button>
 
-            {/* Feedback Toast */}
+            {/* Feedback Notification */}
             <AnimatePresence>
                 {showFeedback && (
                     <motion.div
-                        initial={{ opacity: 0, y: 50, scale: 0.8 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -50, scale: 0.8 }}
+                        initial={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
                         className="fixed bottom-40 right-6 z-50 max-w-sm"
                     >
-                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-lg shadow-2xl border-2 border-white/20 backdrop-blur-sm">
-                            <div className="flex items-center gap-3">
-                                <FaVolumeUp className="text-2xl flex-shrink-0 animate-pulse" />
-                                <p className="font-semibold text-sm">{feedback}</p>
+                        <div className="bg-black dark:bg-white text-white dark:text-black px-6 py-4 rounded-xl shadow-2xl border-2 border-gray-800 dark:border-gray-200 flex items-center gap-4 min-w-[200px]">
+                            <div className={`p-2 rounded-lg ${isListening ? 'bg-red-500/10' : 'bg-green-500/10'}`}>
+                                <FaVolumeUp className={`text-xl ${isListening ? 'text-red-500' : 'text-green-500'} animate-pulse`} />
+                            </div>
+                            <div>
+                                <p className="text-[10px] uppercase tracking-widest font-black opacity-50 mb-0.5">Assistant</p>
+                                <p className="font-bold text-sm leading-tight">{feedback}</p>
                             </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Transcript Display */}
-            {transcript && (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="fixed bottom-6 left-6 z-40 bg-black/80 dark:bg-white/80 text-white dark:text-black px-4 py-2 rounded-lg text-xs backdrop-blur-sm"
-                >
-                    You said: <span className="font-bold">"{transcript}"</span>
-                </motion.div>
-            )}
+            {/* Transcript Display (Sleek Bottom Bar) */}
+            <AnimatePresence>
+                {transcript && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 bg-black/90 dark:bg-white/90 text-white dark:text-black px-8 py-3 rounded-full text-sm font-mono backdrop-blur-md border border-gray-800 dark:border-gray-200 shadow-2xl flex items-center gap-3"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="opacity-60">Speech recognized:</span>
+                        <span className="font-bold uppercase tracking-wide italic">"{transcript}"</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-            {/* Help Tooltip */}
+            {/* Help Tooltip (Neo-Brutalism Style) */}
             {!isListening && (
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 2 }}
-                    className="fixed bottom-24 right-24 z-40 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg text-xs font-semibold shadow-lg hidden md:block"
+                    className="fixed bottom-24 right-24 z-40 bg-black dark:bg-white text-white dark:text-black px-5 py-3 rounded-lg text-xs font-black uppercase tracking-[0.2em] shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] border-2 border-black dark:border-white hidden md:block"
                 >
-                    🎤 Try voice commands!
-                    <div className="absolute right-0 top-1/2 transform translate-x-2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-purple-600"></div>
+                    🎤 Try voice commands
+                    <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-black dark:border-l-white"></div>
                 </motion.div>
             )}
         </>
