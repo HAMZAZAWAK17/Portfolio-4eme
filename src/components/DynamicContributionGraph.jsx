@@ -21,7 +21,7 @@ const DynamicContributionGraph = ({ username, selectedYear }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
         >
-            <div className="min-w-[800px] p-4 bg-white dark:bg-gray-50 rounded-lg">
+            <div className="min-w-[800px] p-4 bg-white rounded-lg">
                 {/* Loading State */}
                 {!imageLoaded && !imageError && (
                     <div className="flex justify-center items-center h-32">
@@ -56,7 +56,7 @@ const DynamicContributionGraph = ({ username, selectedYear }) => {
                 {/* Note about real data */}
                 {imageLoaded && (
                     <motion.p
-                        className="text-xs text-gray-500 dark:text-gray-600 mt-3 text-center"
+                        className="text-xs text-gray-500 mt-3 text-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}

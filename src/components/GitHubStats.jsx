@@ -101,7 +101,7 @@ const GitHubStats = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center py-20 bg-black dark:bg-white text-white dark:text-black">
+            <div className="flex justify-center items-center py-20 bg-black text-white">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-current"></div>
             </div>
         );
@@ -109,14 +109,14 @@ const GitHubStats = () => {
 
     if (error) {
         return (
-            <div className="text-center py-20 bg-black dark:bg-white text-red-500">
+            <div className="text-center py-20 bg-black text-red-500">
                 <p>Error loading GitHub stats: {error}</p>
             </div>
         );
     }
 
     return (
-        <section id="github" className="section-padding bg-black dark:bg-white border-t border-gray-800 dark:border-gray-200">
+        <section id="github" className="section-padding bg-black border-t border-gray-800">
             <div className="max-w-7xl mx-auto">
                 {/* Section Title */}
                 <motion.div
@@ -126,18 +126,18 @@ const GitHubStats = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-white dark:text-black mb-4">
+                    <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
                         {t.github.titlePrefix} <span className="gradient-text">{t.github.titleHighlight}</span>
                     </h2>
-                    <div className="w-24 h-1 bg-white dark:bg-black mx-auto mb-6"></div>
-                    <p className="text-gray-400 dark:text-gray-600 text-lg max-w-2xl mx-auto mb-4">
+                    <div className="w-24 h-1 bg-white mx-auto mb-6"></div>
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-4">
                         {t.github.subtitle}
                     </p>
                     <a
                         href={`https://github.com/${username}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-white dark:text-black hover:text-gray-300 dark:hover:text-gray-700 transition-colors"
+                        className="inline-flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
                     >
                         <FaGithub className="text-2xl" />
                         <span className="font-semibold">@{username}</span>
@@ -156,7 +156,7 @@ const GitHubStats = () => {
                         <motion.div
                             key={index}
                             whileHover={{ scale: 1.05, y: -5 }}
-                            className="relative bg-gradient-to-br from-gray-900 to-black dark:from-gray-50 dark:to-white border-2 border-gray-800 dark:border-gray-200 p-6 group overflow-hidden"
+                            className="relative bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-6 group overflow-hidden"
                         >
                             {/* Background Icon */}
                             <stat.icon
@@ -170,10 +170,10 @@ const GitHubStats = () => {
                                     className="text-4xl mb-3"
                                     style={{ color: stat.color }}
                                 />
-                                <div className="text-4xl font-black text-white dark:text-black mb-2">
+                                <div className="text-4xl font-black text-white mb-2">
                                     {stat.value}
                                 </div>
-                                <div className="text-sm text-gray-400 dark:text-gray-600 uppercase tracking-wider">
+                                <div className="text-sm text-gray-400 uppercase tracking-wider">
                                     {stat.label}
                                 </div>
                             </div>
@@ -193,9 +193,9 @@ const GitHubStats = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-16 bg-gradient-to-br from-gray-900 to-black dark:from-gray-50 dark:to-white border-2 border-gray-800 dark:border-gray-200 p-8"
+                    className="mb-16 bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-8"
                 >
-                    <h3 className="text-2xl font-bold text-white dark:text-black mb-6 flex items-center gap-3">
+                    <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                         <FaCodeBranch className="text-3xl" />
                         {t.github.topLanguages}
                     </h3>
@@ -204,18 +204,18 @@ const GitHubStats = () => {
                         {topLanguages.map((lang, index) => (
                             <div key={index}>
                                 <div className="flex justify-between mb-2">
-                                    <span className="text-white dark:text-black font-semibold flex items-center gap-2">
+                                    <span className="text-white font-semibold flex items-center gap-2">
                                         <span
                                             className="w-3 h-3 rounded-full"
                                             style={{ backgroundColor: lang.color }}
                                         ></span>
                                         {lang.name}
                                     </span>
-                                    <span className="text-gray-400 dark:text-gray-600">
+                                    <span className="text-gray-400">
                                         {lang.percentage}%
                                     </span>
                                 </div>
-                                <div className="w-full bg-gray-800 dark:bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
                                     <motion.div
                                         initial={{ width: 0 }}
                                         whileInView={{ width: `${lang.percentage}%` }}
