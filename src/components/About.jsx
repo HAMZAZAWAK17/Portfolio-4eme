@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight, FaChevronLeft, FaCode, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
 import { projects, skills } from '../data/portfolioData';
@@ -8,7 +8,6 @@ import TerminalTyping from './TerminalTyping';
 const About = () => {
     const { t } = useLanguage();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const bioRef = useRef(null);
 
     // Dynamic Stats Calculation
     const experiences = t.about.experiencesList || [];
@@ -18,14 +17,6 @@ const About = () => {
 
     // Calculate total techs from skills data
     const totalTechsCount = Object.values(skills).flat().length;
-
-    // Split bio into words for reveal
-    const words = (t.about.bio || "").split(' ');
-
-    const { scrollYProgress: bioProgress } = useScroll({
-        target: bioRef,
-        offset: ["start end", "center center"]
-    });
 
     const combinedTimeline = [
         ...experiences.map(exp => ({ ...exp, type: 'experience' })),
