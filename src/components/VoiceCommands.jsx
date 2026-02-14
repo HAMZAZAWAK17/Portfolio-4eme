@@ -101,21 +101,23 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
         }
 
         // ===== DARK MODE COMMANDS =====
-        else if (command.includes('dark mode') || command.includes('enable dark') || command.includes('turn dark')) {
+        else if (command.includes('dark') || command.includes('night') || command.includes('black')) {
             if (!darkMode) {
                 toggleDarkMode();
                 showFeedbackMessage('🌙 Dark mode activated!');
             } else {
                 showFeedbackMessage('🌙 Already in dark mode!');
             }
-        } else if (command.includes('light mode') || command.includes('enable light') || command.includes('turn light')) {
+        }
+        else if (command.includes('light') || command.includes('white') || command.includes('day') || command.includes('bright') || command.includes('sun') || command.includes('normal')) {
             if (darkMode) {
                 toggleDarkMode();
                 showFeedbackMessage('☀️ Light mode activated!');
             } else {
                 showFeedbackMessage('☀️ Already in light mode!');
             }
-        } else if (command.includes('toggle mode') || command.includes('switch mode') || command.includes('change theme')) {
+        }
+        else if (command.includes('toggle') || command.includes('switch') || command.includes('change theme')) {
             toggleDarkMode();
             showFeedbackMessage(darkMode ? '☀️ Switched to Light mode!' : '🌙 Switched to Dark mode!');
         }
@@ -260,8 +262,8 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                 transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
                 onClick={toggleListening}
                 className={`fixed bottom-24 right-6 z-50 p-5 rounded-full shadow-2xl transition-all duration-300 border-2 ${isListening
-                        ? 'bg-red-500 border-red-200 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
-                        : 'bg-white dark:bg-black border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
+                    ? 'bg-red-500 border-red-200 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                    : 'bg-white dark:bg-black border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
                     }`}
                 whileHover={{ scale: 1.1, translateY: -5 }}
                 whileTap={{ scale: 0.9 }}
