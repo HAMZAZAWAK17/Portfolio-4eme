@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight, FaChevronLeft, FaCode, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
 import { projects, skills } from '../data/portfolioData';
+import TerminalTyping from './TerminalTyping';
 
 const About = () => {
     const { t } = useLanguage();
@@ -49,13 +50,13 @@ const About = () => {
 
     return (
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
-            {/* 1. Who Am I - Bio with Scroll Reveal */}
-            <div ref={bioRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-center">
+            {/* 1. Who Am I - Terminal Typing Effect */}
+            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-12"
+                    className="mb-12 text-center"
                 >
                     <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
                         {t.about.bioTitle}
@@ -63,20 +64,7 @@ const About = () => {
                     <div className="w-12 h-[2px] bg-black dark:bg-white mx-auto"></div>
                 </motion.div>
 
-                <p className="text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[1.2] tracking-tight text-black dark:text-white flex flex-wrap justify-center gap-x-[0.3em] gap-y-[0.1em]">
-                    {words.map((word, i) => {
-                        const start = i / words.length;
-                        const end = start + 1 / words.length;
-                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                        const opacity = useTransform(bioProgress, [start, end], [0.1, 1]);
-
-                        return (
-                            <motion.span key={i} style={{ opacity }} className="inline-block">
-                                {word}
-                            </motion.span>
-                        );
-                    })}
-                </p>
+                <TerminalTyping text={t.about.bio} speed={30} />
             </div>
 
             <div className="section-padding max-w-7xl mx-auto">
