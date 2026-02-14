@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight, FaChevronLeft, FaCode, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
-import { projects, skills } from '../data/portfolioData';
+import { projects } from '../data/portfolioData';
 import TerminalTyping from './TerminalTyping';
 
 const About = () => {
@@ -14,9 +14,6 @@ const About = () => {
     const formations = t.about.educationList || [];
     const internalProjectsCount = projects.length;
     const internShipsCount = experiences.filter(exp => exp.title.toLowerCase().includes('stage') || exp.title.toLowerCase().includes('internship')).length;
-
-    // Calculate total techs from skills data
-    const totalTechsCount = Object.values(skills).flat().length;
 
     const combinedTimeline = [
         ...experiences.map(exp => ({ ...exp, type: 'experience' })),
@@ -114,7 +111,7 @@ const About = () => {
 
                 {/* 4. Logical Dynamic Stats */}
                 <div className="mt-40">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
                         <StatItem
                             number={internalProjectsCount}
                             label={t.about.stats.projects}
@@ -124,11 +121,6 @@ const About = () => {
                             number={internShipsCount}
                             label={t.about.stats.internships}
                             icon={<FaBriefcase />}
-                        />
-                        <StatItem
-                            number={`${totalTechsCount}+`}
-                            label={t.about.stats.technologies}
-                            icon={<FaCode />}
                         />
                         <StatItem
                             number="5"

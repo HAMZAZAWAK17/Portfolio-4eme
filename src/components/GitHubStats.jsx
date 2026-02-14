@@ -187,45 +187,73 @@ const GitHubStats = () => {
                     ))}
                 </motion.div>
 
-                {/* Top Languages */}
+                {/* Top Languages - Enhanced Segmented Bar Graph */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-16 bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-8"
+                    className="mb-16 bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-8 rounded-2xl"
                 >
-                    <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                        <FaCodeBranch className="text-3xl" />
-                        {t.github.topLanguages}
-                    </h3>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                            <FaCodeBranch className="text-3xl text-green-400" />
+                            {t.github.topLanguages}
+                        </h3>
+                        <div className="text-xs font-mono text-gray-500 bg-gray-800/50 px-3 py-1 rounded-full border border-gray-700">
+                            Dynamic Analysis of {repos.length} Repositories
+                        </div>
+                    </div>
 
-                    <div className="space-y-4">
+                    {/* Single Segmented Bar */}
+                    <div className="w-full h-4 bg-gray-800 rounded-full overflow-hidden flex mb-10 shadow-inner">
                         {topLanguages.map((lang, index) => (
-                            <div key={index}>
-                                <div className="flex justify-between mb-2">
-                                    <span className="text-white font-semibold flex items-center gap-2">
-                                        <span
-                                            className="w-3 h-3 rounded-full"
-                                            style={{ backgroundColor: lang.color }}
-                                        ></span>
+                            <motion.div
+                                key={index}
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${lang.percentage}%` }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, delay: index * 0.1 }}
+                                style={{ backgroundColor: lang.color }}
+                                className="h-full first:rounded-l-full last:rounded-r-full group relative"
+                            >
+                                {/* Mini Tooltip on Hover */}
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-gray-700">
+                                    {lang.name}: {lang.percentage}%
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Legend Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                        {topLanguages.map((lang, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="flex flex-col"
+                            >
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span
+                                        className="w-3 h-3 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.5)]"
+                                        style={{ backgroundColor: lang.color }}
+                                    ></span>
+                                    <span className="text-white font-bold tracking-tight">
                                         {lang.name}
                                     </span>
-                                    <span className="text-gray-400">
+                                </div>
+                                <div className="flex items-end gap-2">
+                                    <span className="text-2xl font-black text-white leading-none">
                                         {lang.percentage}%
                                     </span>
+                                    <span className="text-[10px] text-gray-500 uppercase tracking-tighter mb-0.5">
+                                        Usage
+                                    </span>
                                 </div>
-                                <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                                    <motion.div
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: `${lang.percentage}%` }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 1, delay: index * 0.1 }}
-                                        className="h-full rounded-full"
-                                        style={{ backgroundColor: lang.color }}
-                                    />
-                                </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </motion.div>
