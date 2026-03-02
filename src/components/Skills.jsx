@@ -7,8 +7,9 @@ import {
 import {
     SiTailwindcss, SiMysql, SiMongodb, SiExpress,
     SiFlutter, SiExpo, SiSpringboot,
-    SiPostman, SiGithub, SiCsharp, SiDotnet
+    SiPostman, SiGithub, SiDotnet
 } from 'react-icons/si';
+import { TbBrandCSharp } from 'react-icons/tb';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
 
@@ -97,6 +98,8 @@ const Skills = () => {
                 { name: "MySQL", icon: SiMysql, color: "#4479A1" },
                 { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
                 { name: "Express", icon: SiExpress, color: "#000000" },
+                { name: "C#", icon: TbBrandCSharp, color: "#239120" },
+                { name: ".NET", icon: SiDotnet, color: "#512BD4" },
             ]
         },
         {
@@ -111,8 +114,6 @@ const Skills = () => {
                 { name: "Postman", icon: SiPostman, color: "#FF6C37" },
                 { name: "Figma", icon: FaFigma, color: "#F24E1E" },
                 { name: "VS Code", icon: VSCodeIcon, color: "#007ACC" },
-                { name: "C#", icon: SiCsharp, color: "#239120" },
-                { name: ".NET", icon: SiDotnet, color: "#512BD4" },
             ]
         }
     ];
