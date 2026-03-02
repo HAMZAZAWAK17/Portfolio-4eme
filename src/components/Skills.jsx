@@ -7,7 +7,7 @@ import {
 import {
     SiTailwindcss, SiMysql, SiMongodb, SiExpress,
     SiFlutter, SiExpo, SiSpringboot,
-    SiPostman, SiGithub
+    SiPostman, SiGithub, SiCsharp, SiDotnet
 } from 'react-icons/si';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
@@ -111,6 +111,8 @@ const Skills = () => {
                 { name: "Postman", icon: SiPostman, color: "#FF6C37" },
                 { name: "Figma", icon: FaFigma, color: "#F24E1E" },
                 { name: "VS Code", icon: VSCodeIcon, color: "#007ACC" },
+                { name: "C#", icon: SiCsharp, color: "#239120" },
+                { name: ".NET", icon: SiDotnet, color: "#512BD4" },
             ]
         }
     ];

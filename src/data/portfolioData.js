@@ -34,6 +34,8 @@ export const skills = {
         { name: "GanttProject", icon: "FaTasks" },
         { name: "Figma", icon: "FaFigma" },
         { name: "Canva", icon: "SiCanva" },
+        { name: "C#", icon: "SiCsharp" },
+        { name: ".NET", icon: "SiDotnet" },
     ],
     management: [
         { name: "Agile", icon: "FaProjectDiagram" },
