@@ -145,16 +145,7 @@ export const certifications = [
         icon: "FaPython",
         link: "/src/assets/PYTHONCERTIF.pdf",
     },
-    {
-        id: 2,
-        title: "Front-end Developer",
-        platform: "Udemy",
-        date: "2024",
-        description: "Formation complète sur les technologies Front-end modernes incluant React, TailwindCSS et l'optimisation de performance.",
-        image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=500&fit=crop",
-        icon: "FaReact",
-        link: "#",
-    },
+
 ];
 
 export const languages = [
