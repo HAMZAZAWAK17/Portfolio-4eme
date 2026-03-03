@@ -198,6 +198,18 @@ export const translations = {
             },
         },
 
+        // Location & Availability
+        location: {
+            title: "Localisation &",
+            titleHighlight: "Disponibilité",
+            subtitle: "Basé à Casablanca, disponible pour des opportunités locales et internationales.",
+            status: "Statut Actuel",
+            available: "Disponible pour de nouvelles opportunités",
+            localTime: "Heure Locale (Casablanca)",
+            remote: "Télétravail : Oui (100%)",
+            mobility: "Mobilité : Internationale",
+            openFor: "Ouvert à : CDI, Stage, Freelance",
+        },
         // Footer
         footer: {
             description: "Développeur Full-Stack passionné par la création de solutions web modernes et performantes.",
@@ -408,6 +420,18 @@ export const translations = {
             },
         },
 
+        // Location & Availability
+        location: {
+            title: "Location &",
+            titleHighlight: "Availability",
+            subtitle: "Based in Casablanca, available for local and international opportunities.",
+            status: "Current Status",
+            available: "Available for new opportunities",
+            localTime: "Local Time (Casablanca)",
+            remote: "Remote Work: Yes (100%)",
+            mobility: "Mobility: International",
+            openFor: "Open to: Full-time, Internship, Freelance",
+        },
         // Footer
         footer: {
             description: "Full-Stack Developer passionate about creating modern and high-performance web solutions.",
