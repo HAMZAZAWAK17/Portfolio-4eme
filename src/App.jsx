@@ -17,15 +17,15 @@ import CustomCursor from './components/CustomCursor';
 import VoiceCommands from './components/VoiceCommands';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
   const [loading, setLoading] = useState(true);
 
   // Initialize dark mode from localStorage
   useEffect(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode) {
-      setDarkMode(JSON.parse(savedMode));
-    }
+    // Already initialized in useState
   }, []);
 
   // Apply dark mode class to document

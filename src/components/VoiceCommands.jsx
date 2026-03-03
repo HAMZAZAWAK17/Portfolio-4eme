@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaMicrophone, FaMicrophoneSlash, FaVolumeUp } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
@@ -12,55 +12,20 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
     const [isSupported, setIsSupported] = useState(false);
     const recognitionRef = useRef(null);
 
-    useEffect(() => {
-        // Check if browser supports Web Speech API
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            setIsSupported(true);
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognitionRef.current = new SpeechRecognition();
-
-            recognitionRef.current.continuous = false;
-            recognitionRef.current.interimResults = false;
-            recognitionRef.current.lang = 'en-US';
-
-            recognitionRef.current.onresult = (event) => {
-                const command = event.results[0][0].transcript.toLowerCase();
-                setTranscript(command);
-                handleVoiceCommand(command);
-            };
-
-            recognitionRef.current.onerror = (event) => {
-                console.error('Speech recognition error:', event.error);
-                setIsListening(false);
-                showFeedbackMessage('❌ Error: Could not understand. Try again!');
-            };
-
-            recognitionRef.current.onend = () => {
-                setIsListening(false);
-            };
-        }
-
-        return () => {
-            if (recognitionRef.current) {
-                recognitionRef.current.stop();
-            }
-        };
+    const showFeedbackMessage = useCallback((message) => {
+        setFeedback(message);
+        setShowFeedback(true);
+        setTimeout(() => setShowFeedback(false), 3000);
     }, []);
 
-    const scrollToSection = (sectionId) => {
+    const scrollToSection = useCallback((sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    };
+    }, []);
 
-    const showFeedbackMessage = (message) => {
-        setFeedback(message);
-        setShowFeedback(true);
-        setTimeout(() => setShowFeedback(false), 3000);
-    };
-
-    const fillContactForm = (field, value) => {
+    const fillContactForm = useCallback((field, value) => {
         const input = document.querySelector(`input[name="${field}"], textarea[name="${field}"]`);
         if (input) {
             input.value = value;
@@ -68,9 +33,9 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
             return true;
         }
         return false;
-    };
+    }, []);
 
-    const handleVoiceCommand = (command) => {
+    const handleVoiceCommand = useCallback((command) => {
         console.log('Voice command received:', command);
 
         // ===== NAVIGATION COMMANDS =====
@@ -98,6 +63,9 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
         } else if (command.includes('contact')) {
             scrollToSection('contact');
             showFeedbackMessage('📧 Going to Contact');
+        } else if (command.includes('location') || command.includes('map') || command.includes('availability') || command.includes('casa')) {
+            scrollToSection('location');
+            showFeedbackMessage('🌍 Going to Location & Availability');
         }
 
         // ===== DARK MODE COMMANDS =====
@@ -225,7 +193,42 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
         } else {
             showFeedbackMessage('🤔 Command not recognized. Try "help" for available commands!');
         }
-    };
+    }, [darkMode, toggleDarkMode, scrollToSection, showFeedbackMessage, fillContactForm]);
+
+    useEffect(() => {
+        // Check if browser supports Web Speech API
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            setIsSupported(true);
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognitionRef.current = new SpeechRecognition();
+
+            recognitionRef.current.continuous = false;
+            recognitionRef.current.interimResults = false;
+            recognitionRef.current.lang = 'en-US';
+
+            recognitionRef.current.onresult = (event) => {
+                const command = event.results[0][0].transcript.toLowerCase();
+                setTranscript(command);
+                handleVoiceCommand(command);
+            };
+
+            recognitionRef.current.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                setIsListening(false);
+                showFeedbackMessage('❌ Error: Could not understand. Try again!');
+            };
+
+            recognitionRef.current.onend = () => {
+                setIsListening(false);
+            };
+        }
+
+        return () => {
+            if (recognitionRef.current) {
+                recognitionRef.current.stop();
+            }
+        };
+    }, [handleVoiceCommand, showFeedbackMessage]);
 
     const toggleListening = () => {
         if (!isSupported) {
@@ -323,7 +326,7 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                                 <FaVolumeUp className={`text-xl ${isListening ? 'text-red-500' : 'text-green-500'} animate-pulse`} />
                             </div>
                             <div>
-                                <p className="text-[10px] uppercase tracking-widest font-black opacity-50 mb-0.5">Assistant</p>
+                                <p className="text-[10px] uppercase tracking-widest font-black opacity-50 mb-0.5">{t.hero.available ? 'Assistant' : 'Assistant'}</p>
                                 <p className="font-bold text-sm leading-tight">{feedback}</p>
                             </div>
                         </div>
