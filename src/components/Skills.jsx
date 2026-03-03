@@ -4,12 +4,7 @@ import {
     FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
     FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma, FaCode, FaServer, FaTools
 } from 'react-icons/fa';
-import {
-    SiTailwindcss, SiMysql, SiMongodb, SiExpress,
-    SiFlutter, SiExpo, SiSpringboot,
-    SiPostman, SiGithub, SiDotnet
-} from 'react-icons/si';
-import { TbBrandCSharp } from 'react-icons/tb';
+import { SiTailwindcss, SiMysql, SiMongodb, SiExpress, SiFlutter, SiExpo, SiSpringboot, SiPostman, SiGithub, SiDotnet, SiCsharp } from 'react-icons/si';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
 
@@ -73,7 +68,7 @@ const Skills = () => {
 
     const skillCategories = [
         {
-            title: "Frontend",
+            title: t.skills.categories.frontend,
             color: "#61DAFB",
             icon: FaCode,
             skills: [
@@ -86,7 +81,7 @@ const Skills = () => {
             ]
         },
         {
-            title: "Backend",
+            title: t.skills.categories.backend,
             color: "#6DB33F",
             icon: FaServer,
             skills: [
@@ -98,12 +93,12 @@ const Skills = () => {
                 { name: "MySQL", icon: SiMysql, color: "#4479A1" },
                 { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
                 { name: "Express", icon: SiExpress, color: "#000000" },
-                { name: "C#", icon: TbBrandCSharp, color: "#239120" },
+                { name: "C#", icon: SiCsharp, color: "#239120" },
                 { name: ".NET", icon: SiDotnet, color: "#512BD4" },
             ]
         },
         {
-            title: "Tools & Mobile",
+            title: t.skills.categories.tools,
             color: "#F2C811",
             icon: FaTools,
             skills: [

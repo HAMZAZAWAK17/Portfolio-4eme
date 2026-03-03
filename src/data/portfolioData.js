@@ -28,10 +28,10 @@ export const skills = {
         { name: "Express", icon: "SiExpress" },
         { name: "Java", icon: "FaJava" },
         { name: "XML", icon: "FaCode" },
-        { name: "C#", icon: "TbBrandCSharp" },
-        { name: ".NET", icon: "SiDotnet" },
     ],
     tools: [
+        { name: "C#", icon: "SiCsharp" },
+        { name: ".NET", icon: "SiDotnet" },
         { name: "UML", icon: "FaDiagramProject" },
         { name: "GanttProject", icon: "FaTasks" },
         { name: "Figma", icon: "FaFigma" },
