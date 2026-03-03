@@ -58,47 +58,30 @@ const Location = () => {
                     <motion.div variants={itemVariants} className="relative">
                         <div className="mb-12">
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black dark:text-white mb-6 tracking-tighter uppercase italic">
-                                {t.location.title} <span className="text-outline text-transparent opacity-80">{t.location.titleHighlight}</span>
+                                {t.location.title} <span className="text-outline opacity-80">{t.location.titleHighlight}</span>
                             </h2>
                             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl font-medium">
                                 {t.location.subtitle}
                             </p>
                         </div>
 
-                        {/* Interactive SVG Map (Stylized) */}
-                        <div className="relative aspect-square md:aspect-video w-full bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 flex items-center justify-center overflow-hidden">
-                            {/* Abstract Morocco Map SVG */}
-                            <svg viewBox="0 0 500 400" className="w-[80%] h-[80%] opacity-20 dark:opacity-40 filter drop-shadow-2xl">
-                                <path 
-                                    d="M100,250 L120,230 L150,225 L180,240 L210,235 L240,245 L270,230 L300,210 L330,190 L360,170 L390,150 L410,140 L430,120 L450,110 L460,90 L470,70 L480,50 L450,40 L400,35 L350,45 L300,60 L250,80 L200,110 L150,150 L120,200 L100,250 Z" 
-                                    fill="currentColor" 
-                                    className="text-black dark:text-white"
-                                />
-                                {/* Add some dots for major cities */}
-                                <circle cx="380" cy="150" r="3" fill="currentColor" /> {/* Tanger */}
-                                <circle cx="320" cy="200" r="3" fill="currentColor" /> {/* Rabat */}
-                                <circle cx="280" cy="260" r="3" fill="currentColor" /> {/* Marrakech */}
-                                <circle cx="450" cy="100" r="3" fill="currentColor" /> {/* Oujda */}
-                            </svg>
-
-                            {/* Casablanca Pulse Point */}
-                            <div className="absolute top-[52%] left-[64%] -translate-x-1/2 -translate-y-1/2">
-                                <span className="relative flex h-16 w-16">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black dark:bg-white opacity-20"></span>
-                                    <span className="relative inline-flex items-center justify-center rounded-full h-16 w-16 bg-black dark:bg-white">
-                                        <FaMapMarkerAlt className="text-white dark:text-black text-2xl" />
-                                    </span>
-                                </span>
-                                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 whitespace-nowrap bg-black dark:bg-white text-white dark:text-black px-4 py-2 font-black text-xs uppercase tracking-widest shadow-xl">
-                                    Casablanca, Morocco
-                                </div>
-                            </div>
-
-                            {/* Decorative Grid Lines */}
-                            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-[0.03] pointer-events-none">
-                                {[...Array(36)].map((_, i) => (
-                                    <div key={i} className="border-[0.5px] border-black dark:border-white"></div>
-                                ))}
+                        {/* Interactive Google Map Styled for B&W Theme */}
+                        <div className="relative aspect-square md:aspect-video w-full bg-gray-50 dark:bg-zinc-900 border-2 border-black dark:border-white shadow-[10px_10px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_rgba(255,255,255,0.1)] overflow-hidden group">
+                            <iframe
+                                title="Casablanca Map"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106361.35515233!2d-7.66939462557438!3d33.57226315801966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4778a113b1%3A0x10cb9d6a570618b0!2sCasablanca!5e0!3m2!1sfr!2sma!4v1710345678901!5m2!1sfr!2sma"
+                                className="w-full h-full grayscale contrast-125 opacity-70 dark:opacity-60 dark:invert transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:dark:invert-0"
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                            
+                            {/* Decorative Overlay for focused feel */}
+                            <div className="absolute inset-0 pointer-events-none border-[20px] border-black/5 dark:border-white/5"></div>
+                            
+                            {/* Marker Label Overlay */}
+                            <div className="absolute bottom-6 right-6 bg-black dark:bg-white text-white dark:text-black px-6 py-3 font-black text-sm uppercase tracking-[0.2em] shadow-2xl transition-transform duration-500 group-hover:scale-110">
+                                Casablanca, Morocco
                             </div>
                         </div>
                     </motion.div>
