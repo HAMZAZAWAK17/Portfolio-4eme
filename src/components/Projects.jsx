@@ -69,24 +69,27 @@ const Projects = () => {
                         <button
                             key={category.id}
                             onClick={() => setFilter(category.id)}
-                            className={`relative px-6 py-3 font-semibold uppercase tracking-wider text-sm transition-colors duration-300 ${filter === category.id
+                            className={`relative px-6 py-3 font-black uppercase tracking-[0.2em] text-xs md:text-sm transition-all duration-500 overflow-hidden isolate ${filter === category.id
                                 ? 'text-white dark:text-black'
-                                : 'text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300'
+                                : 'text-black dark:text-white hover:text-gray-500'
                                 }`}
                         >
+                            {/* Button Text */}
+                            <span className="relative z-10 pointer-events-none">
+                                {category.name}
+                            </span>
+
                             {/* Animated Background for Active State */}
-                            {filter === category.id && (
+                            {filter === category.id ? (
                                 <motion.div
-                                    layoutId="activeFilter"
-                                    className="absolute inset-0 bg-black dark:bg-white rounded-none -z-10"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    layoutId="activeFilterBg"
+                                    className="absolute inset-0 bg-black dark:bg-white -z-10"
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                 />
+                            ) : (
+                                /* Border for inactive state */
+                                <div className="absolute inset-0 border-[1.5px] border-black/10 dark:border-white/10 -z-10" />
                             )}
-                            {/* Border for inactive state */}
-                            {filter !== category.id && (
-                                <div className="absolute inset-0 border-2 border-black dark:border-white opacity-20 hover:opacity-100 transition-opacity duration-300" />
-                            )}
-                            {category.name}
                         </button>
                     ))}
                 </motion.div>
