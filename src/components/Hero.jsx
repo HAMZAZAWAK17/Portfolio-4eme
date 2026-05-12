@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolioData';
-import heroImage from '../assets/Gemini_Generated_Image_2725dz2725dz2725.png';
+import heroImage from '../assets/Gemini_Generated_Image_s0abzes0abzes0ab.png';
 import { useLanguage } from '../LanguageContext';
 import { useState, useEffect, useRef } from 'react';
 
@@ -138,10 +138,10 @@ const Hero = () => {
             <div className="absolute inset-0 z-0 bg-black transition-colors duration-300" />
 
             {/* ── Right-side portrait image ── */}
-            {/* ── Center portrait image ── */}
-            <div className="absolute inset-0 z-10 flex justify-center items-end pointer-events-none">
+            {/* ── Center portrait image (z-40 puts it in front of text) ── */}
+            <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none">
                 <motion.div
-                    className="relative w-full h-full max-w-[600px] pointer-events-auto"
+                    className="relative w-full h-full max-w-[850px]"
                     style={{
                         x: mxSlow,
                         y: mySlow,
@@ -159,6 +159,13 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                    {/* Gradient: fade image at bottom so it blends into the black background */}
+                    <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                            background: 'linear-gradient(to top, #000 0%, transparent 40%)',
+                        }}
                     />
                 </motion.div>
             </div>
