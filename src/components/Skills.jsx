@@ -4,7 +4,7 @@ import { useLanguage } from '../LanguageContext';
 
 // Import all custom 3D / tech images
 import biIcon from '../assets/bi.png';
-import csharpIcon from '../assets/c#.png';
+import csharpIcon from '../assets/csharp.png';
 import gitIcon from '../assets/git.png';
 import javaIcon from '../assets/java3d.png';
 import nodeIcon from '../assets/node.png';
