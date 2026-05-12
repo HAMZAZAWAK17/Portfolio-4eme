@@ -84,24 +84,25 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 </div>
             </motion.nav>
 
-            {/* Vertical Right Navigation */}
-            <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-50 pointer-events-auto mix-blend-difference items-end">
+            {/* Vertical Right Navigation (Floating Glass Pill) */}
+            <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-5 z-50 bg-black/30 dark:bg-black/50 backdrop-blur-xl border border-white/10 dark:border-white/20 rounded-full py-6 px-3 shadow-2xl">
                 {navLinks.map((link, index) => {
                     const isActive = activeSection === link.href.substring(1);
                     return (
-                        <motion.button
-                            key={index}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 * index }}
-                            whileHover={{ x: -5 }}
-                            onClick={() => scrollToSection(link.href)}
-                            className={`group flex items-center gap-3 text-white text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}
-                        >
-                            <span className="hidden md:block">{link.name}</span>
-                            {/* Small line/dot indicator */}
-                            <div className={`h-px transition-all duration-300 bg-white ${isActive ? 'w-8' : 'w-4 group-hover:w-6'}`} />
-                        </motion.button>
+                        <div key={index} className="group relative flex items-center justify-center">
+                            <motion.button
+                                whileHover={{ scale: 1.2 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => scrollToSection(link.href)}
+                                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${isActive ? 'bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'bg-white/30 hover:bg-white/80'}`}
+                            />
+                            {/* Hover Tooltip */}
+                            <div className="absolute right-8 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-300">
+                                <div className="bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-sm whitespace-nowrap shadow-lg">
+                                    {link.name}
+                                </div>
+                            </div>
+                        </div>
                     );
                 })}
             </div>
