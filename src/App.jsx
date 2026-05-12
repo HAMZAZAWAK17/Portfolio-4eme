@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 import Loader from './components/Loader';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
-import CustomCursor from './components/CustomCursor';
+
 import VoiceCommands from './components/VoiceCommands';
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
-      <CustomCursor />
+
       <ScrollProgress />
       <ScrollToTop />
       <VoiceCommands darkMode={darkMode} toggleDarkMode={toggleDarkMode} />

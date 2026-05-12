@@ -208,7 +208,7 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-white/60 text-xs uppercase tracking-[0.35em] font-semibold"
+                        className="text-white text-sm md:text-base uppercase tracking-[0.35em] font-bold"
                     >
                         {t.hero.greeting}
                     </motion.p>
@@ -224,7 +224,7 @@ const Hero = () => {
                             transition={{ duration: 1.6, repeat: Infinity }}
                             className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"
                         />
-                        <span className="text-white/80 text-[10px] uppercase tracking-[0.3em] font-bold">
+                        <span className="text-white text-[11px] uppercase tracking-[0.3em] font-black">
                             {t.hero.available}
                         </span>
                     </motion.div>

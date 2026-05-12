@@ -26,12 +26,7 @@ h6 {
   font-family: 'Outfit', sans-serif;
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 768px) {
-  * {
-    cursor: none !important;
-  }
-}
+
 
 /* Scrollbar Styling - Black & White */
 ::-webkit-scrollbar {
