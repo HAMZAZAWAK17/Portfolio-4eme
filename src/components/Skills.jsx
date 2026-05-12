@@ -93,7 +93,7 @@ const Skills = () => {
                     {allSkills.map((skill, index) => {
                         const offset = index - activeIndex;
                         const absOffset = Math.abs(offset);
-                        const isVisible = absOffset <= 6; // Render up to 6 cards on each side
+                        const isVisible = absOffset <= 3; // Exactly 3 on the left, 3 on the right
 
                         if (!isVisible) return null;
 
@@ -101,12 +101,12 @@ const Skills = () => {
                             <motion.div
                                 key={index}
                                 animate={{
-                                    x: offset === 0 ? 0 : (offset < 0 ? -100 + offset * 70 : 100 + offset * 70), // Push side stacks away from center
-                                    scale: offset === 0 ? 1 : 0.75 - (absOffset * 0.05), // Center is full size, others are smaller
-                                    rotateY: offset === 0 ? 0 : (offset < 0 ? 45 : -45), // Uniform angle for side cards (prevents aggressive squishing)
-                                    z: offset === 0 ? 0 : -100 - (absOffset * 20), // Push side cards slightly back
-                                    opacity: offset === 0 ? 1 : 0.4 - (absOffset * 0.05), // Dim inactive cards
-                                    filter: offset === 0 ? "blur(0px) brightness(1)" : "blur(3px) brightness(0.7)", // Blur inactive cards
+                                    x: `${offset * 110}%`, // Spaced out cleanly side-by-side
+                                    scale: offset === 0 ? 1 : 0.85, // Normal size, center slightly larger
+                                    rotateY: 0, // NO rotation (not compressed)
+                                    z: offset === 0 ? 10 : 0, // Just to ensure center is on top
+                                    opacity: 1, // Completely clear
+                                    filter: "blur(0px) brightness(1)", // No blur at all
                                     zIndex: 40 - absOffset,
                                 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
