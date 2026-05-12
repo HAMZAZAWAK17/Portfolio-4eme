@@ -72,7 +72,7 @@ const Marquee = ({ text, reverse = false }) => {
             <motion.div
                 className="flex gap-12 shrink-0"
                 animate={{ x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
             >
                 {[...items, ...items].map((item, i) => (
                     <span key={i} className="text-white dark:text-white text-[11px] uppercase tracking-[0.4em] font-black">
