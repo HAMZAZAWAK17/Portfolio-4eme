@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import {
     FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
     FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma
@@ -36,9 +37,22 @@ const allSkills = [
 
 const Skills = () => {
     const { t } = useLanguage();
+    const [activeIndex, setActiveIndex] = useState(Math.floor(allSkills.length / 2));
+
+    const handleDragEnd = (e, { offset, velocity }) => {
+        const swipe = offset.x;
+        // Swipe left -> Next item
+        if (swipe < -50) {
+            setActiveIndex((prev) => Math.min(prev + 1, allSkills.length - 1));
+        } 
+        // Swipe right -> Prev item
+        else if (swipe > 50) {
+            setActiveIndex((prev) => Math.max(prev - 1, 0));
+        }
+    };
 
     return (
-        <section id="skills" className="py-32 bg-white dark:bg-black transition-colors duration-500 overflow-hidden">
+        <section id="skills" className="py-32 bg-white dark:bg-black transition-colors duration-500 overflow-hidden select-none">
             <div className="max-w-[100vw] mx-auto">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-6 md:px-14 lg:px-20 max-w-7xl mx-auto">
@@ -67,55 +81,86 @@ const Skills = () => {
                     </motion.p>
                 </div>
 
-                {/* Infinite 3D Carousel Row */}
-                <div className="relative w-full py-10 flex overflow-hidden group">
-                    {/* Fade Edges */}
-                    <div className="absolute left-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-r from-white dark:from-black to-transparent z-20 pointer-events-none" />
-                    <div className="absolute right-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-l from-white dark:from-black to-transparent z-20 pointer-events-none" />
+                {/* 3D Coverflow Carousel */}
+                <div className="relative w-full h-[500px] flex items-center justify-center perspective-[1200px] mt-10">
                     
+                    {/* Invisible Drag Overlay */}
                     <motion.div
-                        className="flex gap-8 md:gap-12 shrink-0 pr-8 md:pr-12"
-                        animate={{ x: ["0%", "-50%"] }}
-                        transition={{ duration: 45, ease: "linear", repeat: Infinity }}
-                    >
-                        {[...allSkills, ...allSkills].map((skill, index) => (
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={handleDragEnd}
+                        className="absolute inset-0 z-50 cursor-grab active:cursor-grabbing"
+                    />
+
+                    {/* Cards */}
+                    {allSkills.map((skill, index) => {
+                        const offset = index - activeIndex;
+                        const absOffset = Math.abs(offset);
+                        const isVisible = absOffset <= 4; // Only render cards somewhat close to center
+
+                        if (!isVisible) return null;
+
+                        return (
                             <motion.div
                                 key={index}
-                                whileHover={{ 
-                                    scale: 1.1,
-                                    y: -20,
-                                    rotateY: -10,
-                                    rotateX: 10,
+                                animate={{
+                                    x: offset * 130, // Spacing between cards
+                                    scale: 1 - absOffset * 0.15, // Scale down the further they are
+                                    rotateY: offset * -25, // Angle them towards the center (Coverflow effect)
+                                    z: -absOffset * 100, // Push them back in 3D space
+                                    opacity: absOffset >= 3 ? 0 : 1 - absOffset * 0.2, // Fade out edges
+                                    zIndex: 40 - absOffset, // Ensure center card is always on top
                                 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                className={`absolute w-56 h-72 md:w-64 md:h-80 flex flex-col items-center justify-center rounded-[2.5rem] border transition-colors ${
+                                    offset === 0 
+                                        ? 'bg-gray-50 dark:bg-zinc-900 border-gray-200 dark:border-white/10 shadow-2xl' 
+                                        : 'bg-white dark:bg-black border-gray-100 dark:border-white/5 shadow-md'
+                                }`}
                                 style={{
                                     transformStyle: "preserve-3d",
-                                    perspective: "1000px"
                                 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="w-44 h-44 md:w-56 md:h-56 shrink-0 relative flex flex-col items-center justify-center rounded-[2rem] bg-gray-50 dark:bg-zinc-900/40 border border-gray-100 dark:border-white/5 cursor-pointer shadow-lg hover:shadow-2xl"
                             >
-                                {/* Subtle 3D inner border glow */}
-                                <div className="absolute inset-0 rounded-[2rem] border-[0.5px] border-white/50 dark:border-white/10 pointer-events-none" style={{ transform: "translateZ(1px)" }} />
-                                
-                                {/* Icon with floating 3D effect */}
-                                <motion.div style={{ transform: "translateZ(40px)" }} className="flex flex-col items-center gap-6">
-                                    <skill.icon 
-                                        className="text-5xl md:text-7xl transition-transform duration-500" 
-                                        style={{ color: skill.color, filter: `drop-shadow(0px 10px 15px ${skill.color}40)` }} 
+                                {/* Subtle Glow for active card */}
+                                {offset === 0 && (
+                                    <div 
+                                        className="absolute -inset-4 rounded-[2.5rem] opacity-20 blur-2xl -z-10 pointer-events-none transition-all"
+                                        style={{ backgroundColor: skill.color }}
                                     />
-                                    <span className="text-sm md:text-base font-black uppercase tracking-[0.2em] text-black/80 dark:text-white/80">
-                                        {skill.name}
-                                    </span>
-                                </motion.div>
+                                )}
                                 
-                                {/* Massive Background Glow on Hover */}
-                                <div 
-                                    className="absolute -inset-4 rounded-[2.5rem] opacity-0 hover:opacity-20 transition-opacity duration-500 blur-2xl -z-10 pointer-events-none"
-                                    style={{ backgroundColor: skill.color }}
+                                <skill.icon 
+                                    className="text-7xl md:text-8xl mb-8 drop-shadow-lg" 
+                                    style={{ color: skill.color }} 
                                 />
+                                <span className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-black dark:text-white">
+                                    {skill.name}
+                                </span>
                             </motion.div>
+                        );
+                    })}
+
+                    {/* Indicators */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 z-40 pointer-events-none">
+                        {allSkills.map((_, i) => (
+                            <div 
+                                key={i} 
+                                className={`h-1.5 rounded-full transition-all duration-300 ${
+                                    i === activeIndex 
+                                        ? 'w-6 bg-black dark:bg-white' 
+                                        : 'w-1.5 bg-black/20 dark:bg-white/20'
+                                }`} 
+                            />
                         ))}
-                    </motion.div>
+                    </div>
+                </div>
+                
+                {/* Drag Hint */}
+                <div className="text-center mt-8 text-xs font-bold uppercase tracking-widest text-black/30 dark:text-white/30 flex items-center justify-center gap-2">
+                    <span className="w-10 h-px bg-black/20 dark:bg-white/20" />
+                    Swipe or Drag
+                    <span className="w-10 h-px bg-black/20 dark:bg-white/20" />
                 </div>
             </div>
         </section>
