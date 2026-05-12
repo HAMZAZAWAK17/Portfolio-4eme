@@ -143,7 +143,7 @@ const Hero = () => {
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
             <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none">
                 <motion.div
-                    className="relative w-full h-full max-w-[850px] border-x border-t border-white/10 rounded-t-[3rem] overflow-hidden bg-gradient-to-b from-white/5 to-transparent"
+                    className="relative w-full h-full max-w-[850px]"
                     style={{
                         x: mxSlow,
                         y: mySlow,
@@ -153,7 +153,7 @@ const Hero = () => {
                         src={heroImage}
                         alt=""
                         aria-hidden="true"
-                        className="w-full h-full object-contain object-bottom drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                        className="w-full h-full object-contain object-bottom drop-shadow-[0_0_2px_rgba(255,255,255,0.8)] drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
                         style={{
                             scale: imgScale,
                             opacity: imgOpacity,
