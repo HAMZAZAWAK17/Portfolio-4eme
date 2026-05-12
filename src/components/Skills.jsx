@@ -1,124 +1,47 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import {
     FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
-    FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma, FaCode, FaServer, FaTools
+    FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma
 } from 'react-icons/fa';
 import { SiTailwindcss, SiMysql, SiMongodb, SiExpress, SiFlutter, SiExpo, SiSpringboot, SiPostman, SiGithub, SiDotnet } from 'react-icons/si';
 import { TbBrandCSharp } from 'react-icons/tb';
 import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
 
-const CategoryCard = ({ title, skills, color, icon: HeaderIcon }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -10 }}
-            className="flex-1 min-w-[300px] p-8 rounded-[2rem] bg-gray-50 dark:bg-zinc-900/50 border border-gray-100 dark:border-white/5 transition-all duration-500 hover:shadow-2xl hover:border-black/5 dark:hover:border-white/10 group"
-        >
-            <div className="flex items-center gap-4 mb-8">
-                <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:rotate-12"
-                    style={{ backgroundColor: `${color}15`, color: color }}
-                >
-                    <HeaderIcon className="text-2xl" />
-                </div>
-                <h3 className="text-2xl font-black uppercase tracking-tight text-black dark:text-white">
-                    {title}
-                </h3>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-                {skills.map((skill, index) => (
-                    <motion.div
-                        key={index}
-                        whileHover={{
-                            scale: 1.35,
-                            zIndex: 40,
-                            boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 10px 15px -6px rgb(0 0 0 / 0.1)"
-                        }}
-                        transition={{ type: "spring", stiffness: 350, damping: 12 }}
-                        className="relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white dark:bg-black border border-gray-100 dark:border-white/5 shadow-sm transition-all duration-300 cursor-help group/item"
-                    >
-                        <skill.icon
-                            className="text-2xl md:text-3xl transition-transform duration-300 group-hover/item:scale-110"
-                            style={{ color: skill.color }}
-                        />
-
-                        {/* Instant Tooltip */}
-                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 translate-y-full px-2 py-1 bg-black dark:bg-white text-white dark:text-black text-[9px] font-bold rounded opacity-0 group-hover/item:opacity-100 transition-all pointer-events-none z-50 whitespace-nowrap">
-                            {skill.name}
-                        </div>
-
-                        {/* Subtle Glow */}
-                        <div
-                            className="absolute inset-0 rounded-2xl opacity-0 group-hover/item:opacity-10 transition-opacity"
-                            style={{ backgroundColor: skill.color }}
-                        />
-                    </motion.div>
-                ))}
-            </div>
-        </motion.div>
-    );
-};
+const allSkills = [
+    { name: "ReactJS", icon: FaReact, color: "#61DAFB" },
+    { name: "NodeJS", icon: FaNodeJs, color: "#339933" },
+    { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+    { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
+    { name: "JavaScript", icon: FaJs, color: "#F7DF1E" },
+    { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+    { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
+    { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
+    { name: "PHP", icon: FaPhp, color: "#777BB4" },
+    { name: "Java", icon: FaJava, color: "#007396" },
+    { name: "Spring", icon: SiSpringboot, color: "#6DB33F" },
+    { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    { name: "Express", icon: SiExpress, color: "#000000" },
+    { name: "C#", icon: TbBrandCSharp, color: "#239120" },
+    { name: ".NET", icon: SiDotnet, color: "#512BD4" },
+    { name: "Bootstrap", icon: FaBootstrap, color: "#7952B3" },
+    { name: "Expo", icon: SiExpo, color: "#000020" },
+    { name: "Git", icon: FaGitAlt, color: "#F05032" },
+    { name: "GitHub", icon: SiGithub, color: "#181717" },
+    { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+    { name: "Figma", icon: FaFigma, color: "#F24E1E" },
+    { name: "VS Code", icon: VSCodeIcon, color: "#007ACC" },
+];
 
 const Skills = () => {
     const { t } = useLanguage();
 
-    const skillCategories = [
-        {
-            title: t.skills.categories.frontend,
-            color: "#61DAFB",
-            icon: FaCode,
-            skills: [
-                { name: "ReactJS", icon: FaReact, color: "#61DAFB" },
-                { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
-                { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
-                { name: "JavaScript", icon: FaJs, color: "#F7DF1E" },
-                { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-                { name: "Bootstrap", icon: FaBootstrap, color: "#7952B3" },
-            ]
-        },
-        {
-            title: t.skills.categories.backend,
-            color: "#6DB33F",
-            icon: FaServer,
-            skills: [
-                { name: "NodeJS", icon: FaNodeJs, color: "#339933" },
-                { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
-                { name: "PHP", icon: FaPhp, color: "#777BB4" },
-                { name: "Java", icon: FaJava, color: "#007396" },
-                { name: "Spring", icon: SiSpringboot, color: "#6DB33F" },
-                { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-                { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-                { name: "Express", icon: SiExpress, color: "#000000" },
-                { name: "C#", icon: TbBrandCSharp, color: "#239120" },
-                { name: ".NET", icon: SiDotnet, color: "#512BD4" },
-            ]
-        },
-        {
-            title: t.skills.categories.tools,
-            color: "#F2C811",
-            icon: FaTools,
-            skills: [
-                { name: "Flutter", icon: SiFlutter, color: "#02569B" },
-                { name: "Expo", icon: SiExpo, color: "#000020" },
-                { name: "Git", icon: FaGitAlt, color: "#F05032" },
-                { name: "GitHub", icon: SiGithub, color: "#181717" },
-                { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-                { name: "Figma", icon: FaFigma, color: "#F24E1E" },
-                { name: "VS Code", icon: VSCodeIcon, color: "#007ACC" },
-            ]
-        }
-    ];
-
     return (
-        <section id="skills" className="section-padding bg-white dark:bg-black transition-colors duration-500 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4">
+        <section id="skills" className="py-32 bg-white dark:bg-black transition-colors duration-500 overflow-hidden">
+            <div className="max-w-[100vw] mx-auto">
                 {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-6 md:px-14 lg:px-20 max-w-7xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -144,17 +67,55 @@ const Skills = () => {
                     </motion.p>
                 </div>
 
-                {/* Categories Row */}
-                <div className="flex flex-wrap lg:flex-nowrap gap-6">
-                    {skillCategories.map((category, idx) => (
-                        <CategoryCard
-                            key={idx}
-                            title={category.title}
-                            skills={category.skills}
-                            color={category.color}
-                            icon={category.icon}
-                        />
-                    ))}
+                {/* Infinite 3D Carousel Row */}
+                <div className="relative w-full py-10 flex overflow-hidden group">
+                    {/* Fade Edges */}
+                    <div className="absolute left-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-r from-white dark:from-black to-transparent z-20 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-l from-white dark:from-black to-transparent z-20 pointer-events-none" />
+                    
+                    <motion.div
+                        className="flex gap-8 md:gap-12 shrink-0 pr-8 md:pr-12"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ duration: 45, ease: "linear", repeat: Infinity }}
+                    >
+                        {[...allSkills, ...allSkills].map((skill, index) => (
+                            <motion.div
+                                key={index}
+                                whileHover={{ 
+                                    scale: 1.1,
+                                    y: -20,
+                                    rotateY: -10,
+                                    rotateX: 10,
+                                }}
+                                style={{
+                                    transformStyle: "preserve-3d",
+                                    perspective: "1000px"
+                                }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                className="w-44 h-44 md:w-56 md:h-56 shrink-0 relative flex flex-col items-center justify-center rounded-[2rem] bg-gray-50 dark:bg-zinc-900/40 border border-gray-100 dark:border-white/5 cursor-pointer shadow-lg hover:shadow-2xl"
+                            >
+                                {/* Subtle 3D inner border glow */}
+                                <div className="absolute inset-0 rounded-[2rem] border-[0.5px] border-white/50 dark:border-white/10 pointer-events-none" style={{ transform: "translateZ(1px)" }} />
+                                
+                                {/* Icon with floating 3D effect */}
+                                <motion.div style={{ transform: "translateZ(40px)" }} className="flex flex-col items-center gap-6">
+                                    <skill.icon 
+                                        className="text-5xl md:text-7xl transition-transform duration-500" 
+                                        style={{ color: skill.color, filter: `drop-shadow(0px 10px 15px ${skill.color}40)` }} 
+                                    />
+                                    <span className="text-sm md:text-base font-black uppercase tracking-[0.2em] text-black/80 dark:text-white/80">
+                                        {skill.name}
+                                    </span>
+                                </motion.div>
+                                
+                                {/* Massive Background Glow on Hover */}
+                                <div 
+                                    className="absolute -inset-4 rounded-[2.5rem] opacity-0 hover:opacity-20 transition-opacity duration-500 blur-2xl -z-10 pointer-events-none"
+                                    style={{ backgroundColor: skill.color }}
+                                />
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 </div>
             </div>
         </section>
