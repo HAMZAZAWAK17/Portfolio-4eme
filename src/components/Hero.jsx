@@ -153,7 +153,7 @@ const Hero = () => {
                         src={heroImage}
                         alt=""
                         aria-hidden="true"
-                        className="w-full h-full object-contain object-bottom"
+                        className="w-full h-full object-contain object-bottom drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                         style={{
                             scale: imgScale,
                             opacity: imgOpacity,
