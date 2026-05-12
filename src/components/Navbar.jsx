@@ -38,88 +38,52 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
     return (
         <>
+            {/* Floating Header */}
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.6, 0.05, 0.01, 0.9] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800'
-                    : 'bg-transparent'
-                    }`}
+                className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
             >
-                <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16">
-                    <div className="flex items-center justify-between h-20 md:h-24">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pt-8">
+                    <div className="flex items-start justify-between">
                         {/* Logo */}
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="text-2xl md:text-3xl font-black text-black dark:text-white cursor-pointer tracking-tighter"
+                            className="text-2xl md:text-3xl font-black text-white cursor-pointer tracking-tighter pointer-events-auto mix-blend-difference"
                             onClick={() => scrollToSection('#home')}
                         >
                             EH.
                         </motion.div>
 
-                        {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
-                            {navLinks.map((link, index) => (
-                                <motion.a
-                                    key={index}
-                                    initial={{ opacity: 0, y: -20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 * index }}
-                                    whileHover={{ y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        scrollToSection(link.href);
-                                    }}
-                                    href={link.href}
-                                    className="relative text-black dark:text-white hover:opacity-60 font-medium transition-all cursor-pointer text-sm uppercase tracking-wider group"
-                                >
-                                    {link.name}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black dark:bg-white transition-all duration-300 group-hover:w-full" />
-                                </motion.a>
-                            ))}
-                        </div>
-
-                        {/* Right Side Actions */}
-                        <div className="flex items-center gap-4 md:gap-6">
-
-                            {/* Email Button */}
-                            <motion.a
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                href={`mailto:${personalInfo.email}`}
-                                className="hidden md:flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-semibold text-xs uppercase tracking-wider transition-all hover:opacity-80"
-                            >
-                                <FaEnvelope />
-                                <span className="hidden xl:inline">{t.nav.email}</span>
-                            </motion.a>
-
+                        {/* Right Side Actions (Floating Button Container) */}
+                        <div className="flex items-center gap-4 pointer-events-auto mix-blend-difference">
                             {/* Dark Mode Toggle */}
                             <motion.button
                                 whileHover={{ scale: 1.1, rotate: 180 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={toggleDarkMode}
-                                className="p-2 md:p-3 text-black dark:text-white"
+                                className="p-3 text-white"
                             >
                                 {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
                             </motion.button>
 
-                            {/* Mobile Menu Button */}
+                            {/* Sidebar Menu Button */}
                             <motion.button
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="lg:hidden text-black dark:text-white"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setMobileMenuOpen(true)}
+                                className="flex items-center justify-center w-12 h-12 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-colors duration-300"
                             >
-                                {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+                                <FaBars size={20} />
                             </motion.button>
                         </div>
                     </div>
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu */}
+            {/* Sidebar Menu (Now used on all screen sizes) */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <>
@@ -129,7 +93,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
                         />
 
                         {/* Menu Panel */}
@@ -137,8 +101,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                             initial={{ x: '100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
-                            transition={{ duration: 0.3, ease: [0.6, 0.05, 0.01, 0.9] }}
-                            className="fixed top-0 right-0 border-l bottom-0 w-full max-w-sm bg-white dark:bg-black border-gray-200 dark:border-gray-800 z-50 lg:hidden overflow-y-auto"
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white dark:bg-[#0a0a0a] border-l border-black/10 dark:border-white/10 z-50 overflow-y-auto shadow-2xl"
                         >
                             {/* Close Button */}
                             <div className="flex justify-end p-6">
