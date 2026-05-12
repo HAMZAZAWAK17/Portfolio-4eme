@@ -54,7 +54,7 @@ const About = () => {
                         <motion.div 
                             whileHover={{ scale: 1.05, rotateY: 15, rotateX: 5, z: 50 }}
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            className="rounded-[2.5rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative group cursor-pointer"
+                            className="rounded-[2.5rem] overflow-hidden border-2 border-gray-300 dark:border-white/30 shadow-2xl relative group cursor-pointer"
                             style={{ transformStyle: "preserve-3d", perspective: 1000 }}
                         >
                             <img 
