@@ -39,7 +39,7 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
                         delay: delay + i * 0.04,
                         ease: [0.22, 1, 0.36, 1],
                     }}
-                    className={`inline-block ${ch.trim() ? 'bg-black/90 dark:bg-[#e8e8e8] text-white dark:text-black px-1 md:px-[6px] mx-[2px]' : 'w-4 md:w-8'}`}
+                    className={`inline-block ${ch.trim() ? 'bg-[#e8e8e8] text-black px-1 md:px-[6px] mx-[2px]' : 'w-4 md:w-8'}`}
                     style={{ whiteSpace: ch === ' ' ? 'pre' : 'normal' }}
                 >
                     {ch}
@@ -131,13 +131,13 @@ const Hero = () => {
         <section
             id="home"
             ref={sectionRef}
-            className="relative min-h-screen overflow-hidden bg-white dark:bg-black transition-colors duration-300"
+            className="relative min-h-screen overflow-hidden bg-black transition-colors duration-300"
         >
             {/* ── Grain ── */}
             <NoiseOverlay />
 
             {/* ── Solid background base ── */}
-            <div className="absolute inset-0 z-0 bg-white dark:bg-black transition-colors duration-300" />
+            <div className="absolute inset-0 z-0 bg-black transition-colors duration-300" />
 
             {/* ── Right-side portrait image ── */}
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
@@ -162,27 +162,17 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     />
-                    {/* Strong fade at the bottom to blend with background (Dark Mode) */}
+                    {/* Strong fade at the bottom to blend with background */}
                     <div
-                        className="absolute inset-0 pointer-events-none hidden dark:block"
+                        className="absolute inset-0 pointer-events-none"
                         style={{ background: 'linear-gradient(to top, #000 0%, #000 10%, transparent 50%)' }}
-                    />
-                    {/* Strong fade at the bottom to blend with background (Light Mode) */}
-                    <div
-                        className="absolute inset-0 pointer-events-none block dark:hidden"
-                        style={{ background: 'linear-gradient(to top, #fff 0%, #fff 10%, transparent 50%)' }}
                     />
                 </motion.div>
                 
-                {/* Radial vignette for cinematic blackness around edges (Dark Mode) */}
+                {/* Radial vignette for cinematic blackness around edges */}
                 <div
-                    className="absolute inset-0 pointer-events-none hidden dark:block"
+                    className="absolute inset-0 pointer-events-none"
                     style={{ background: 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)' }}
-                />
-                {/* Radial vignette for cinematic whiteness around edges (Light Mode) */}
-                <div
-                    className="absolute inset-0 pointer-events-none block dark:hidden"
-                    style={{ background: 'radial-gradient(circle at center, transparent 30%, rgba(255,255,255,0.8) 100%)' }}
                 />
             </div>
 
@@ -218,7 +208,7 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-black/60 dark:text-white/60 text-xs uppercase tracking-[0.35em] font-semibold"
+                        className="text-white/60 text-xs uppercase tracking-[0.35em] font-semibold"
                     >
                         {t.hero.greeting}
                     </motion.p>
@@ -227,14 +217,14 @@ const Hero = () => {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="flex items-center gap-2 border border-black/20 dark:border-white/20 px-4 py-2 backdrop-blur-sm bg-white/30 dark:bg-black/30 rounded-full"
+                        className="flex items-center gap-2 border border-white/20 px-4 py-2 backdrop-blur-sm bg-black/30 rounded-full"
                     >
                         <motion.span
                             animate={{ opacity: [1, 0.2, 1] }}
                             transition={{ duration: 1.6, repeat: Infinity }}
                             className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"
                         />
-                        <span className="text-black/80 dark:text-white/80 text-[10px] uppercase tracking-[0.3em] font-bold">
+                        <span className="text-white/80 text-[10px] uppercase tracking-[0.3em] font-bold">
                             {t.hero.available}
                         </span>
                     </motion.div>
@@ -267,8 +257,8 @@ const Hero = () => {
                         transition={{ delay: 1.3, duration: 0.8 }}
                         className="flex flex-col gap-4 mt-6 max-w-sm relative z-30"
                     >
-                        <div className="h-px flex-grow-0 w-12 bg-black/30 dark:bg-white/30" />
-                        <p className="text-black/80 dark:text-white/80 text-xs md:text-sm uppercase tracking-widest font-bold leading-relaxed">
+                        <div className="h-px flex-grow-0 w-12 bg-white/30" />
+                        <p className="text-white/80 text-xs md:text-sm uppercase tracking-widest font-bold leading-relaxed">
                             Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
                         </p>
                     </motion.div>
@@ -288,10 +278,10 @@ const Hero = () => {
                             <motion.div
                                 key={i}
                                 whileHover={{ scale: 1.05 }}
-                                className="border border-black/15 dark:border-white/15 hover:border-black/50 dark:hover:border-white/50 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
+                                className="border border-white/15 hover:border-white/50 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
                             >
-                                <div className="text-black dark:text-white font-black text-2xl leading-none">{s.value}</div>
-                                <div className="text-black/50 dark:text-white/50 text-[9px] uppercase tracking-widest mt-1 font-bold">{s.label}</div>
+                                <div className="text-white font-black text-2xl leading-none">{s.value}</div>
+                                <div className="text-white/50 text-[9px] uppercase tracking-widest mt-1 font-bold">{s.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -306,10 +296,10 @@ const Hero = () => {
                         {/* CTA buttons */}
                         <div className="flex flex-wrap gap-3 pointer-events-auto relative z-30">
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
+                                whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-black dark:border-white text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-white text-white font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.viewProjects}
                                 <motion.span
@@ -321,10 +311,10 @@ const Hero = () => {
                             </motion.button>
 
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
+                                whileHover={{ backgroundColor: 'rgba(255,255,255,0.08)', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToContact}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-black/30 dark:border-white/30 text-black/70 dark:text-white/70 hover:bg-black/5 dark:hover:bg-white/10 font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white/70 font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.contactMe}
                                 <motion.span
@@ -349,9 +339,9 @@ const Hero = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={s.label}
-                                    whileHover={{ y: -4 }}
+                                    whileHover={{ y: -4, color: '#ffffff' }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors text-lg"
+                                    className="text-white/40 transition-colors text-lg"
                                 >
                                     <s.icon />
                                 </motion.a>
@@ -368,11 +358,12 @@ const Hero = () => {
                 transition={{ delay: 2.5 }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 hidden md:flex pointer-events-none"
             >
-                <span className="text-black/30 dark:text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
+                <span className="text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
                 <motion.div
                     animate={{ scaleY: [0, 1, 0], y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                    className="w-px h-14 origin-top bg-gradient-to-b from-black/50 to-transparent dark:from-white/50 dark:to-transparent"
+                    className="w-px h-14 origin-top"
+                    style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }}
                 />
             </motion.div>
 
@@ -381,7 +372,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2 }}
-                className="absolute bottom-8 right-6 md:right-14 z-40 text-black/20 dark:text-white/20 text-[10px] uppercase tracking-widest font-black pointer-events-none"
+                className="absolute bottom-8 right-6 md:right-14 z-40 text-white/20 text-[10px] uppercase tracking-widest font-black pointer-events-none"
             >
                 01 / HERO
             </motion.div>
