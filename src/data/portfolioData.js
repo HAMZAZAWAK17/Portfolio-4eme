@@ -6,7 +6,7 @@ export const personalInfo = {
     email: "ezouekhamza2411@gmail.com",
     phone: "+212 640 347045",
     location: "Casablanca, Maroc",
-    image: "/src/assets/profile.jpg",
+    image: "/src/assets/Gemini_Generated_Image_2725dz2725dz2725.png",
     cvLink: "#",
 };
 

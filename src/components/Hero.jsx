@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaCode } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolioData';
-import profileImage from '../assets/profile.jpg';
+import heroImage from '../assets/Gemini_Generated_Image_2725dz2725dz2725.png';
 import { useLanguage } from '../LanguageContext';
 import { useState, useEffect } from 'react';
 import Iridescence from './Iridescence';
@@ -227,9 +227,9 @@ const Hero = () => {
                                 {/* Profile Image */}
                                 <div className="relative w-[280px] h-[350px] md:w-[320px] md:h-[400px] lg:w-[380px] lg:h-[480px] rounded-2xl overflow-hidden">
                                     <img
-                                        src={profileImage}
+                                        src={heroImage}
                                         alt={personalInfo.name}
-                                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                        className="w-full h-full object-cover transition-all duration-500"
                                     />
 
                                     {/* Gradient Overlay */}
