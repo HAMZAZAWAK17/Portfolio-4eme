@@ -5,13 +5,25 @@ import { personalInfo } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
-    const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { t } = useLanguage();
+
+    // Active section state for highlighting the current section in the vertical nav
+    const [activeSection, setActiveSection] = useState('home');
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
+
+            // Simple active section detection
+            const sections = document.querySelectorAll('section[id]');
+            let current = 'home';
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            setActiveSection(current);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -31,7 +43,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         const element = document.querySelector(href);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
-            setMobileMenuOpen(false);
         }
     };
 
@@ -57,7 +68,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                             EH.
                         </motion.div>
 
-                        {/* Right Side Actions (Floating Button Container) */}
+                        {/* Right Side Actions (Top Corner) */}
                         <div className="flex items-center gap-4 pointer-events-auto mix-blend-difference">
                             {/* Dark Mode Toggle */}
                             <motion.button
@@ -68,88 +79,32 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                             >
                                 {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
                             </motion.button>
-
-                            {/* Sidebar Menu Button */}
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => setMobileMenuOpen(true)}
-                                className="flex items-center justify-center w-12 h-12 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-colors duration-300"
-                            >
-                                <FaBars size={20} />
-                            </motion.button>
                         </div>
                     </div>
                 </div>
             </motion.nav>
 
-            {/* Sidebar Menu (Now used on all screen sizes) */}
-            <AnimatePresence>
-                {mobileMenuOpen && (
-                    <>
-                        {/* Overlay */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
-                        />
-
-                        {/* Menu Panel */}
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white dark:bg-[#0a0a0a] border-l border-black/10 dark:border-white/10 z-50 overflow-y-auto shadow-2xl"
+            {/* Vertical Right Navigation */}
+            <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-50 pointer-events-auto mix-blend-difference items-end">
+                {navLinks.map((link, index) => {
+                    const isActive = activeSection === link.href.substring(1);
+                    return (
+                        <motion.button
+                            key={index}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.1 * index }}
+                            whileHover={{ x: -5 }}
+                            onClick={() => scrollToSection(link.href)}
+                            className={`group flex items-center gap-3 text-white text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}
                         >
-                            {/* Close Button */}
-                            <div className="flex justify-end p-6">
-                                <motion.button
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="text-black dark:text-white"
-                                >
-                                    <FaTimes size={24} />
-                                </motion.button>
-                            </div>
-
-                            {/* Menu Links */}
-                            <div className="flex flex-col px-6 pb-6 space-y-6">
-                                {navLinks.map((link, index) => (
-                                    <motion.a
-                                        key={index}
-                                        initial={{ opacity: 0, x: 50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.1 * index }}
-                                        whileHover={{ x: 10 }}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            scrollToSection(link.href);
-                                        }}
-                                        href={link.href}
-                                        className="text-black dark:text-white hover:opacity-60 font-bold text-2xl cursor-pointer uppercase tracking-wider transition-all"
-                                    >
-                                        {link.name}
-                                    </motion.a>
-                                ))}
-
-
-                                {/* Email Button Mobile */}
-                                <motion.a
-                                    whileTap={{ scale: 0.95 }}
-                                    href={`mailto:${personalInfo.email}`}
-                                    className="flex items-center justify-center gap-2 px-6 py-4 bg-black dark:bg-white text-white dark:text-black font-semibold text-sm uppercase tracking-wider mt-6"
-                                >
-                                    <FaEnvelope />
-                                    Send Email
-                                </motion.a>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                            <span className="hidden md:block">{link.name}</span>
+                            {/* Small line/dot indicator */}
+                            <div className={`h-px transition-all duration-300 bg-white ${isActive ? 'w-8' : 'w-4 group-hover:w-6'}`} />
+                        </motion.button>
+                    );
+                })}
+            </div>
         </>
     );
 };
