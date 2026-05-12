@@ -39,25 +39,9 @@ const About = () => {
 
     return (
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
-            {/* 1. Who Am I - Terminal Typing Effect (Full Width) */}
-            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-12 text-center"
-                >
-                    <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
-                        {t.about.bioTitle}
-                    </h2>
-                    <div className="w-12 h-[2px] bg-black dark:bg-white mx-auto"></div>
-                </motion.div>
-
-                <TerminalTyping text={t.about.bio} speed={30} />
-            </div>
-
-            {/* 2-Column Layout for Timeline and Profile Card */}
-            <div className="pb-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+            
+            {/* 1. Profile Card & Terminal Biography (2-Column Layout) */}
+            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
                 
                 {/* Left Column: Animated Sticky Profile Card */}
                 <div className="w-full lg:w-1/3 flex-shrink-0 relative">
@@ -97,80 +81,95 @@ const About = () => {
                     </motion.div>
                 </div>
 
-                {/* Right Column: Timeline & Stats */}
+                {/* Right Column: Terminal Typing Effect */}
                 <div className="w-full lg:w-2/3 flex flex-col">
-                    {/* 2. Timeline Header */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="mb-16"
+                        className="mb-8"
                     >
-                        <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
-                            {t.about.title} <span className="opacity-30 italic">{t.about.titleHighlight}</span>
+                        <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
+                            {t.about.bioTitle}
                         </h2>
-                        <div className="w-20 h-2 bg-black dark:bg-white mb-8"></div>
-                        <p className="text-gray-500 dark:text-gray-400 text-xl font-medium leading-relaxed max-w-2xl">
-                            {t.about.subtitle}
-                        </p>
+                        <div className="w-12 h-[2px] bg-black dark:bg-white"></div>
                     </motion.div>
 
-                    {/* 3. Horizontal Interactive Timeline */}
-                    <div className="relative group/timeline max-w-4xl">
-                        {/* Navigation Buttons */}
-                        <div className="flex justify-between items-center md:absolute md:top-1/2 md:-translate-y-1/2 md:-left-8 md:-right-8 z-30 pointer-events-none mb-8 md:mb-0">
-                            <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
-                            <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
-                        </div>
+                    <TerminalTyping text={t.about.bio} speed={30} />
+                </div>
+            </div>
 
-                        <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentIndex}
-                                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-                                    transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                                    className="w-full"
-                                >
-                                    <TimelineCard item={combinedTimeline[currentIndex]} />
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
+            {/* 2. Horizontal Interactive Timeline (Full Width) */}
+            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
+                        {t.about.title} <span className="opacity-30 italic">{t.about.titleHighlight}</span>
+                    </h2>
+                    <div className="w-20 h-2 bg-black dark:bg-white mx-auto mb-8"></div>
+                    <p className="text-gray-500 dark:text-gray-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                        {t.about.subtitle}
+                    </p>
+                </motion.div>
 
-                        <div className="mt-12 flex justify-center items-center gap-3">
-                            {combinedTimeline.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setCurrentIndex(index)}
-                                    className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
-                                        ? 'w-12 bg-black dark:bg-white'
-                                        : 'w-4 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
-                                        }`}
-                                />
-                            ))}
-                        </div>
+                <div className="relative group/timeline">
+                    {/* Navigation Buttons */}
+                    <div className="flex justify-between items-center md:absolute md:top-1/2 md:-translate-y-1/2 md:-left-8 md:-right-8 z-30 pointer-events-none mb-8 md:mb-0">
+                        <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
+                        <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
                     </div>
 
-                    {/* 4. Logical Dynamic Stats */}
-                    <div className="mt-40">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
-                            <StatItem
-                                number={internalProjectsCount}
-                                label={t.about.stats.projects}
-                                icon={<FaRocket />}
+                    <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentIndex}
+                                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                                className="w-full max-w-4xl"
+                            >
+                                <TimelineCard item={combinedTimeline[currentIndex]} />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    <div className="mt-12 flex justify-center items-center gap-3">
+                        {combinedTimeline.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentIndex(index)}
+                                className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
+                                    ? 'w-12 bg-black dark:bg-white'
+                                    : 'w-4 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
+                                    }`}
                             />
-                            <StatItem
-                                number={internShipsCount}
-                                label={t.about.stats.internships}
-                                icon={<FaBriefcase />}
-                            />
-                            <StatItem
-                                number="5"
-                                label={t.about.stats.years}
-                                icon={<FaCalendar />}
-                            />
-                        </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 3. Logical Dynamic Stats (Full Width) */}
+                <div className="mt-40">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
+                        <StatItem
+                            number={internalProjectsCount}
+                            label={t.about.stats.projects}
+                            icon={<FaRocket />}
+                        />
+                        <StatItem
+                            number={internShipsCount}
+                            label={t.about.stats.internships}
+                            icon={<FaBriefcase />}
+                        />
+                        <StatItem
+                            number="5"
+                            label={t.about.stats.years}
+                            icon={<FaCalendar />}
+                        />
                     </div>
                 </div>
             </div>

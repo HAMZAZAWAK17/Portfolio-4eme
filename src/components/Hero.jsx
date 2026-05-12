@@ -75,8 +75,8 @@ const Marquee = ({ text, reverse = false }) => {
                 transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
             >
                 {[...items, ...items].map((item, i) => (
-                    <span key={i} className="text-white/10 dark:text-white/10 text-[11px] uppercase tracking-[0.4em] font-black">
-                        {item} <span className="text-white/20 mx-4">◆</span>
+                    <span key={i} className="text-white/80 dark:text-white/80 text-[11px] uppercase tracking-[0.4em] font-black">
+                        {item} <span className="text-white/30 mx-4">◆</span>
                     </span>
                 ))}
             </motion.div>
