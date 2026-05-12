@@ -134,10 +134,18 @@ const Hero = () => {
             {/* ── Grain ── */}
             <NoiseOverlay />
 
-            {/* ── Full-bleed Background Image with parallax scale ── */}
+            {/* ── Solid black background base ── */}
+            <div className="absolute inset-0 z-0 bg-black" />
+
+            {/* ── Right-side portrait image ── */}
             <motion.div
-                className="absolute inset-0 z-0"
-                style={{ scale: bgScale }}
+                className="absolute right-0 bottom-0 z-10"
+                style={{
+                    width: 'clamp(320px, 42vw, 620px)',
+                    height: '100%',
+                    x: mxSlow,
+                    y: mySlow,
+                }}
             >
                 <motion.img
                     src={heroImage}
@@ -147,28 +155,33 @@ const Hero = () => {
                     style={{
                         scale: imgScale,
                         opacity: imgOpacity,
-                        x: mxSlow,
-                        y: mySlow,
+                        objectPosition: 'center top',
+                    }}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+                {/* Gradient: fade image into black on the left side */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.6) 30%, transparent 70%)',
+                    }}
+                />
+                {/* Gradient: fade image into black on the bottom */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        background: 'linear-gradient(to top, #000 0%, transparent 40%)',
                     }}
                 />
             </motion.div>
 
-            {/* ── Gradient overlay (scroll-reactive opacity) ── */}
-            <motion.div
-                className="absolute inset-0 z-10"
-                style={{
-                    opacity: overlayOp,
-                    background: isDark
-                        ? 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.85) 100%)'
-                        : 'linear-gradient(135deg, rgba(5,5,5,0.93) 0%, rgba(10,10,10,0.45) 45%, rgba(5,5,5,0.88) 100%)',
-                }}
-            />
-
-            {/* ── Edge vignette ── */}
+            {/* ── Strong left-side black cover so text is always legible ── */}
             <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
-                    background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)',
+                    background: 'linear-gradient(to right, #000 45%, rgba(0,0,0,0.3) 70%, transparent 100%)',
                 }}
             />
 
