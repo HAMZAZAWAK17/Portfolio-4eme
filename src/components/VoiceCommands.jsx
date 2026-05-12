@@ -264,9 +264,9 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
                 onClick={toggleListening}
-                className={`fixed bottom-24 right-6 z-50 p-5 rounded-full shadow-2xl transition-all duration-300 border-2 ${isListening
-                    ? 'bg-red-500 border-red-200 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
-                    : 'bg-white dark:bg-black border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
+                className={`fixed bottom-32 right-8 z-50 p-6 rounded-full shadow-2xl transition-all duration-500 border-[3px] ${isListening
+                    ? 'bg-red-600 border-white text-white shadow-[0_0_30px_rgba(220,38,38,0.6)]'
+                    : 'bg-white dark:bg-zinc-900 border-black dark:border-white text-black dark:text-white hover:scale-110 shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,1)]'
                     }`}
                 whileHover={{ scale: 1.1, translateY: -5 }}
                 whileTap={{ scale: 0.9 }}
@@ -274,9 +274,9 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
             >
                 <div className="relative">
                     {isListening ? (
-                        <FaMicrophone className="text-2xl" />
+                        <FaMicrophone className="text-3xl" />
                     ) : (
-                        <FaMicrophoneSlash className="text-2xl opacity-80" />
+                        <FaMicrophone className="text-3xl opacity-40 hover:opacity-100 transition-opacity" />
                     )}
 
                     {/* Listening Pulse Rings */}
@@ -319,7 +319,7 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                         initial={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
-                        className="fixed bottom-40 right-6 z-50 max-w-sm"
+                        className="fixed bottom-48 right-8 z-50 max-w-sm"
                     >
                         <div className="bg-black dark:bg-white text-white dark:text-black px-6 py-4 rounded-xl shadow-2xl border-2 border-gray-800 dark:border-gray-200 flex items-center gap-4 min-w-[200px]">
                             <div className={`p-2 rounded-lg ${isListening ? 'bg-red-500/10' : 'bg-green-500/10'}`}>
@@ -356,7 +356,7 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 2 }}
-                    className="fixed bottom-24 right-24 z-40 bg-black dark:bg-white text-white dark:text-black px-5 py-3 rounded-lg text-xs font-black uppercase tracking-[0.2em] shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] border-2 border-black dark:border-white hidden md:block"
+                    className="fixed bottom-32 right-28 z-40 bg-black dark:bg-white text-white dark:text-black px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.25em] shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] border-2 border-black dark:border-white hidden md:block"
                 >
                     🎤 Try voice commands
                     <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-black dark:border-l-white"></div>
