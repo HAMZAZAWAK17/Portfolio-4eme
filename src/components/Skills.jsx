@@ -93,7 +93,7 @@ const Skills = () => {
                     {allSkills.map((skill, index) => {
                         const offset = index - activeIndex;
                         const absOffset = Math.abs(offset);
-                        const isVisible = absOffset <= 8; // Render up to 8 cards on each side to fill wide screens
+                        const isVisible = absOffset <= 6; // Render up to 6 cards on each side
 
                         if (!isVisible) return null;
 
@@ -101,18 +101,19 @@ const Skills = () => {
                             <motion.div
                                 key={index}
                                 animate={{
-                                    x: offset * 180, // Much wider spacing to fill screen
-                                    scale: 1 - absOffset * 0.12, // Shrink less aggressively
-                                    rotateY: offset * -20, // Shallower angle for better visibility
-                                    z: -absOffset * 80, // Push back less
-                                    opacity: absOffset >= 6 ? 0 : 1 - (absOffset * 0.15), // Fade out further down the line
+                                    x: offset === 0 ? 0 : (offset < 0 ? -100 + offset * 70 : 100 + offset * 70), // Push side stacks away from center
+                                    scale: offset === 0 ? 1 : 0.75 - (absOffset * 0.05), // Center is full size, others are smaller
+                                    rotateY: offset === 0 ? 0 : (offset < 0 ? 45 : -45), // Uniform angle for side cards (prevents aggressive squishing)
+                                    z: offset === 0 ? 0 : -100 - (absOffset * 20), // Push side cards slightly back
+                                    opacity: offset === 0 ? 1 : 0.4 - (absOffset * 0.05), // Dim inactive cards
+                                    filter: offset === 0 ? "blur(0px) brightness(1)" : "blur(3px) brightness(0.7)", // Blur inactive cards
                                     zIndex: 40 - absOffset,
                                 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className={`absolute w-64 h-80 md:w-80 md:h-[26rem] flex flex-col items-center justify-center rounded-[2.5rem] border transition-colors ${
+                                className={`absolute w-60 h-80 md:w-72 md:h-[26rem] flex flex-col items-center justify-center rounded-[2.5rem] border transition-colors ${
                                     offset === 0 
-                                        ? 'bg-gray-50 dark:bg-zinc-900 border-gray-200 dark:border-white/10 shadow-2xl' 
-                                        : 'bg-white dark:bg-black border-gray-100 dark:border-white/5 shadow-md'
+                                        ? 'bg-gray-50 dark:bg-zinc-900 border-gray-200 dark:border-white/20 shadow-[0_0_50px_rgba(255,255,255,0.1)]' 
+                                        : 'bg-white/50 dark:bg-black/50 border-gray-100 dark:border-white/5 shadow-md'
                                 }`}
                                 style={{
                                     transformStyle: "preserve-3d",
