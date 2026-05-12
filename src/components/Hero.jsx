@@ -167,14 +167,15 @@ const Hero = () => {
                             background: 'linear-gradient(to top, #000 0%, #000 10%, transparent 50%)',
                         }}
                     />
-                    {/* Radial vignette for cinematic blackness around edges, leaving center clear */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                            background: 'radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.8) 100%)',
-                        }}
-                    />
                 </motion.div>
+                {/* Radial vignette for cinematic blackness around edges, leaving center clear. 
+                    This needs to cover the whole section, not just the image container. */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        background: 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)',
+                    }}
+                />
             </div>
 
             {/* ── Horizontal scan-line accent ── */}
