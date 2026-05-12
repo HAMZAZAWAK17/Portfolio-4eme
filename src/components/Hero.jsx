@@ -39,7 +39,8 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
                         delay: delay + i * 0.04,
                         ease: [0.22, 1, 0.36, 1],
                     }}
-                    style={{ display: 'inline-block', whiteSpace: ch === ' ' ? 'pre' : 'normal' }}
+                    className={`inline-block ${ch.trim() ? 'bg-black/90 dark:bg-[#e8e8e8] text-white dark:text-black px-1 md:px-[6px] mx-[2px]' : 'w-4 md:w-8'}`}
+                    style={{ whiteSpace: ch === ' ' ? 'pre' : 'normal' }}
                 >
                     {ch}
                 </motion.span>
@@ -102,6 +103,7 @@ const Hero = () => {
     const imgScale    = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
     const imgOpacity  = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
     const textY       = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
+    const nameScale   = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
     const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const bgScale     = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
     const overlayOp   = useTransform(scrollYProgress, [0, 0.6], [0.55, 0.9]);
@@ -240,12 +242,12 @@ const Hero = () => {
 
                 {/* ── GIANT Cinematic Title ── */}
                 <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0">
-                    {/* Centered Name */}
-                    <motion.div style={{ x: mx, y: my }} className="pointer-events-none relative z-20 flex flex-col items-center justify-center text-center w-full">
+                    {/* Centered Name with Scroll Animation */}
+                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="pointer-events-none relative z-20 flex flex-col items-center justify-center text-center w-full gap-2">
                         <SplitText
                             text="EZ-ZOUEK"
                             delay={0.5}
-                            className="block text-black dark:text-white font-black uppercase leading-none tracking-tighter w-full"
+                            className="block font-black uppercase leading-none tracking-tighter w-full"
                             style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
                         />
                         <SplitText
@@ -254,8 +256,6 @@ const Hero = () => {
                             className="block font-black uppercase leading-none tracking-tighter w-full"
                             style={{
                                 fontSize: 'clamp(3.5rem, 11vw, 10rem)',
-                                color: 'transparent',
-                                WebkitTextStroke: '1px currentColor',
                             }}
                         />
                     </motion.div>
