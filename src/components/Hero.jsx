@@ -237,13 +237,13 @@ const Hero = () => {
                     {/* Mouse-parallax container */}
                     <motion.div style={{ x: mx, y: my }} className="pointer-events-none relative z-20">
                         <SplitText
-                            text={t.hero.title1}
+                            text="EZ-ZOUEK"
                             delay={0.5}
                             className="block text-white font-black uppercase leading-none tracking-tighter"
                             style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
                         />
                         <SplitText
-                            text={t.hero.title2}
+                            text="HAMZA"
                             delay={0.7}
                             className="block font-black uppercase leading-none tracking-tighter"
                             style={{
@@ -254,28 +254,17 @@ const Hero = () => {
                         />
                     </motion.div>
 
-                    {/* Subtitle line with divider */}
+                    {/* Left-aligned description block */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.3, duration: 0.8 }}
-                        className="flex items-center gap-4 mt-4"
+                        className="flex flex-col gap-4 mt-6 max-w-sm"
                     >
                         <div className="h-px flex-grow-0 w-12 bg-white/30" />
-                        <span className="text-white/50 text-sm uppercase tracking-widest font-medium">
-                            {t.hero.subtitle}
-                        </span>
-                    </motion.div>
-
-                    {/* Location */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.5, duration: 0.7 }}
-                        className="flex items-center gap-2 mt-2 text-white/40"
-                    >
-                        <FaMapMarkerAlt className="text-xs" />
-                        <span className="text-xs uppercase tracking-widest">{t.hero.location}</span>
+                        <p className="text-white/50 text-xs md:text-sm uppercase tracking-widest font-medium leading-relaxed">
+                            Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
+                        </p>
                     </motion.div>
                 </div>
 
