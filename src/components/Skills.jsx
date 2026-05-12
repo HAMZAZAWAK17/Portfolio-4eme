@@ -1,38 +1,34 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import {
-    FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaReact, FaPhp,
-    FaLaravel, FaNodeJs, FaJava, FaGitAlt, FaFigma
-} from 'react-icons/fa';
-import { SiTailwindcss, SiMysql, SiMongodb, SiExpress, SiFlutter, SiExpo, SiSpringboot, SiPostman, SiGithub, SiDotnet } from 'react-icons/si';
-import { TbBrandCSharp } from 'react-icons/tb';
-import { VSCodeIcon } from './CustomIcons';
 import { useLanguage } from '../LanguageContext';
 
+// Import all custom 3D / tech images
+import biIcon from '../assets/bi.png';
+import csharpIcon from '../assets/c#.png';
+import gitIcon from '../assets/git.png';
+import javaIcon from '../assets/java3d.png';
+import nodeIcon from '../assets/node.png';
+import reactIcon from '../assets/reactjs3d.png';
+import reactNativeIcon from '../assets/reactnatif3d.png';
+import vsIcon from '../assets/vs.png';
+import laravelIcon from '../assets/laravel3d.png';
+import flutterIcon from '../assets/flutter3d.png';
+import expressIcon from '../assets/express3d.png';
+import cursorIcon from '../assets/cursor3d.png';
+
 const allSkills = [
-    { name: "ReactJS", icon: FaReact, color: "#61DAFB" },
-    { name: "NodeJS", icon: FaNodeJs, color: "#339933" },
-    { name: "Flutter", icon: SiFlutter, color: "#02569B" },
-    { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
-    { name: "JavaScript", icon: FaJs, color: "#F7DF1E" },
-    { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-    { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
-    { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
-    { name: "PHP", icon: FaPhp, color: "#777BB4" },
-    { name: "Java", icon: FaJava, color: "#007396" },
-    { name: "Spring", icon: SiSpringboot, color: "#6DB33F" },
-    { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-    { name: "Express", icon: SiExpress, color: "#000000" },
-    { name: "C#", icon: TbBrandCSharp, color: "#239120" },
-    { name: ".NET", icon: SiDotnet, color: "#512BD4" },
-    { name: "Bootstrap", icon: FaBootstrap, color: "#7952B3" },
-    { name: "Expo", icon: SiExpo, color: "#000020" },
-    { name: "Git", icon: FaGitAlt, color: "#F05032" },
-    { name: "GitHub", icon: SiGithub, color: "#181717" },
-    { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-    { name: "Figma", icon: FaFigma, color: "#F24E1E" },
-    { name: "VS Code", icon: VSCodeIcon, color: "#007ACC" },
+    { name: "ReactJS", image: reactIcon, color: "#61DAFB" },
+    { name: "React Native", image: reactNativeIcon, color: "#61DAFB" },
+    { name: "NodeJS", image: nodeIcon, color: "#339933" },
+    { name: "Express", image: expressIcon, color: "#808080" },
+    { name: "Laravel", image: laravelIcon, color: "#FF2D20" },
+    { name: "Flutter", image: flutterIcon, color: "#02569B" },
+    { name: "Java", image: javaIcon, color: "#f89820" },
+    { name: "C#", image: csharpIcon, color: "#9b4f96" },
+    { name: "Git", image: gitIcon, color: "#F05032" },
+    { name: "Power BI", image: biIcon, color: "#F2C811" },
+    { name: "VS Code", image: vsIcon, color: "#007ACC" },
+    { name: "Cursor", image: cursorIcon, color: "#ffffff" },
 ];
 
 const Skills = () => {
@@ -130,13 +126,17 @@ const Skills = () => {
                                     />
                                 )}
                                 
-                                <skill.icon 
-                                    className="text-7xl md:text-8xl mb-8 drop-shadow-lg" 
-                                    style={{ color: skill.color }} 
-                                />
-                                <span className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-black dark:text-white">
-                                    {skill.name}
-                                </span>
+                                {/* 3D Hover Image */}
+                                <motion.div style={{ transform: "translateZ(40px)" }} className="flex flex-col items-center gap-8 pointer-events-none">
+                                    <img 
+                                        src={skill.image} 
+                                        alt={skill.name}
+                                        className="w-28 h-28 md:w-36 md:h-36 object-contain drop-shadow-2xl" 
+                                    />
+                                    <span className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-black dark:text-white">
+                                        {skill.name}
+                                    </span>
+                                </motion.div>
                             </motion.div>
                         );
                     })}
