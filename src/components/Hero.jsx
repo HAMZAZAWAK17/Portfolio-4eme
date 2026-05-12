@@ -160,9 +160,9 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     />
-                    {/* Gradient: fade image at bottom so it blends into the black background */}
+                    {/* Gradient: fade image at bottom and slightly darken the whole image */}
                     <div
-                        className="absolute inset-0 pointer-events-none"
+                        className="absolute inset-0 pointer-events-none bg-black/40"
                         style={{
                             background: 'linear-gradient(to top, #000 0%, transparent 40%)',
                         }}
