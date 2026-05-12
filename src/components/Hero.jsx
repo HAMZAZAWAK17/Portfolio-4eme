@@ -129,65 +129,62 @@ const Hero = () => {
         <section
             id="home"
             ref={sectionRef}
-            className="relative min-h-screen overflow-hidden bg-black"
+            className="relative min-h-screen overflow-hidden bg-white dark:bg-black transition-colors duration-300"
         >
             {/* ── Grain ── */}
             <NoiseOverlay />
 
-            {/* ── Solid black background base ── */}
-            <div className="absolute inset-0 z-0 bg-black" />
+            {/* ── Solid background base ── */}
+            <div className="absolute inset-0 z-0 bg-white dark:bg-black transition-colors duration-300" />
 
             {/* ── Right-side portrait image ── */}
-            <motion.div
-                className="absolute right-0 bottom-0 z-10"
-                style={{
-                    width: 'clamp(320px, 42vw, 620px)',
-                    height: '100%',
-                    x: mxSlow,
-                    y: mySlow,
-                }}
-            >
-                <motion.img
-                    src={heroImage}
-                    alt=""
-                    aria-hidden="true"
-                    className="w-full h-full object-cover object-top"
+            {/* ── Center portrait image ── */}
+            <div className="absolute inset-0 z-10 flex justify-center items-end pointer-events-none">
+                <motion.div
+                    className="relative w-full h-full max-w-[600px] pointer-events-auto"
                     style={{
-                        scale: imgScale,
-                        opacity: imgOpacity,
-                        objectPosition: 'center top',
+                        x: mxSlow,
+                        y: mySlow,
                     }}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                />
-                {/* Gradient: fade image into black on the left side */}
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.6) 30%, transparent 70%)',
-                    }}
-                />
-                {/* Gradient: fade image into black on the bottom */}
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        background: 'linear-gradient(to top, #000 0%, transparent 40%)',
-                    }}
-                />
-            </motion.div>
+                >
+                    <motion.img
+                        src={heroImage}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-full h-full object-cover object-top"
+                        style={{
+                            scale: imgScale,
+                            opacity: imgOpacity,
+                        }}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                    {/* Gradient: fade image at bottom */}
+                    <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                            background: isDark 
+                                ? 'linear-gradient(to top, #000 0%, transparent 30%)'
+                                : 'linear-gradient(to top, #fff 0%, transparent 30%)',
+                        }}
+                    />
+                </motion.div>
+            </div>
 
-            {/* ── Strong left-side black cover so text is always legible ── */}
+            {/* ── Strong black/white cover so text is always legible if needed ── */}
             <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
-                    background: 'linear-gradient(to right, #000 45%, rgba(0,0,0,0.3) 70%, transparent 100%)',
+                    background: isDark
+                        ? 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)'
+                        : 'radial-gradient(circle at center, transparent 30%, rgba(255,255,255,0.8) 100%)',
                 }}
             />
 
             {/* ── Horizontal scan-line accent ── */}
             <motion.div
-                className="absolute left-0 right-0 h-px bg-white/10 z-20"
+                className="absolute left-0 right-0 h-px bg-black/10 dark:bg-white/10 z-20"
                 style={{ top: '35%' }}
                 animate={{ scaleX: [0.6, 1, 0.6], opacity: [0.04, 0.12, 0.04] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
@@ -195,7 +192,7 @@ const Hero = () => {
 
             {/* ── Top marquee strip ── */}
             <motion.div
-                className="absolute top-0 left-0 right-0 py-3 border-b border-white/5 z-30"
+                className="absolute top-0 left-0 right-0 py-3 border-b border-black/5 dark:border-white/5 z-30"
                 style={{ y: marqueeY }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -217,7 +214,7 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-white/60 text-xs uppercase tracking-[0.35em] font-semibold"
+                        className="text-black/60 dark:text-white/60 text-xs uppercase tracking-[0.35em] font-semibold"
                     >
                         {t.hero.greeting}
                     </motion.p>
@@ -226,14 +223,14 @@ const Hero = () => {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="flex items-center gap-2 border border-white/20 px-4 py-2 backdrop-blur-sm"
+                        className="flex items-center gap-2 border border-black/20 dark:border-white/20 px-4 py-2 backdrop-blur-sm bg-white/30 dark:bg-black/30 rounded-full"
                     >
                         <motion.span
                             animate={{ opacity: [1, 0.2, 1] }}
                             transition={{ duration: 1.6, repeat: Infinity }}
-                            className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"
+                            className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"
                         />
-                        <span className="text-white/80 text-[10px] uppercase tracking-[0.3em] font-bold">
+                        <span className="text-black/80 dark:text-white/80 text-[10px] uppercase tracking-[0.3em] font-bold">
                             {t.hero.available}
                         </span>
                     </motion.div>
@@ -242,11 +239,11 @@ const Hero = () => {
                 {/* ── GIANT Cinematic Title ── */}
                 <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0">
                     {/* Mouse-parallax container */}
-                    <motion.div style={{ x: mx, y: my }}>
+                    <motion.div style={{ x: mx, y: my }} className="pointer-events-none relative z-20">
                         <SplitText
                             text={t.hero.title1}
                             delay={0.5}
-                            className="block text-white font-black uppercase leading-none tracking-tighter"
+                            className="block text-black dark:text-white font-black uppercase leading-none tracking-tighter"
                             style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
                         />
                         <SplitText
@@ -256,7 +253,7 @@ const Hero = () => {
                             style={{
                                 fontSize: 'clamp(3.5rem, 11vw, 10rem)',
                                 color: 'transparent',
-                                WebkitTextStroke: '1px rgba(255,255,255,0.5)',
+                                WebkitTextStroke: isDark ? '1px rgba(255,255,255,0.5)' : '1px rgba(0,0,0,0.5)',
                             }}
                         />
                     </motion.div>
@@ -268,8 +265,8 @@ const Hero = () => {
                         transition={{ delay: 1.3, duration: 0.8 }}
                         className="flex items-center gap-4 mt-4"
                     >
-                        <div className="h-px flex-grow-0 w-12 bg-white/30" />
-                        <span className="text-white/50 text-sm uppercase tracking-widest font-medium">
+                        <div className="h-px flex-grow-0 w-12 bg-black/30 dark:bg-white/30" />
+                        <span className="text-black/50 dark:text-white/50 text-sm uppercase tracking-widest font-medium">
                             {t.hero.subtitle}
                         </span>
                     </motion.div>
@@ -279,7 +276,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.5, duration: 0.7 }}
-                        className="flex items-center gap-2 mt-2 text-white/40"
+                        className="flex items-center gap-2 mt-2 text-black/40 dark:text-white/40"
                     >
                         <FaMapMarkerAlt className="text-xs" />
                         <span className="text-xs uppercase tracking-widest">{t.hero.location}</span>
@@ -299,11 +296,11 @@ const Hero = () => {
                         {stats.map((s, i) => (
                             <motion.div
                                 key={i}
-                                whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.5)' }}
-                                className="border border-white/15 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
+                                whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}
+                                className="border border-black/15 dark:border-white/15 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
                             >
-                                <div className="text-white font-black text-2xl leading-none">{s.value}</div>
-                                <div className="text-white/40 text-[9px] uppercase tracking-widest mt-1 font-semibold">{s.label}</div>
+                                <div className="text-black dark:text-white font-black text-2xl leading-none">{s.value}</div>
+                                <div className="text-black/40 dark:text-white/40 text-[9px] uppercase tracking-widest mt-1 font-semibold">{s.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -316,12 +313,12 @@ const Hero = () => {
                         className="flex flex-col gap-5"
                     >
                         {/* CTA buttons */}
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-3 pointer-events-auto">
                             <motion.button
-                                whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.02 }}
+                                whileHover={{ backgroundColor: isDark ? '#ffffff' : '#000000', color: isDark ? '#000000' : '#ffffff', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-white text-white font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-black dark:border-white text-black dark:text-white font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.viewProjects}
                                 <motion.span
@@ -333,10 +330,10 @@ const Hero = () => {
                             </motion.button>
 
                             <motion.button
-                                whileHover={{ backgroundColor: 'rgba(255,255,255,0.08)', scale: 1.02 }}
+                                whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToContact}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white/70 font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-black/30 dark:border-white/30 text-black/70 dark:text-white/70 font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.contactMe}
                                 <motion.span
@@ -361,9 +358,9 @@ const Hero = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={s.label}
-                                    whileHover={{ y: -4, color: '#ffffff' }}
+                                    whileHover={{ y: -4, color: isDark ? '#ffffff' : '#000000' }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-white/40 transition-colors text-lg"
+                                    className="text-black/40 dark:text-white/40 transition-colors text-lg"
                                 >
                                     <s.icon />
                                 </motion.a>
@@ -378,14 +375,14 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2.5 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 hidden md:flex"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 hidden md:flex pointer-events-none"
             >
-                <span className="text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
+                <span className="text-black/30 dark:text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
                 <motion.div
                     animate={{ scaleY: [0, 1, 0], y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     className="w-px h-14 origin-top"
-                    style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }}
+                    style={{ background: isDark ? 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' : 'linear-gradient(to bottom, rgba(0,0,0,0.5), transparent)' }}
                 />
             </motion.div>
 
@@ -394,7 +391,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2 }}
-                className="absolute bottom-8 right-6 md:right-14 z-40 text-white/20 text-[10px] uppercase tracking-widest font-black"
+                className="absolute bottom-8 right-6 md:right-14 z-40 text-black/20 dark:text-white/20 text-[10px] uppercase tracking-widest font-black pointer-events-none"
             >
                 01 / HERO
             </motion.div>
