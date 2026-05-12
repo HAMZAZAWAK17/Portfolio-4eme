@@ -39,7 +39,25 @@ const About = () => {
 
     return (
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
-            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+            {/* 1. Who Am I - Terminal Typing Effect (Full Width) */}
+            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-12 text-center"
+                >
+                    <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
+                        {t.about.bioTitle}
+                    </h2>
+                    <div className="w-12 h-[2px] bg-black dark:bg-white mx-auto"></div>
+                </motion.div>
+
+                <TerminalTyping text={t.about.bio} speed={30} />
+            </div>
+
+            {/* 2-Column Layout for Timeline and Profile Card */}
+            <div className="pb-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
                 
                 {/* Left Column: Animated Sticky Profile Card */}
                 <div className="w-full lg:w-1/3 flex-shrink-0 relative">
@@ -79,25 +97,8 @@ const About = () => {
                     </motion.div>
                 </div>
 
-                {/* Right Column: Terminal & Timeline */}
+                {/* Right Column: Timeline & Stats */}
                 <div className="w-full lg:w-2/3 flex flex-col">
-                    {/* 1. Who Am I - Terminal Typing Effect */}
-                    <div className="mb-24">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="mb-8"
-                        >
-                            <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
-                                {t.about.bioTitle}
-                            </h2>
-                            <div className="w-12 h-[2px] bg-black dark:bg-white"></div>
-                        </motion.div>
-
-                        <TerminalTyping text={t.about.bio} speed={30} />
-                    </div>
-
                     {/* 2. Timeline Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -140,40 +141,40 @@ const About = () => {
                         <div className="mt-12 flex justify-center items-center gap-3">
                             {combinedTimeline.map((_, index) => (
                                 <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
-                                    ? 'w-16 bg-black dark:bg-white'
-                                    : 'w-4 bg-gray-200 dark:bg-gray-800'
-                                    }`}
-                            />
-                        ))}
+                                    key={index}
+                                    onClick={() => setCurrentIndex(index)}
+                                    className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
+                                        ? 'w-12 bg-black dark:bg-white'
+                                        : 'w-4 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
+                                        }`}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
 
-                {/* 4. Logical Dynamic Stats */}
-                <div className="mt-40">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
-                        <StatItem
-                            number={internalProjectsCount}
-                            label={t.about.stats.projects}
-                            icon={<FaRocket />}
-                        />
-                        <StatItem
-                            number={internShipsCount}
-                            label={t.about.stats.internships}
-                            icon={<FaBriefcase />}
-                        />
-                        <StatItem
-                            number="5"
-                            label={t.about.stats.years}
-                            icon={<FaCalendar />}
-                        />
+                    {/* 4. Logical Dynamic Stats */}
+                    <div className="mt-40">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
+                            <StatItem
+                                number={internalProjectsCount}
+                                label={t.about.stats.projects}
+                                icon={<FaRocket />}
+                            />
+                            <StatItem
+                                number={internShipsCount}
+                                label={t.about.stats.internships}
+                                icon={<FaBriefcase />}
+                            />
+                            <StatItem
+                                number="5"
+                                label={t.about.stats.years}
+                                icon={<FaCalendar />}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     );
 };
 
