@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGraduationCap, FaBriefcase, FaCalendar, FaMapMarkerAlt, FaChevronRight, FaChevronLeft, FaCode, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useLanguage } from '../LanguageContext';
-import { projects } from '../data/portfolioData';
+import { projects, personalInfo } from '../data/portfolioData';
 import TerminalTyping from './TerminalTyping';
+import profileImg from '../assets/profile.jpg';
 
 const About = () => {
     const { t } = useLanguage();
@@ -38,66 +39,107 @@ const About = () => {
 
     return (
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
-            {/* 1. Who Am I - Terminal Typing Effect */}
-            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-12 text-center"
-                >
-                    <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
-                        {t.about.bioTitle}
-                    </h2>
-                    <div className="w-12 h-[2px] bg-black dark:bg-white mx-auto"></div>
-                </motion.div>
-
-                <TerminalTyping text={t.about.bio} speed={30} />
-            </div>
-
-            <div className="section-padding max-w-7xl mx-auto">
-                {/* 2. Timeline Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
-                        {t.about.title} <span className="gradient-text">{t.about.titleHighlight}</span>
-                    </h2>
-                    <div className="w-20 h-2 bg-black dark:bg-white mx-auto mb-8"></div>
-                    <p className="text-gray-500 dark:text-gray-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                        {t.about.subtitle}
-                    </p>
-                </motion.div>
-
-                {/* 3. Horizontal Interactive Timeline */}
-                <div className="relative group/timeline">
-                    {/* Navigation Buttons - Repositioned for mobile */}
-                    <div className="flex justify-between items-center md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:right-0 z-30 pointer-events-none md:-mx-8 mb-8 md:mb-0">
-                        <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
-                        <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
-                    </div>
-
-                    <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentIndex}
-                                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-                                transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                                className="w-full max-w-4xl"
+            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+                
+                {/* Left Column: Animated Sticky Profile Card */}
+                <div className="w-full lg:w-1/3 flex-shrink-0 relative">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="sticky top-32"
+                    >
+                        <motion.div 
+                            whileHover={{ scale: 1.05, rotateY: 15, rotateX: 5, z: 50 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="rounded-[2.5rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative group cursor-pointer"
+                            style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+                        >
+                            <img 
+                                src={profileImg} 
+                                alt={personalInfo.name} 
+                                className="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                            />
+                            {/* Inner Shadow / Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                            
+                            <motion.div 
+                                style={{ transform: "translateZ(40px)" }}
+                                className="absolute bottom-8 left-8 right-8 flex flex-col gap-2"
                             >
-                                <TimelineCard item={combinedTimeline[currentIndex]} />
+                                <div className="w-12 h-1 bg-white mb-2 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                                <h3 className="text-white text-3xl font-black uppercase tracking-widest leading-none">
+                                    {personalInfo.name.split(' ')[0]} <br/> {personalInfo.name.split(' ')[1]}
+                                </h3>
+                                <p className="text-white/60 text-xs font-bold uppercase tracking-[0.3em] mt-2">
+                                    Software Engineer
+                                </p>
                             </motion.div>
-                        </AnimatePresence>
+                        </motion.div>
+                    </motion.div>
+                </div>
+
+                {/* Right Column: Terminal & Timeline */}
+                <div className="w-full lg:w-2/3 flex flex-col">
+                    {/* 1. Who Am I - Terminal Typing Effect */}
+                    <div className="mb-24">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="mb-8"
+                        >
+                            <h2 className="text-xs uppercase tracking-[0.5em] text-gray-400 mb-4 font-black">
+                                {t.about.bioTitle}
+                            </h2>
+                            <div className="w-12 h-[2px] bg-black dark:bg-white"></div>
+                        </motion.div>
+
+                        <TerminalTyping text={t.about.bio} speed={30} />
                     </div>
 
-                    <div className="mt-12 flex justify-center items-center gap-3">
-                        {combinedTimeline.map((_, index) => (
-                            <button
+                    {/* 2. Timeline Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mb-16"
+                    >
+                        <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
+                            {t.about.title} <span className="opacity-30 italic">{t.about.titleHighlight}</span>
+                        </h2>
+                        <div className="w-20 h-2 bg-black dark:bg-white mb-8"></div>
+                        <p className="text-gray-500 dark:text-gray-400 text-xl font-medium leading-relaxed max-w-2xl">
+                            {t.about.subtitle}
+                        </p>
+                    </motion.div>
+
+                    {/* 3. Horizontal Interactive Timeline */}
+                    <div className="relative group/timeline max-w-4xl">
+                        {/* Navigation Buttons */}
+                        <div className="flex justify-between items-center md:absolute md:top-1/2 md:-translate-y-1/2 md:-left-8 md:-right-8 z-30 pointer-events-none mb-8 md:mb-0">
+                            <NavButton onClick={prevStep} disabled={currentIndex === 0} icon={<FaChevronLeft />} />
+                            <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
+                        </div>
+
+                        <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentIndex}
+                                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                                    transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                                    className="w-full"
+                                >
+                                    <TimelineCard item={combinedTimeline[currentIndex]} />
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        <div className="mt-12 flex justify-center items-center gap-3">
+                            {combinedTimeline.map((_, index) => (
+                                <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
                                 className={`h-1 transition-all duration-500 rounded-full ${index === currentIndex
@@ -130,7 +172,8 @@ const About = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
     );
 };
 
