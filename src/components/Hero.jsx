@@ -26,13 +26,23 @@ const useMouse = () => {
    Character-split animated title
 ───────────────────────────────────────── */
 const SplitText = ({ text, className, style = {}, delay = 0 }) => {
+    const [hasAnimated, setHasAnimated] = useState(() => {
+        return sessionStorage.getItem(`has_animated_${text}`) === 'true';
+    });
+
+    useEffect(() => {
+        if (!hasAnimated) {
+            sessionStorage.setItem(`has_animated_${text}`, 'true');
+        }
+    }, [text, hasAnimated]);
+
     const chars = Array.from(text);
     return (
         <span className={className} aria-label={text} style={{ display: 'inline-block', overflow: 'hidden', ...style }}>
             {chars.map((ch, i) => (
                 <motion.span
                     key={i}
-                    initial={{ y: '110%', opacity: 0 }}
+                    initial={hasAnimated ? { y: '0%', opacity: 1 } : { y: '110%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
                     transition={{
                         duration: 0.7,
@@ -48,6 +58,31 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
         </span>
     );
 };
+
+/* ─────────────────────────────────────────
+   Floating tech elements around the image
+───────────────────────────────────────── */
+const FloatingElement = ({ children, x, y, delay = 0, duration = 4, size = 'text-xs' }) => (
+    <motion.div
+        className={`absolute z-30 pointer-events-none font-mono ${size} text-white/40 uppercase tracking-widest bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10`}
+        style={{ left: x, top: y }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ 
+            opacity: 1, 
+            scale: 1,
+            y: [0, -15, 0],
+            rotate: [0, 5, -5, 0]
+        }}
+        transition={{ 
+            opacity: { delay, duration: 1 },
+            scale: { delay, duration: 1 },
+            y: { duration, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: duration * 1.5, repeat: Infinity, ease: "easeInOut" }
+        }}
+    >
+        {children}
+    </motion.div>
+);
 
 /* ─────────────────────────────────────────
    Noise canvas overlay
@@ -162,6 +197,15 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     />
+                    
+                    {/* Floating Tech Elements Around Image */}
+                    <FloatingElement x="10%" y="40%" delay={1.5}>{"<code />"}</FloatingElement>
+                    <FloatingElement x="85%" y="35%" delay={1.8}>{"terminal"}</FloatingElement>
+                    <FloatingElement x="5%" y="65%" delay={2.1}>{"diapo"}</FloatingElement>
+                    <FloatingElement x="90%" y="70%" delay={2.4}>{"design"}</FloatingElement>
+                    <FloatingElement x="15%" y="20%" delay={2.7} size="text-[10px]">{"{ } build"}</FloatingElement>
+                    <FloatingElement x="80%" y="15%" delay={3.0} size="text-[10px]">{"[ ] deploy"}</FloatingElement>
+
                     {/* Strong fade at the bottom to blend with background */}
                     <div
                         className="absolute inset-0 pointer-events-none"

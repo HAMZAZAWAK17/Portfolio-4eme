@@ -264,13 +264,13 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
                 onClick={toggleListening}
-                className={`fixed bottom-32 right-8 z-50 p-6 rounded-full shadow-2xl transition-all duration-500 border-[3px] ${isListening
-                    ? 'bg-red-600 border-white text-white shadow-[0_0_30px_rgba(220,38,38,0.6)]'
-                    : 'bg-white dark:bg-zinc-900 border-black dark:border-white text-black dark:text-white hover:scale-110 shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,1)]'
+                className={`fixed bottom-32 right-8 z-50 p-4 rounded-full shadow-2xl transition-all duration-500 border-2 ${isListening
+                    ? 'bg-red-600 border-white text-white shadow-[0_0_20px_rgba(220,38,38,0.6)]'
+                    : 'bg-white dark:bg-zinc-900 border-black dark:border-white text-black dark:text-white hover:scale-110 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
                     }`}
                 whileHover={{ scale: 1.1, translateY: -5 }}
                 whileTap={{ scale: 0.9 }}
-                title="Voice Commands (Click to activate)"
+                title="Voice Commands"
             >
                 <div className="relative">
                     {isListening ? (
@@ -350,18 +350,7 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                 )}
             </AnimatePresence>
 
-            {/* Help Tooltip (Neo-Brutalism Style) */}
-            {!isListening && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 2 }}
-                    className="fixed bottom-32 right-28 z-40 bg-black dark:bg-white text-white dark:text-black px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.25em] shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] border-2 border-black dark:border-white hidden md:block"
-                >
-                    🎤 Try voice commands
-                    <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-black dark:border-l-white"></div>
-                </motion.div>
-            )}
+
         </>
     );
 };
