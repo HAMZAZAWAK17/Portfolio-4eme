@@ -29,101 +29,48 @@ const ProjectFolder = ({ project, index }) => {
     const { t } = useLanguage();
     const IconComponent = iconMap[project.icon] || FaTasks;
 
-    // Animation Variants
-    const folderVariants = {
-        closed: { rotateX: 0, y: 0 },
-        hover: { rotateX: -25, y: 10 }
-    };
-
-    const sheetVariants = (i) => ({
-        closed: { y: 20, opacity: 0, rotate: 0 },
-        hover: { 
-            y: -40 - (i * 15), 
-            opacity: 1, 
-            rotate: (i - 1) * 5,
-            transition: { delay: i * 0.05, type: "spring", stiffness: 200, damping: 20 }
-        }
-    });
-
-    const displayImages = project.gallery ? [project.image, ...project.gallery.slice(0, 2)] : [project.image];
-
     return (
         <>
             <motion.div
                 layout
-                initial="closed"
-                whileHover="hover"
-                animate="closed"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => setIsOpen(true)}
-                className="group relative cursor-pointer pt-8"
+                className="group relative cursor-pointer pt-6"
             >
-                {/* Folder Back with Tab */}
-                <div className="relative aspect-[4/3] bg-zinc-200 dark:bg-zinc-800 rounded-2xl rounded-tl-none border border-black/5 dark:border-white/5 shadow-xl">
-                    {/* Refined Tab */}
-                    <div className="absolute -top-5 left-0 h-5 w-32 bg-zinc-200 dark:bg-zinc-800 rounded-t-xl border-t border-l border-r border-black/5 dark:border-white/5">
-                        <div className="absolute -right-5 bottom-0 w-5 h-5 bg-transparent rounded-bl-full shadow-[-5px_5px_0_5px_#e4e4e7] dark:shadow-[-5px_5px_0_5px_#27272a] pointer-events-none" />
+                {/* Folder Back with Tab (Reference Style) */}
+                <div className="relative aspect-[4/3] bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-2xl rounded-tl-none border border-white/5 shadow-2xl">
+                    {/* Tab with rounded corner transition */}
+                    <div className="absolute -top-5 left-0 h-5 w-28 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5">
+                        <div className="absolute -right-4 bottom-0 w-4 h-4 bg-[#2a2a2a] dark:bg-[#1a1a1a]" style={{ clipPath: 'radial-gradient(circle at 100% 0%, transparent 16px, #2a2a2a 16px)' }}></div>
                     </div>
                     
-                    {/* Fanned Out Sheets (Multiple Images) */}
-                    {displayImages.map((img, i) => (
-                        <div key={i} className="absolute inset-x-8 top-0 h-40 z-0">
-                            <motion.div 
-                                variants={sheetVariants(i)}
-                                className="w-full h-full bg-white p-1.5 shadow-xl rounded-sm origin-bottom border border-zinc-200"
-                            >
-                                <img 
-                                    src={img} 
-                                    alt={project.title} 
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                                />
-                            </motion.div>
-                        </div>
-                    ))}
+                    {/* Peeking Image (Sliding Up from behind the front face) */}
+                    <div className="absolute inset-x-4 top-0 h-32 z-0">
+                        <motion.div 
+                            className="w-full h-full rounded-t-lg overflow-hidden shadow-2xl"
+                            initial={{ y: 20, opacity: 0 }}
+                            whileHover={{ y: -35, opacity: 1 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                        >
+                            <img 
+                                src={project.image} 
+                                alt={project.title} 
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                            />
+                        </motion.div>
+                    </div>
 
-                    {/* Folder Front Face (Cleaner 'Normal' Style) */}
+                    {/* Folder Front Face (Dark & Professional) */}
                     <motion.div 
-                        variants={folderVariants}
-                        className="absolute inset-0 z-10 bg-white dark:bg-zinc-900 p-7 flex flex-col justify-between shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-2xl border border-black/5 dark:border-white/10 origin-bottom"
+                        className="absolute inset-0 z-10 bg-[#222] dark:bg-[#111] p-6 flex flex-col justify-between shadow-[-5px_0_20px_rgba(0,0,0,0.5)] rounded-2xl border border-white/10 origin-bottom"
                         style={{ backfaceVisibility: 'hidden' }}
-                        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                        initial={{ rotateX: 0 }}
+                        whileHover={{ rotateX: -25 }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     >
-                        <div>
-                            <div className="flex items-center gap-4 mb-5">
-                                <div className="p-2.5 bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white rounded-xl">
-                                    <IconComponent className="text-2xl" />
-                                </div>
-                                <span className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400">
-                                    {project.category}
-                                </span>
-                            </div>
-                            
-                            <h3 className="text-2xl font-black text-black dark:text-white uppercase leading-none mb-3 tracking-tighter">
-                                {project.title}
-                            </h3>
-                            <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-3 font-medium leading-relaxed">
-                                {project.description}
-                            </p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 mt-4">
-                            {project.technologies.slice(0, 3).map((tech, i) => (
-                                <span key={i} className="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 rounded-lg">
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                        
-                        {/* Interactive Hint */}
-                        <div className="absolute bottom-6 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="flex items-center gap-2 text-black dark:text-white font-black text-[10px] uppercase tracking-widest">
-                                Open Folder <FaChevronRight size={10} />
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </motion.div>
                         <div>
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 bg-white/5 border border-white/10 text-white rounded-lg">
