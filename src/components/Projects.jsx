@@ -43,23 +43,23 @@ const ProjectFolder = ({ project, index }) => {
                 {/* Folder Back with Tab (Reference Style) */}
                 <div className="relative aspect-[4/3] bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-2xl rounded-tl-none border border-white/5 shadow-2xl">
                     {/* Tab with rounded corner transition */}
-                    <div className="absolute -top-5 left-0 h-5 w-28 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5">
-                        <div className="absolute -right-4 bottom-0 w-4 h-4 bg-[#2a2a2a] dark:bg-[#1a1a1a]" style={{ clipPath: 'radial-gradient(circle at 100% 0%, transparent 16px, #2a2a2a 16px)' }}></div>
-                    </div>
+                    <div className="absolute -top-5 left-0 h-5 w-32 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5" />
                     
-                    {/* Peeking Image (Sliding Up from behind the front face) */}
-                    <div className="absolute inset-x-4 top-0 h-32 z-0">
+                    {/* Peeking "Feuille" (Sheet of Paper) */}
+                    <div className="absolute inset-x-5 top-0 h-40 z-0">
                         <motion.div 
-                            className="w-full h-full rounded-t-lg overflow-hidden shadow-2xl"
-                            initial={{ y: 20, opacity: 0 }}
-                            whileHover={{ y: -35, opacity: 1 }}
+                            className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2"
+                            initial={{ y: 30, opacity: 0, rotate: 0 }}
+                            whileHover={{ y: -45, opacity: 1, rotate: -2 }}
                             transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         >
-                            <img 
-                                src={project.image} 
-                                alt={project.title} 
-                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                            />
+                            <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200">
+                                <img 
+                                    src={project.image} 
+                                    alt={project.title} 
+                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                />
+                            </div>
                         </motion.div>
                     </div>
 
