@@ -13,7 +13,7 @@ export const translations = {
 
         // Hero
         hero: {
-            greeting: "👋 Bonjour, je suis Hamza",
+            greeting: "Bonjour, je suis Hamza",
             title1: "Développeur",
             title2: "Full-Stack",
             subtitle: "& Étudiant en génie logiciel",
@@ -235,7 +235,7 @@ export const translations = {
 
         // Hero
         hero: {
-            greeting: "👋 Hello, I'm Hamza",
+            greeting: "Hello, I'm Hamza",
             title1: "Full-Stack",
             title2: "Developer",
             subtitle: "& Software Engineering Student",

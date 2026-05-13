@@ -315,10 +315,10 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.3, duration: 0.8 }}
-                        className="flex flex-col gap-4 mt-6 max-w-sm"
+                        className="flex flex-col gap-4 mt-6 max-w-[320px]"
                     >
                         <div className="h-px flex-grow-0 w-12 bg-white/30" />
-                        <p className="text-white/80 text-xs md:text-sm uppercase tracking-widest font-bold leading-relaxed">
+                        <p className="text-white/80 text-[10px] md:text-[11px] uppercase tracking-widest font-bold leading-[1.8] text-justify">
                             Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
                         </p>
                     </motion.div>
