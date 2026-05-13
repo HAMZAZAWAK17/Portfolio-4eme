@@ -264,7 +264,7 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
                 onClick={toggleListening}
-                className={`fixed bottom-32 right-8 z-50 p-4 rounded-full shadow-2xl transition-all duration-500 border-2 ${isListening
+                className={`fixed bottom-32 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-500 border-2 ${isListening
                     ? 'bg-red-600 border-white text-white shadow-[0_0_20px_rgba(220,38,38,0.6)]'
                     : 'bg-white dark:bg-zinc-900 border-black dark:border-white text-black dark:text-white hover:scale-110 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]'
                     }`}

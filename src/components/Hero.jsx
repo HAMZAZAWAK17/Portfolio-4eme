@@ -244,15 +244,40 @@ const Hero = () => {
                 <Marquee text="Full-Stack Developer · Casablanca · ReactJS · Laravel · Node.js · Flutter" />
             </motion.div>
 
+            {/* ── GIANT Cinematic Title (Background Layer) ── */}
+            <motion.div 
+                className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
+                style={{ y: textY, opacity: textOpacity }}
+            >
+                <div className="flex flex-col gap-2">
+                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="flex flex-col items-center justify-center text-center w-full gap-2">
+                        <SplitText
+                            text="EZ-ZOUEK"
+                            delay={0.5}
+                            className="block font-black uppercase leading-none tracking-tighter w-full"
+                            style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
+                        />
+                        <SplitText
+                            text="HAMZA"
+                            delay={0.7}
+                            className="block font-black uppercase leading-none tracking-tighter w-full"
+                            style={{
+                                fontSize: 'clamp(3.5rem, 11vw, 10rem)',
+                            }}
+                        />
+                    </motion.div>
+                </div>
+            </motion.div>
+
             {/* ═══════════════════════════════════════
-                MAIN CONTENT
+                FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-30 min-h-screen flex flex-col justify-between px-6 md:px-14 lg:px-20 pt-28 pb-10"
+                className="relative z-50 min-h-screen flex flex-col justify-between px-6 md:px-14 lg:px-20 pt-28 pb-10 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
                 {/* ── Top row: greeting + available badge ── */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pointer-events-auto">
                     <motion.p
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -279,32 +304,18 @@ const Hero = () => {
                     </motion.div>
                 </div>
 
-                {/* ── GIANT Cinematic Title ── */}
-                <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0">
-                    {/* Centered Name with Scroll Animation */}
-                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="pointer-events-none relative z-20 flex flex-col items-center justify-center text-center w-full gap-2">
-                        <SplitText
-                            text="EZ-ZOUEK"
-                            delay={0.5}
-                            className="block font-black uppercase leading-none tracking-tighter w-full"
-                            style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
-                        />
-                        <SplitText
-                            text="HAMZA"
-                            delay={0.7}
-                            className="block font-black uppercase leading-none tracking-tighter w-full"
-                            style={{
-                                fontSize: 'clamp(3.5rem, 11vw, 10rem)',
-                            }}
-                        />
-                    </motion.div>
+                {/* ── Foreground Description ── */}
+                <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0 pointer-events-none invisible md:visible">
+                     {/* Placeholder to maintain spacing where the giant title was */}
+                     <div style={{ height: 'clamp(7rem, 22vw, 20rem)' }}></div>
+                </div>
 
-                    {/* Left-aligned description block */}
+                <div className="flex flex-col gap-2 pointer-events-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.3, duration: 0.8 }}
-                        className="flex flex-col gap-4 mt-6 max-w-sm relative z-30"
+                        className="flex flex-col gap-4 mt-6 max-w-sm"
                     >
                         <div className="h-px flex-grow-0 w-12 bg-white/30" />
                         <p className="text-white/80 text-xs md:text-sm uppercase tracking-widest font-bold leading-relaxed">

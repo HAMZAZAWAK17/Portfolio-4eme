@@ -40,34 +40,17 @@ const ProjectFolder = ({ project, index }) => {
                 onClick={() => setIsOpen(true)}
                 className="group relative cursor-pointer pt-6"
             >
-                {/* Folder Back with Tab */}
+                {/* Folder Back with Tab (Reference Style) */}
                 <div className="relative aspect-[4/3] bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-2xl rounded-tl-none border border-white/5 shadow-2xl">
                     {/* Tab with rounded corner transition */}
                     <div className="absolute -top-5 left-0 h-5 w-32 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5" />
                     
-                    {/* Multiple Peeking Sheets (Sneak Peak Effect) */}
-                    {[...Array(2)].map((_, i) => (
-                        <div key={i} className="absolute inset-x-5 top-0 h-40 z-0">
-                            <motion.div 
-                                className="w-full h-full bg-white rounded-t-sm shadow-xl p-2"
-                                initial={{ y: 20, opacity: 0, rotate: 0 }}
-                                whileHover={{ 
-                                    y: -80 - (i * 15), 
-                                    opacity: 0.8 - (i * 0.2), 
-                                    rotate: (i - 0.5) * 8,
-                                    x: (i - 0.5) * 15
-                                }}
-                                transition={{ type: "spring", stiffness: 150, damping: 20 }}
-                            />
-                        </div>
-                    ))}
-                    
-                    {/* Main Peeking "Feuille" with Scrolling Image */}
+                    {/* Peeking "Feuille" (Sheet of Paper) */}
                     <div className="absolute inset-x-5 top-0 h-40 z-0">
                         <motion.div 
                             className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2 relative overflow-hidden"
-                            initial={{ y: 20, opacity: 0, rotate: 0 }}
-                            whileHover={{ y: -100, opacity: 1, rotate: -3 }}
+                            initial={{ y: 30, opacity: 0, rotate: 0 }}
+                            whileHover={{ y: -45, opacity: 1, rotate: -2 }}
                             transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         >
                             <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200 relative">
@@ -83,7 +66,7 @@ const ProjectFolder = ({ project, index }) => {
                         </motion.div>
                     </div>
 
-                    {/* Folder FRONT Face (Full height as per previous design) */}
+                    {/* Folder Front Face (Dark & Professional) */}
                     <motion.div 
                         className="absolute inset-0 z-10 bg-[#222] dark:bg-[#111] p-6 flex flex-col justify-between shadow-[-5px_0_20px_rgba(0,0,0,0.5)] rounded-2xl border border-white/10 origin-bottom"
                         style={{ backfaceVisibility: 'hidden' }}
@@ -116,6 +99,25 @@ const ProjectFolder = ({ project, index }) => {
                                 </span>
                             ))}
                         </div>
+
+                        {/* Team Members (Collaborative Projects) */}
+                        {project.team && (
+                            <div className="mt-4 flex items-center -space-x-3 overflow-visible">
+                                {project.team.map((member, i) => (
+                                    <div key={i} className="group/member relative">
+                                        <img 
+                                            src={member.image} 
+                                            alt={member.name}
+                                            className="w-8 h-8 rounded-full border-2 border-[#222] object-cover hover:z-30 transition-transform hover:scale-125"
+                                        />
+                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-white text-black text-[8px] font-black uppercase tracking-tighter rounded opacity-0 group-hover/member:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                            {member.name}
+                                        </div>
+                                    </div>
+                                ))}
+                                <span className="ml-5 text-[8px] font-black text-white/20 uppercase tracking-widest">Team Project</span>
+                            </div>
+                        )}
                         
                         {/* Interactive Hint */}
                         <div className="absolute bottom-5 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -151,41 +153,29 @@ const ProjectFolder = ({ project, index }) => {
                             layoutId={`project-${project.id}`}
                             className="relative w-full max-w-7xl h-full bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 flex flex-col md:flex-row"
                         >
-                            {/* Left Side: Polaroid Stack Animation */}
-                            <div className="w-full md:w-1/2 h-1/2 md:h-full relative bg-zinc-950 flex items-center justify-center overflow-hidden">
-                                <div className="relative w-full h-full p-20 flex items-center justify-center">
+                            {/* Left Side: Image Gallery (The Swipe Up Animation) */}
+                            <div className="w-full md:w-1/2 h-1/2 md:h-full relative bg-black overflow-y-auto no-scrollbar scroll-smooth snap-y snap-mandatory">
+                                <div className="p-4 md:p-10 space-y-8">
                                     {(project.gallery || [project.image]).map((img, i) => (
                                         <motion.div
                                             key={i}
-                                            initial={{ scale: 0, rotate: 0, y: 500 }}
-                                            animate={{ 
-                                                scale: 1, 
-                                                rotate: (i - ((project.gallery?.length || 1) / 2)) * 10,
-                                                y: 0,
-                                                x: (i - ((project.gallery?.length || 1) / 2)) * 30
-                                            }}
-                                            whileHover={{ 
-                                                scale: 1.1, 
-                                                rotate: 0, 
-                                                zIndex: 50,
-                                                transition: { duration: 0.3 }
-                                            }}
-                                            className="absolute w-64 md:w-80 aspect-[3/4] bg-white p-3 pb-12 shadow-2xl border border-zinc-200 origin-bottom cursor-pointer"
+                                            initial={{ y: 100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            transition={{ delay: 0.2 + (i * 0.1), duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                            className="snap-center"
                                         >
-                                            <div className="w-full h-full overflow-hidden bg-zinc-100">
-                                                <img src={img} alt="" className="w-full h-full object-cover" />
-                                            </div>
-                                            <div className="mt-4 flex flex-col gap-1">
-                                                <div className="h-1 w-12 bg-zinc-100 rounded-full" />
-                                                <div className="h-1 w-8 bg-zinc-100 rounded-full" />
-                                            </div>
+                                            <img 
+                                                src={img} 
+                                                alt={`${project.title} screenshot ${i}`}
+                                                className="w-full rounded-2xl shadow-2xl border border-white/5"
+                                            />
                                         </motion.div>
                                     ))}
                                 </div>
                                 
-                                {/* Hint */}
-                                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-white/5 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 text-[10px] text-white/50 font-black uppercase tracking-[0.3em]">
-                                    Hover photos to inspect
+                                {/* Floating Label for Gallery */}
+                                <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-[10px] text-white font-black uppercase tracking-widest">
+                                    Scroll to explore gallery
                                 </div>
                             </div>
 
@@ -222,6 +212,20 @@ const ProjectFolder = ({ project, index }) => {
                                                 ))}
                                             </div>
                                         </div>
+
+                                        {project.team && (
+                                            <div>
+                                                <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">Project Team</h5>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    {project.team.map((member, i) => (
+                                                        <div key={i} className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-2xl">
+                                                            <img src={member.image} alt={member.name} className="w-10 h-10 rounded-full border border-white/20 object-cover" />
+                                                            <span className="text-white/90 text-[10px] font-black uppercase tracking-widest">{member.name}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
