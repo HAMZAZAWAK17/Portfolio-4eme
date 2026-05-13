@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaMapMarkerAlt, FaCode, FaTerminal, FaLayerGroup, FaPalette, FaHammer, FaRocket } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 import heroImage from '../assets/Gemini_Generated_Image_s0abzes0abzes0ab.png';
 import { useLanguage } from '../LanguageContext';
@@ -62,16 +62,16 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
 /* ─────────────────────────────────────────
    Floating tech elements around the image
 ───────────────────────────────────────── */
-const FloatingElement = ({ children, x, y, delay = 0, duration = 4, size = 'text-xs' }) => (
+const FloatingElement = ({ icon: Icon, label, x, y, delay = 0, duration = 4, size = 'text-xl' }) => (
     <motion.div
-        className={`absolute z-30 pointer-events-none font-mono ${size} text-white/40 uppercase tracking-widest bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10`}
+        className={`absolute z-30 pointer-events-none flex items-center gap-3 bg-white/10 backdrop-blur-xl px-5 py-2.5 rounded-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)]`}
         style={{ left: x, top: y }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ 
             opacity: 1, 
             scale: 1,
-            y: [0, -15, 0],
-            rotate: [0, 5, -5, 0]
+            y: [0, -20, 0],
+            rotate: [0, 3, -3, 0]
         }}
         transition={{ 
             opacity: { delay, duration: 1 },
@@ -80,7 +80,14 @@ const FloatingElement = ({ children, x, y, delay = 0, duration = 4, size = 'text
             rotate: { duration: duration * 1.5, repeat: Infinity, ease: "easeInOut" }
         }}
     >
-        {children}
+        <div className={`${size} text-white`}>
+            <Icon />
+        </div>
+        {label && (
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/90 whitespace-nowrap">
+                {label}
+            </span>
+        )}
     </motion.div>
 );
 
@@ -199,12 +206,12 @@ const Hero = () => {
                     />
                     
                     {/* Floating Tech Elements Around Image */}
-                    <FloatingElement x="10%" y="40%" delay={1.5}>{"<code />"}</FloatingElement>
-                    <FloatingElement x="85%" y="35%" delay={1.8}>{"terminal"}</FloatingElement>
-                    <FloatingElement x="5%" y="65%" delay={2.1}>{"diapo"}</FloatingElement>
-                    <FloatingElement x="90%" y="70%" delay={2.4}>{"design"}</FloatingElement>
-                    <FloatingElement x="15%" y="20%" delay={2.7} size="text-[10px]">{"{ } build"}</FloatingElement>
-                    <FloatingElement x="80%" y="15%" delay={3.0} size="text-[10px]">{"[ ] deploy"}</FloatingElement>
+                    <FloatingElement icon={FaCode} label="Code" x="5%" y="40%" delay={1.5} />
+                    <FloatingElement icon={FaTerminal} label="Terminal" x="80%" y="35%" delay={1.8} />
+                    <FloatingElement icon={FaLayerGroup} label="Diapo" x="0%" y="65%" delay={2.1} />
+                    <FloatingElement icon={FaPalette} label="Design" x="85%" y="60%" delay={2.4} />
+                    <FloatingElement icon={FaHammer} label="Build" x="10%" y="20%" delay={2.7} size="text-lg" />
+                    <FloatingElement icon={FaRocket} label="Deploy" x="75%" y="15%" delay={3.0} size="text-lg" />
 
                     {/* Strong fade at the bottom to blend with background */}
                     <div
