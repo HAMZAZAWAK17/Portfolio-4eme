@@ -54,7 +54,6 @@ const Loader = () => {
                 {/* Percentage */}
                 <div className="flex justify-between mt-2">
                     <span className="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">Loading</span>
-                    <span className="text-xs font-mono font-bold text-black dark:text-white">{Math.round(progress)}%</span>
                 </div>
             </div>
         </div>

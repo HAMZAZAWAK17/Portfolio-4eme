@@ -387,7 +387,7 @@ const Hero = () => {
                         </div>
 
                         {/* Social icons */}
-                        <div className="flex gap-5 relative z-30">
+                        <div className="flex gap-5 relative z-30 pointer-events-auto">
                             {[
                                 { icon: FaGithub,   link: socialLinks.github,              label: 'GitHub' },
                                 { icon: FaLinkedin, link: socialLinks.linkedin,            label: 'LinkedIn' },
@@ -427,15 +427,7 @@ const Hero = () => {
                 />
             </motion.div>
 
-            {/* ── Corner index tag ── */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-                className="absolute bottom-8 right-6 md:right-14 z-40 text-white/20 text-[10px] uppercase tracking-widest font-black pointer-events-none"
-            >
-                01 / HERO
-            </motion.div>
+
         </section>
     );
 };
