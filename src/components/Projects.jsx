@@ -48,16 +48,19 @@ const ProjectFolder = ({ project, index }) => {
                     {/* Peeking "Feuille" (Sheet of Paper) */}
                     <div className="absolute inset-x-5 top-0 h-40 z-0">
                         <motion.div 
-                            className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2"
+                            className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2 relative overflow-hidden"
                             initial={{ y: 30, opacity: 0, rotate: 0 }}
                             whileHover={{ y: -45, opacity: 1, rotate: -2 }}
                             transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         >
-                            <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200">
-                                <img 
+                            <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200 relative">
+                                <motion.img 
                                     src={project.image} 
                                     alt={project.title} 
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    className="w-full absolute top-0 left-0 object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    initial={{ y: "0%" }}
+                                    whileHover={{ y: "-60%" }}
+                                    transition={{ duration: 5, ease: "linear" }}
                                 />
                             </div>
                         </motion.div>
