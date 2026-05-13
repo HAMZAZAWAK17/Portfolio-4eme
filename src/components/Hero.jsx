@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaMapMarkerAlt, FaCode, FaTerminal, FaLayerGroup, FaPalette, FaHammer, FaRocket, FaMobileAlt, FaChartBar } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaArrowRight, FaMapMarkerAlt, FaCode, FaTerminal, FaLayerGroup, FaPalette, FaHammer, FaRocket, FaMobileAlt, FaChartBar, FaDatabase } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 import heroImage from '../assets/Gemini_Generated_Image_s0abzes0abzes0ab.png';
 import { useLanguage } from '../LanguageContext';
@@ -207,8 +207,9 @@ const Hero = () => {
                     <FloatingElement icon={FaPalette} x="90%" y="60%" delay={2.4} />
                     <FloatingElement icon={FaMobileAlt} x="10%" y="20%" delay={2.7} />
                     <FloatingElement icon={FaChartBar} x="80%" y="15%" delay={3.0} />
-                    <FloatingElement icon={FaHammer} x="15%" y="75%" delay={3.3} size="text-xl" />
-                    <FloatingElement icon={FaRocket} x="75%" y="78%" delay={3.6} size="text-xl" />
+                    <FloatingElement icon={FaDatabase} x="45%" y="10%" delay={3.3} />
+                    <FloatingElement icon={FaHammer} x="15%" y="75%" delay={3.6} size="text-xl" />
+                    <FloatingElement icon={FaRocket} x="75%" y="78%" delay={3.9} size="text-xl" />
 
                     {/* Strong fade at the bottom to blend with background */}
                     <div
