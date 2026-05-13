@@ -38,27 +38,23 @@ const ProjectFolder = ({ project, index }) => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => setIsOpen(true)}
-                className="group relative cursor-pointer pt-8"
+                className="group relative cursor-pointer pt-6"
             >
-                {/* Folder Body Container */}
-                <div className="relative aspect-[4/3] w-full">
+                {/* Folder Back with Tab */}
+                <div className="relative aspect-[4/3] bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-2xl rounded-tl-none border border-white/5 shadow-2xl">
+                    {/* Tab with rounded corner transition */}
+                    <div className="absolute -top-5 left-0 h-5 w-32 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5" />
                     
-                    {/* Folder BACK (Taller with Tab) */}
-                    <div className="absolute inset-0 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-3xl rounded-tl-none border border-white/5 shadow-2xl overflow-hidden">
-                        {/* Tab with rounded corner transition */}
-                        <div className="absolute -top-1 left-0 h-8 w-32 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-2xl border-t border-l border-r border-white/5" />
-                    </div>
-                    
-                    {/* Multiple Peeking Sheets (Sneak Peak Effect - Inside the opening) */}
+                    {/* Multiple Peeking Sheets (Sneak Peak Effect) */}
                     {[...Array(2)].map((_, i) => (
-                        <div key={i} className="absolute inset-x-6 top-2 h-40 z-0">
+                        <div key={i} className="absolute inset-x-5 top-0 h-40 z-0">
                             <motion.div 
-                                className="w-full h-full bg-white rounded-t-xl shadow-xl p-2 border border-zinc-200"
+                                className="w-full h-full bg-white rounded-t-sm shadow-xl p-2"
                                 initial={{ y: 20, opacity: 0, rotate: 0 }}
                                 whileHover={{ 
-                                    y: -40 - (i * 12), 
-                                    opacity: 0.9 - (i * 0.2), 
-                                    rotate: (i - 0.5) * 6,
+                                    y: -80 - (i * 15), 
+                                    opacity: 0.8 - (i * 0.2), 
+                                    rotate: (i - 0.5) * 8,
                                     x: (i - 0.5) * 15
                                 }}
                                 transition={{ type: "spring", stiffness: 150, damping: 20 }}
@@ -67,14 +63,14 @@ const ProjectFolder = ({ project, index }) => {
                     ))}
                     
                     {/* Main Peeking "Feuille" with Scrolling Image */}
-                    <div className="absolute inset-x-6 top-2 h-40 z-0">
+                    <div className="absolute inset-x-5 top-0 h-40 z-0">
                         <motion.div 
-                            className="w-full h-full bg-white rounded-t-xl shadow-2xl p-2 relative overflow-hidden border border-zinc-300"
+                            className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2 relative overflow-hidden"
                             initial={{ y: 20, opacity: 0, rotate: 0 }}
-                            whileHover={{ y: -55, opacity: 1, rotate: -2 }}
+                            whileHover={{ y: -100, opacity: 1, rotate: -3 }}
                             transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         >
-                            <div className="w-full h-full overflow-hidden rounded-t-lg relative bg-zinc-50">
+                            <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200 relative">
                                 <motion.img 
                                     src={project.image} 
                                     alt={project.title} 
@@ -87,49 +83,14 @@ const ProjectFolder = ({ project, index }) => {
                         </motion.div>
                     </div>
 
-                    {/* Folder FRONT Face (Lower than the back to create the "opening") */}
+                    {/* Folder FRONT Face (Full height as per previous design) */}
                     <motion.div 
-                        className="absolute bottom-0 left-0 right-0 h-[85%] z-10 bg-[#252525] dark:bg-[#151515] p-6 flex flex-col justify-between shadow-[-5px_-5px_30px_rgba(0,0,0,0.5)] rounded-2xl border border-white/10 origin-bottom"
+                        className="absolute inset-0 z-10 bg-[#222] dark:bg-[#111] p-6 flex flex-col justify-between shadow-[-5px_0_20px_rgba(0,0,0,0.5)] rounded-2xl border border-white/10 origin-bottom"
                         style={{ backfaceVisibility: 'hidden' }}
                         initial={{ rotateX: 0 }}
-                        whileHover={{ rotateX: -20 }}
+                        whileHover={{ rotateX: -25 }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     >
-                        <div>
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="p-2 bg-white/5 border border-white/10 text-white rounded-lg">
-                                    <IconComponent className="text-xl" />
-                                </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
-                                    P_{project.id.toString().padStart(2, '0')}
-                                </span>
-                            </div>
-                            
-                            <h3 className="text-xl md:text-2xl font-black text-white uppercase leading-tight mb-3 tracking-tighter">
-                                {project.title}
-                            </h3>
-                            <p className="text-white/50 text-xs md:text-sm line-clamp-2 font-medium leading-relaxed italic">
-                                "{project.description}"
-                            </p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 mt-4">
-                            {project.technologies.slice(0, 3).map((tech, i) => (
-                                <span key={i} className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 bg-white/5 text-white/70 border border-white/10 rounded-md">
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                        
-                        {/* Interactive Hint */}
-                        <div className="absolute bottom-5 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="flex items-center gap-2 text-white font-black text-[9px] uppercase tracking-[0.3em] bg-white/10 px-3 py-1.5 rounded-full border border-white/10">
-                                View Case <FaChevronRight className="text-[8px]" />
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </motion.div>
                         <div>
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 bg-white/5 border border-white/10 text-white rounded-lg">
