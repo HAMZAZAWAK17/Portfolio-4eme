@@ -40,7 +40,7 @@ const TerminalTyping = ({ text, speed = 50 }) => {
             <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border-2 border-gray-800 flex flex-col min-h-[450px] sm:min-h-[500px]">
                 {/* Terminal Header */}
                 <div className="bg-gray-800/80 backdrop-blur-md px-6 py-4 flex items-center justify-between border-b border-gray-700">
-                    <div className="flex items-center gap-3">
+                    <div clasxsName="flex items-center gap-3">
                         <div className="flex gap-2">
                             <div className="w-3.5 h-3.5 rounded-full bg-[#FF5F56] shadow-inner"></div>
                             <div className="w-3.5 h-3.5 rounded-full bg-[#FFBD2E] shadow-inner"></div>
