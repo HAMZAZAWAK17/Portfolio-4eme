@@ -59,11 +59,11 @@ const TerminalTyping = ({ text, speed = 50 }) => {
                 {/* Terminal Body */}
                 <div className="p-8 md:p-12 font-mono text-lg md:text-2xl flex-grow overflow-y-auto custom-scrollbar">
                     {/* Command Prompt */}
-                    {/* <div className="flex items-start gap-4 mb-6">
+                    <div className="flex items-start gap-4 mb-6">
                         <span className="text-green-400 select-none font-bold">➜</span>
                         <span className="text-blue-400 select-none font-bold">~</span>
                         <span className="text-gray-200">cat about_me.txt</span>
-                    </div> */}
+                    </div>
 
                     {/* Typing Output */}
                     <div className="text-gray-100 leading-relaxed whitespace-pre-wrap break-words min-h-[1.5em]">
