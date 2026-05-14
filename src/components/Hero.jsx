@@ -200,18 +200,16 @@ const Hero = () => {
                         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     />
                     
-                    {/* Floating Tech Icons Around Image - Hidden/Smaller on Mobile */}
-                    <div className="hidden sm:block">
-                        <FloatingElement icon={FaCode} x="5%" y="40%" delay={1.5} />
-                        <FloatingElement icon={FaTerminal} x="85%" y="35%" delay={1.8} />
-                        <FloatingElement icon={FaLayerGroup} x="0%" y="65%" delay={2.1} />
-                        <FloatingElement icon={FaPalette} x="90%" y="60%" delay={2.4} />
-                        <FloatingElement icon={FaMobileAlt} x="10%" y="20%" delay={2.7} />
-                        <FloatingElement icon={FaChartBar} x="80%" y="15%" delay={3.0} />
-                        <FloatingElement icon={FaDatabase} x="45%" y="10%" delay={3.3} />
-                        <FloatingElement icon={FaHammer} x="15%" y="75%" delay={3.6} size="text-xl" />
-                        <FloatingElement icon={FaRocket} x="75%" y="78%" delay={3.9} size="text-xl" />
-                    </div>
+                    {/* Floating Tech Icons Around Image */}
+                    <FloatingElement icon={FaCode} x="5%" y="40%" delay={1.5} />
+                    <FloatingElement icon={FaTerminal} x="85%" y="35%" delay={1.8} />
+                    <FloatingElement icon={FaLayerGroup} x="0%" y="65%" delay={2.1} />
+                    <FloatingElement icon={FaPalette} x="90%" y="60%" delay={2.4} />
+                    <FloatingElement icon={FaMobileAlt} x="10%" y="20%" delay={2.7} />
+                    <FloatingElement icon={FaChartBar} x="80%" y="15%" delay={3.0} />
+                    <FloatingElement icon={FaDatabase} x="45%" y="10%" delay={3.3} />
+                    <FloatingElement icon={FaHammer} x="15%" y="75%" delay={3.6} size="text-xl" />
+                    <FloatingElement icon={FaRocket} x="75%" y="78%" delay={3.9} size="text-xl" />
 
                     {/* Strong fade at the bottom to blend with background */}
                     <div
@@ -252,19 +250,19 @@ const Hero = () => {
                 style={{ y: textY, opacity: textOpacity }}
             >
                 <div className="flex flex-col gap-2">
-                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="flex flex-col items-center justify-center text-center w-full gap-1 md:gap-2">
+                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="flex flex-col items-center justify-center text-center w-full gap-2">
                         <SplitText
                             text="EZ-ZOUEK"
                             delay={0.5}
                             className="block font-black uppercase leading-none tracking-tighter w-full"
-                            style={{ fontSize: 'clamp(2.5rem, 15vw, 10rem)' }}
+                            style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
                         />
                         <SplitText
                             text="HAMZA"
                             delay={0.7}
                             className="block font-black uppercase leading-none tracking-tighter w-full"
                             style={{
-                                fontSize: 'clamp(2.5rem, 15vw, 10rem)',
+                                fontSize: 'clamp(3.5rem, 11vw, 10rem)',
                             }}
                         />
                     </motion.div>
@@ -275,16 +273,16 @@ const Hero = () => {
                 FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-50 min-h-screen flex flex-col justify-between px-6 md:px-14 lg:px-20 pt-20 md:pt-28 pb-10 pointer-events-none"
+                className="relative z-50 min-h-screen flex flex-col justify-between px-6 md:px-14 lg:px-20 pt-28 pb-10 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
                 {/* ── Top row: greeting + available badge ── */}
-                <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-4 pointer-events-auto">
+                <div className="flex items-center justify-between pointer-events-auto">
                     <motion.p
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-white text-[11px] md:text-base uppercase tracking-[0.35em] font-bold text-center md:text-left"
+                        className="text-white text-sm md:text-base uppercase tracking-[0.35em] font-bold"
                     >
                         {t.hero.greeting}
                     </motion.p>
@@ -300,68 +298,68 @@ const Hero = () => {
                             transition={{ duration: 1.6, repeat: Infinity }}
                             className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"
                         />
-                        <span className="text-white text-[9px] md:text-[11px] uppercase tracking-[0.3em] font-black">
+                        <span className="text-white text-[11px] uppercase tracking-[0.3em] font-black">
                             {t.hero.available}
                         </span>
                     </motion.div>
                 </div>
 
                 {/* ── Foreground Description ── */}
-                <div className="flex flex-col gap-2 mt-auto mb-auto pt-8 md:pt-0 pointer-events-none">
-                     {/* Placeholder to maintain spacing on desktop */}
-                     <div className="hidden md:block" style={{ height: 'clamp(7rem, 22vw, 20rem)' }}></div>
-                     {/* On mobile, we add a bit of space to not overlap with the background title too much */}
-                     <div className="block md:hidden h-24 sm:h-32"></div>
+                <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0 pointer-events-none invisible md:visible">
+                     {/* Placeholder to maintain spacing where the giant title was */}
+                     <div style={{ height: 'clamp(7rem, 22vw, 20rem)' }}></div>
                 </div>
 
-                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 mt-10">
-                    <div className="flex flex-col gap-6 pointer-events-auto w-full md:w-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.3, duration: 0.8 }}
-                            className="flex flex-col gap-4 max-w-[280px] md:max-w-[320px] mx-auto md:mx-0"
-                        >
-                            <div className="h-px flex-grow-0 w-12 bg-white/30 hidden md:block" />
-                            <p className="text-white/80 text-[10px] md:text-[11px] uppercase tracking-widest font-bold leading-[1.8] text-justify">
-                                Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
-                            </p>
-                        </motion.div>
+                <div className="flex flex-col gap-2 pointer-events-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.3, duration: 0.8 }}
+                        className="flex flex-col gap-4 mt-6 max-w-[320px]"
+                    >
+                        <div className="h-px flex-grow-0 w-12 bg-white/30" />
+                        <p className="text-white/80 text-[10px] md:text-[11px] uppercase tracking-widest font-bold leading-[1.8] text-justify">
+                            Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
+                        </p>
+                    </motion.div>
+                </div>
 
-                        {/* Stats pills */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.7, duration: 0.8 }}
-                            className="flex justify-center md:justify-start gap-3 md:gap-6"
-                        >
-                            {stats.map((s, i) => (
-                                <motion.div
-                                    key={i}
-                                    whileHover={{ scale: 1.05 }}
-                                    className="border border-white/15 hover:border-white/50 backdrop-blur-sm px-3 md:px-5 py-2 md:py-3 text-center transition-all duration-300 min-w-[70px] md:min-w-[90px]"
-                                >
-                                    <div className="text-white font-black text-lg md:text-2xl leading-none">{s.value}</div>
-                                    <div className="text-white/50 text-[8px] md:text-[9px] uppercase tracking-widest mt-1 font-bold">{s.label}</div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </div>
+                {/* ── Bottom row: stats + CTAs + social ── */}
+                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 mt-10">
+
+                    {/* Stats pills */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.7, duration: 0.8 }}
+                        className="flex gap-6"
+                    >
+                        {stats.map((s, i) => (
+                            <motion.div
+                                key={i}
+                                whileHover={{ scale: 1.05 }}
+                                className="border border-white/15 hover:border-white/50 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
+                            >
+                                <div className="text-white font-black text-2xl leading-none">{s.value}</div>
+                                <div className="text-white/50 text-[9px] uppercase tracking-widest mt-1 font-bold">{s.label}</div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
 
                     {/* CTAs + socials */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.9, duration: 0.8 }}
-                        className="flex flex-col items-center md:items-end gap-5 w-full md:w-auto"
+                        className="flex flex-col gap-5"
                     >
                         {/* CTA buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 pointer-events-auto relative z-30 w-full sm:w-auto">
+                        <div className="flex flex-wrap gap-3 pointer-events-auto relative z-30">
                             <motion.button
                                 whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center justify-center gap-3 px-7 py-3.5 border border-white text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-white text-white font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.viewProjects}
                                 <motion.span
@@ -376,7 +374,7 @@ const Hero = () => {
                                 whileHover={{ backgroundColor: 'rgba(255,255,255,0.08)', scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={scrollToContact}
-                                className="flex items-center justify-center gap-3 px-7 py-3.5 border border-white/30 text-white/70 font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto"
+                                className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white/70 font-bold text-xs uppercase tracking-widest transition-all duration-300"
                             >
                                 {t.hero.contactMe}
                                 <motion.span

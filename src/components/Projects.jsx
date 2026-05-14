@@ -3,11 +3,39 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
     FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
     FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
-    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight, FaTimes, FaChevronRight, FaChevronLeft
+    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight, FaTimes, FaChevronRight, FaChevronLeft,
+    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt
 } from 'react-icons/fa';
-import { SiFlutter } from 'react-icons/si';
+import { 
+    SiFlutter, SiReact, SiNodedotjs, SiExpress, SiMysql, SiLaravel, SiPhp, 
+    SiTailwindcss, SiGit, SiFirebase, SiDart, SiNextdotjs, SiMongodb, SiSpringboot 
+} from 'react-icons/si';
 import { projects, socialLinks } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
+
+const techIconMap = {
+    // Frontend
+    'ReactJS': SiReact,
+    'React.js': SiReact,
+    'Next.js': SiNextdotjs,
+    'TailwindCSS': SiTailwindcss,
+    // Backend
+    'Node.js': SiNodedotjs,
+    'Express.js': SiExpress,
+    'Express': SiExpress,
+    'Laravel': SiLaravel,
+    'PHP': SiPhp,
+    'Spring Boot': SiSpringboot,
+    // Database
+    'MySQL': SiMysql,
+    'MongoDB': SiMongodb,
+    'Firebase': SiFirebase,
+    // Mobile
+    'Flutter': SiFlutter,
+    'Dart': SiDart,
+    // Tools
+    'Git': SiGit,
+};
 
 const iconMap = {
     FaTooth: FaTooth,
@@ -93,11 +121,17 @@ const ProjectFolder = ({ project, index }) => {
                         </div>
 
                         <div className="flex flex-wrap gap-2 mt-4">
-                            {project.technologies.slice(0, 3).map((tech, i) => (
-                                <span key={i} className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 bg-white/5 text-white/70 border border-white/10 rounded-md">
-                                    {tech}
-                                </span>
-                            ))}
+                            {project.technologies.slice(0, 4).map((tech, i) => {
+                                const TechIcon = techIconMap[tech];
+                                return (
+                                    <div key={i} className="group/tech relative p-1.5 bg-white/5 border border-white/10 rounded-md text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+                                        {TechIcon ? <TechIcon className="text-sm" /> : <span className="text-[8px] font-bold">{tech}</span>}
+                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-white text-black text-[8px] font-black uppercase tracking-tighter rounded opacity-0 group-hover/tech:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
+                                            {tech}
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         {/* Team Members (Collaborative Projects) */}
@@ -205,11 +239,15 @@ const ProjectFolder = ({ project, index }) => {
                                         <div>
                                             <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">Technologies used</h5>
                                             <div className="flex flex-wrap gap-3">
-                                                {project.technologies.map((tech, i) => (
-                                                    <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white/90 text-xs font-bold uppercase tracking-widest">
-                                                        {tech}
-                                                    </span>
-                                                ))}
+                                                {project.technologies.map((tech, i) => {
+                                                    const TechIcon = techIconMap[tech];
+                                                    return (
+                                                        <div key={i} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white/90">
+                                                            {TechIcon && <TechIcon className="text-sm" />}
+                                                            <span className="text-xs font-bold uppercase tracking-widest">{tech}</span>
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
 

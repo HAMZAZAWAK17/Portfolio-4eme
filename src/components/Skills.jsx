@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../LanguageContext';
 
 // Import all custom 3D / tech images
@@ -15,6 +15,9 @@ import laravelIcon from '../assets/laravel3d.png';
 import flutterIcon from '../assets/flutter3d.png';
 import expressIcon from '../assets/express3d.png';
 import cursorIcon from '../assets/cursor3d.png';
+import mongodbIcon from '../assets/MONGODB.png';
+import springbootIcon from '../assets/SPRINGBOOT.png';
+import intellijIcon from '../assets/sticker_intellijidea (2).png';
 
 const allSkills = [
     { name: "ReactJS", image: reactIcon, color: "#61DAFB" },
@@ -22,34 +25,27 @@ const allSkills = [
     { name: "NodeJS", image: nodeIcon, color: "#339933" },
     { name: "Express", image: expressIcon, color: "#808080" },
     { name: "Laravel", image: laravelIcon, color: "#FF2D20" },
+    { name: "Spring Boot", image: springbootIcon, color: "#6DB33F" },
+    { name: "MongoDB", image: mongodbIcon, color: "#47A248" },
     { name: "Flutter", image: flutterIcon, color: "#02569B" },
     { name: "Java", image: javaIcon, color: "#f89820" },
     { name: "C#", image: csharpIcon, color: "#9b4f96" },
     { name: "Git", image: gitIcon, color: "#F05032" },
     { name: "Power BI", image: biIcon, color: "#F2C811" },
     { name: "VS Code", image: vsIcon, color: "#007ACC" },
+    { name: "IntelliJ IDEA", image: intellijIcon, color: "#FE315D" },
     { name: "Cursor", image: cursorIcon, color: "#ffffff" },
 ];
 
 const Skills = () => {
     const { t } = useLanguage();
-    const [activeIndex, setActiveIndex] = useState(Math.floor(allSkills.length / 2));
-
-    const handleDragEnd = (e, { offset, velocity }) => {
-        const swipe = offset.x;
-        // Swipe left -> Next item
-        if (swipe < -50) {
-            setActiveIndex((prev) => Math.min(prev + 1, allSkills.length - 1));
-        } 
-        // Swipe right -> Prev item
-        else if (swipe > 50) {
-            setActiveIndex((prev) => Math.max(prev - 1, 0));
-        }
-    };
+    
+    // Duplicate skills to ensure seamless infinite loop
+    const marqueeSkills = [...allSkills, ...allSkills, ...allSkills];
 
     return (
-        <section id="skills" className="py-32 bg-white dark:bg-black transition-colors duration-500 overflow-hidden select-none">
-            <div className="max-w-[100vw] mx-auto">
+        <section id="skills" className="py-24 bg-white dark:bg-[#050505] transition-colors duration-500 overflow-hidden select-none">
+            <div className="max-w-[100vw]">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-6 md:px-14 lg:px-20 max-w-7xl mx-auto">
                     <motion.div
@@ -77,91 +73,40 @@ const Skills = () => {
                     </motion.p>
                 </div>
 
-                {/* 3D Coverflow Carousel */}
-                <div className="relative w-full h-[500px] flex items-center justify-center perspective-[1200px] mt-10">
-                    
-                    {/* Invisible Drag Overlay */}
-                    <motion.div
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={0.2}
-                        onDragEnd={handleDragEnd}
-                        className="absolute inset-0 z-50 cursor-grab active:cursor-grabbing"
-                    />
-
-                    {/* Cards */}
-                    {allSkills.map((skill, index) => {
-                        const offset = index - activeIndex;
-                        const absOffset = Math.abs(offset);
-                        const isVisible = absOffset <= 3; // Exactly 3 on the left, 3 on the right
-
-                        if (!isVisible) return null;
-
-                        return (
-                            <motion.div
-                                key={index}
-                                animate={{
-                                    x: `${offset * 110}%`, // Spaced out cleanly side-by-side
-                                    scale: offset === 0 ? 1 : 0.85, // Normal size, center slightly larger
-                                    rotateY: 0, // NO rotation (not compressed)
-                                    z: offset === 0 ? 10 : 0, // Just to ensure center is on top
-                                    opacity: 1, // Completely clear
-                                    filter: "blur(0px) brightness(1)", // No blur at all
-                                    zIndex: 40 - absOffset,
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className={`absolute w-60 h-80 md:w-72 md:h-[26rem] flex flex-col items-center justify-center rounded-[2.5rem] border transition-colors ${
-                                    offset === 0 
-                                        ? 'bg-gray-50 dark:bg-zinc-900 border-gray-200 dark:border-white/20 shadow-[0_0_50px_rgba(255,255,255,0.1)]' 
-                                        : 'bg-white/50 dark:bg-black/50 border-gray-100 dark:border-white/5 shadow-md'
-                                }`}
-                                style={{
-                                    transformStyle: "preserve-3d",
-                                }}
-                            >
-                                {/* Subtle Glow for active card */}
-                                {offset === 0 && (
-                                    <div 
-                                        className="absolute -inset-4 rounded-[2.5rem] opacity-20 blur-2xl -z-10 pointer-events-none transition-all"
-                                        style={{ backgroundColor: skill.color }}
-                                    />
-                                )}
-                                
-                                {/* 3D Hover Image */}
-                                <motion.div style={{ transform: "translateZ(40px)" }} className="flex flex-col items-center gap-8 pointer-events-none">
+                {/* Infinite Marquee Container */}
+                <div className="relative flex overflow-hidden py-10">
+                    <motion.div 
+                        className="flex whitespace-nowrap gap-12 md:gap-20"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ 
+                            duration: 30, 
+                            repeat: Infinity, 
+                            ease: "linear" 
+                        }}
+                    >
+                        {marqueeSkills.map((skill, index) => (
+                            <div key={index} className="flex flex-col items-center gap-6 group">
+                                {/* Icon Container (Squircle Style) */}
+                                <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-50 dark:bg-zinc-900/50 rounded-[2rem] border border-gray-100 dark:border-white/5 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-zinc-800 group-hover:shadow-2xl">
                                     <img 
                                         src={skill.image} 
                                         alt={skill.name}
-                                        className="w-28 h-28 md:w-36 md:h-36 object-contain drop-shadow-2xl" 
+                                        className="w-12 h-12 md:w-16 md:h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-500" 
                                     />
-                                    <span className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-black dark:text-white">
+                                </div>
+                                
+                                {/* Label */}
+                                <div className="text-center flex flex-col gap-1">
+                                    <span className="text-xs md:text-sm font-black uppercase tracking-widest text-black dark:text-white">
                                         {skill.name}
                                     </span>
-                                </motion.div>
-                            </motion.div>
-                        );
-                    })}
-
-                    {/* Indicators */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 z-40 pointer-events-none">
-                        {allSkills.map((_, i) => (
-                            <div 
-                                key={i} 
-                                className={`h-1.5 rounded-full transition-all duration-300 ${
-                                    i === activeIndex 
-                                        ? 'w-6 bg-black dark:bg-white' 
-                                        : 'w-1.5 bg-black/20 dark:bg-white/20'
-                                }`} 
-                            />
+                                    <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600">
+                                        Technology
+                                    </span>
+                                </div>
+                            </div>
                         ))}
-                    </div>
-                </div>
-                
-                {/* Drag Hint */}
-                <div className="text-center mt-8 text-xs font-bold uppercase tracking-widest text-black/30 dark:text-white/30 flex items-center justify-center gap-2">
-                    <span className="w-10 h-px bg-black/20 dark:bg-white/20" />
-                    Swipe or Drag
-                    <span className="w-10 h-px bg-black/20 dark:bg-white/20" />
+                    </motion.div>
                 </div>
             </div>
         </section>
