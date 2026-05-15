@@ -96,39 +96,36 @@ const ProjectFolder = ({ project, index }) => {
 
                     {/* Folder Front Face (Dark & Professional) */}
                     <motion.div 
-                        className="absolute inset-0 z-10 bg-[#222] dark:bg-[#111] p-6 flex flex-col justify-between shadow-[-5px_0_20px_rgba(0,0,0,0.5)] rounded-2xl border border-white/10 origin-bottom"
+                        className="absolute inset-0 z-10 bg-[#1a1a1a] dark:bg-[#0a0a0a] p-8 flex flex-col justify-between shadow-[-5px_0_30px_rgba(0,0,0,0.6)] rounded-2xl border border-white/10 origin-bottom"
                         style={{ backfaceVisibility: 'hidden' }}
                         initial={{ rotateX: 0 }}
-                        whileHover={{ rotateX: -25 }}
+                        whileHover={{ rotateX: -20 }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     >
                         <div>
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="p-2 bg-white/5 border border-white/10 text-white rounded-lg">
-                                    <IconComponent className="text-xl" />
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="p-3 bg-white/5 border border-white/10 text-white rounded-xl">
+                                    <IconComponent className="text-2xl" />
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
-                                    P_{project.id.toString().padStart(2, '0')}
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
+                                    CASE_{project.id.toString().padStart(2, '0')}
                                 </span>
                             </div>
                             
-                            <h3 className="text-xl md:text-2xl font-black text-white uppercase leading-tight mb-3 tracking-tighter">
+                            <h3 className="text-2xl md:text-3xl font-black text-white uppercase leading-[0.9] mb-4 tracking-tighter">
                                 {project.title}
                             </h3>
-                            <p className="text-white/50 text-xs md:text-sm line-clamp-3 font-medium leading-relaxed italic">
+                            <p className="text-white/40 text-[11px] md:text-xs line-clamp-3 font-medium leading-relaxed italic">
                                 "{project.description}"
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 mt-4">
-                            {project.technologies.slice(0, 4).map((tech, i) => {
+                        <div className="flex flex-wrap gap-2 mt-6">
+                            {project.technologies.slice(0, 3).map((tech, i) => {
                                 const TechIcon = techIconMap[tech];
                                 return (
-                                    <div key={i} className="group/tech relative p-1.5 bg-white/5 border border-white/10 rounded-md text-white/70 hover:text-white hover:bg-white/10 transition-colors">
-                                        {TechIcon ? <TechIcon className="text-sm" /> : <span className="text-[8px] font-bold">{tech}</span>}
-                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-white text-black text-[8px] font-black uppercase tracking-tighter rounded opacity-0 group-hover/tech:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                            {tech}
-                                        </div>
+                                    <div key={i} className="group/tech relative p-2 bg-white/5 border border-white/10 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all">
+                                        {TechIcon ? <TechIcon className="text-xs" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
                                     </div>
                                 );
                             })}
@@ -208,8 +205,8 @@ const ProjectFolder = ({ project, index }) => {
                                 </div>
                                 
                                 {/* Floating Label for Gallery */}
-                                <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-[10px] text-white font-black uppercase tracking-widest">
-                                    Scroll to explore gallery
+                                <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 text-[10px] text-white font-black uppercase tracking-[0.2em]">
+                                    Scroll to explore case
                                 </div>
                             </div>
 
@@ -268,26 +265,30 @@ const ProjectFolder = ({ project, index }) => {
                                 </div>
 
                                 {/* Actions */}
-                                <div className="flex flex-wrap gap-4 mt-12 pt-8 border-t border-white/5">
-                                    <a 
+                                <div className="flex flex-wrap gap-4 mt-12 pt-10 border-t border-white/5">
+                                    <motion.a 
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         href={project.github} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-zinc-200 transition-colors"
+                                        className="flex-1 flex items-center justify-center gap-4 px-8 py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl transition-all duration-500"
                                     >
-                                        <FaGithub size={18} />
+                                        <FaGithub size={20} />
                                         {t.projects.viewCode}
-                                    </a>
+                                    </motion.a>
                                     {project.demo && (
-                                        <a 
+                                        <motion.a 
+                                            whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                                            whileTap={{ scale: 0.98 }}
                                             href={project.demo} 
                                             target="_blank" 
                                             rel="noopener noreferrer"
-                                            className="flex-1 flex items-center justify-center gap-3 px-8 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-white/5 transition-colors"
+                                            className="flex-1 flex items-center justify-center gap-4 px-8 py-5 border border-white/10 text-white font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl transition-all duration-500"
                                         >
-                                            <FaExternalLinkAlt size={16} />
+                                            <FaExternalLinkAlt size={18} />
                                             {t.projects.viewDemo}
-                                        </a>
+                                        </motion.a>
                                     )}
                                 </div>
                             </div>

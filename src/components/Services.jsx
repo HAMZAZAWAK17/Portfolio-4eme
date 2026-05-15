@@ -59,20 +59,21 @@ const Services = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-4">
-                        {t.services.title} <span className="gradient-text">{t.services.titleHighlight}</span>
+                    <h4 className="text-zinc-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">What I offer</h4>
+                    <h2 className="text-5xl md:text-8xl font-black text-black dark:text-white mb-8 tracking-tighter leading-none">
+                        {t.services.title} <br/>
+                        <span className="text-zinc-300 dark:text-zinc-800 italic">{t.services.titleHighlight}</span>
                     </h2>
-                    <div className="w-24 h-1 bg-black dark:bg-white mx-auto mb-6"></div>
-                    <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+                    <div className="w-24 h-[2px] bg-black dark:bg-white mx-auto mb-10"></div>
+                    <p className="text-gray-500 dark:text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
                         {t.services.subtitle}
                     </p>
                 </motion.div>
 
                 {/* Services Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
@@ -80,71 +81,35 @@ const Services = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            whileHover={{ y: -10, scale: 1.02 }}
                             className="relative group"
                         >
                             {/* Card */}
-                            <div className="relative bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 p-8 h-full overflow-hidden transition-all duration-300 group-hover:border-gray-400 dark:group-hover:border-gray-600">
-                                {/* Background Gradient on Hover */}
-                                <div
-                                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
-                                ></div>
-
-                                {/* Icon Background */}
-                                <div className="absolute -right-8 -top-8 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                                    <service.icon className="text-9xl" style={{ color: service.color }} />
+                            <div className="relative bg-white dark:bg-zinc-900/50 border border-zinc-100 dark:border-white/5 p-12 h-full overflow-hidden transition-all duration-500 rounded-[3rem] group-hover:shadow-3xl group-hover:scale-[1.02]">
+                                {/* Icon Container */}
+                                <div className="mb-10 relative">
+                                    <div className={`w-20 h-20 rounded-3xl bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all duration-500`}>
+                                        <service.icon size={32} />
+                                    </div>
+                                    <div className="absolute -right-4 -top-4 text-7xl font-black opacity-[0.03] dark:opacity-[0.05] pointer-events-none group-hover:opacity-10 transition-opacity">
+                                        {(index + 1).toString().padStart(2, '0')}
+                                    </div>
                                 </div>
 
                                 {/* Content */}
                                 <div className="relative z-10">
-                                    {/* Icon */}
-                                    <div className="mb-6">
-                                        <div
-                                            className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${service.gradient} p-0.5 group-hover:scale-110 transition-transform duration-300`}
-                                        >
-                                            <div className="w-full h-full rounded-full bg-white dark:bg-black flex items-center justify-center">
-                                                <service.icon
-                                                    className="text-3xl"
-                                                    style={{ color: service.color }}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Title */}
-                                    <h3 className="text-2xl font-bold text-black dark:text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-700 group-hover:to-gray-900 dark:group-hover:from-gray-300 dark:group-hover:to-gray-100 transition-all duration-300">
+                                    <h3 className="text-2xl font-black text-black dark:text-white mb-6 uppercase tracking-tighter">
                                         {t.services[service.titleKey]}
                                     </h3>
-
-                                    {/* Description */}
-                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-medium">
                                         {t.services[service.descKey]}
                                     </p>
-
-                                    {/* Decorative Line */}
-                                    <div className="mt-6 h-1 w-0 group-hover:w-full bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent transition-all duration-500"></div>
                                 </div>
 
-                                {/* Glow Effect */}
-                                <div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-2xl pointer-events-none"
-                                    style={{ background: service.color }}
-                                ></div>
+                                {/* Interactive Indicator */}
+                                <div className="mt-10 flex items-center gap-2 text-black dark:text-white font-black text-[10px] uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all">
+                                    En savoir plus <FaArrowRight size={10} />
+                                </div>
                             </div>
-
-                            {/* Floating Animation */}
-                            <motion.div
-                                className="absolute -z-10 inset-0 blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-                                style={{ background: service.color }}
-                                animate={{
-                                    scale: [1, 1.1, 1],
-                                }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                            ></motion.div>
                         </motion.div>
                     ))}
                 </div>
@@ -157,13 +122,15 @@ const Services = () => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="mt-16 text-center"
                 >
-                    <a
+                    <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href="#contact"
-                        className="inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black px-8 py-4 font-bold text-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 group"
+                        className="inline-flex items-center gap-6 bg-black dark:bg-white text-white dark:text-black px-12 py-6 font-black text-xs uppercase tracking-[0.3em] transition-all duration-500 group rounded-full shadow-2xl"
                     >
-                        <FaRocket className="text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <FaRocket className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         {t.services.cta}
-                    </a>
+                    </motion.a>
                 </motion.div>
             </div>
         </section>

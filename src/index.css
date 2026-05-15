@@ -11,10 +11,17 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background-color: #fff;
+  color: #000;
+}
+
+.dark body {
+  background-color: #000;
+  color: #fff;
 }
 
 h1,
@@ -24,6 +31,8 @@ h4,
 h5,
 h6 {
   font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 
@@ -77,15 +86,15 @@ html {
 
 /* Glassmorphism utility - Black & White */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Black & White gradient text */
@@ -103,18 +112,27 @@ html {
   background-clip: text;
 }
 
+/* Premium Shadows */
+.shadow-3xl {
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-3xl {
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.6), 0 0 40px -10px rgba(255, 255, 255, 0.05);
+}
+
 /* Card hover effect */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.25);
 }
 
 .dark .card-hover:hover {
-  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(255, 255, 255, 0.1);
 }
 
 /* Loading animation */
@@ -213,7 +231,7 @@ html {
 
 /* Section padding */
 .section-padding {
-  padding: 5rem 1.5rem;
+  padding: 6rem 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -231,18 +249,31 @@ html {
 /* Floating animation */
 @keyframes float {
 
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
 }
 
 .float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Character reveal animation */
+.char-reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.char-reveal span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes charReveal {
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Text outline effect */
@@ -336,7 +367,7 @@ html {
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 
   to {
@@ -346,7 +377,62 @@ html {
 }
 
 .slide-in-up {
-  animation: slideInUp 0.8s cubic-bezier(0.6, 0.05, 0.01, 0.9);
+  animation: slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Magnet Effect Utility */
+.magnet {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Responsive Container */
+.container-custom {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container-custom {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Premium Button Overrides */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  opacity: 0.1;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.btn-premium:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* Stagger animation delay utilities */

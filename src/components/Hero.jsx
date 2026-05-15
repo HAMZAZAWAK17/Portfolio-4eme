@@ -49,7 +49,7 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
                         delay: delay + i * 0.04,
                         ease: [0.22, 1, 0.36, 1],
                     }}
-                    className={`inline-block ${ch.trim() ? 'bg-[#e8e8e8] text-black px-1 md:px-[6px] mx-[2px]' : 'w-4 md:w-8'}`}
+                    className={`inline-block ${ch.trim() ? 'bg-white text-black px-1 md:px-[6px] mx-[1px] md:mx-[2px]' : 'w-4 md:w-8'}`}
                     style={{ whiteSpace: ch === ' ' ? 'pre' : 'normal' }}
                 >
                     {ch}
@@ -112,7 +112,7 @@ const Marquee = ({ text, reverse = false }) => {
                 transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
             >
                 {[...items, ...items].map((item, i) => (
-                    <span key={i} className="text-white dark:text-white text-[11px] uppercase tracking-[0.4em] font-black">
+                    <span key={i} className="text-white text-[11px] uppercase tracking-[0.4em] font-black">
                         {item} <span className="text-white/50 mx-4">◆</span>
                     </span>
                 ))}
@@ -142,21 +142,11 @@ const Hero = () => {
     const textY       = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
     const nameScale   = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
     const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const bgScale     = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
     const overlayOp   = useTransform(scrollYProgress, [0, 0.6], [0.55, 0.9]);
     const marqueeY    = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
 
     const scrollToProjects = () => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
     const scrollToContact  = () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-
-    const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
-    useEffect(() => {
-        const obs = new MutationObserver(() =>
-            setIsDark(document.documentElement.classList.contains('dark'))
-        );
-        obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-        return () => obs.disconnect();
-    }, []);
 
     const stats = [
         { value: '3+', label: 'Stages' },
@@ -168,7 +158,7 @@ const Hero = () => {
         <section
             id="home"
             ref={sectionRef}
-            className="relative min-h-screen overflow-hidden bg-black transition-colors duration-300"
+            className="relative min-h-[100svh] overflow-hidden bg-black transition-colors duration-300"
         >
             {/* ── Grain ── */}
             <NoiseOverlay />
@@ -176,7 +166,6 @@ const Hero = () => {
             {/* ── Solid background base ── */}
             <div className="absolute inset-0 z-0 bg-black transition-colors duration-300" />
 
-            {/* ── Right-side portrait image ── */}
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
             <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none">
                 <motion.div
@@ -246,23 +235,23 @@ const Hero = () => {
 
             {/* ── GIANT Cinematic Title (Background Layer) ── */}
             <motion.div 
-                className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
+                className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4"
                 style={{ y: textY, opacity: textOpacity }}
             >
-                <div className="flex flex-col gap-2">
-                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="flex flex-col items-center justify-center text-center w-full gap-2">
+                <div className="flex flex-col gap-0 md:gap-2 w-full">
+                    <motion.div style={{ x: mx, y: my, scale: nameScale }} className="flex flex-col items-center justify-center text-center w-full gap-0 md:gap-2">
                         <SplitText
                             text="EZ-ZOUEK"
                             delay={0.5}
-                            className="block font-black uppercase leading-none tracking-tighter w-full"
-                            style={{ fontSize: 'clamp(3.5rem, 11vw, 10rem)' }}
+                            className="block font-black uppercase leading-[0.8] tracking-tighter w-full"
+                            style={{ fontSize: 'clamp(3rem, 15vw, 12rem)' }}
                         />
                         <SplitText
                             text="HAMZA"
                             delay={0.7}
-                            className="block font-black uppercase leading-none tracking-tighter w-full"
+                            className="block font-black uppercase leading-[0.8] tracking-tighter w-full"
                             style={{
-                                fontSize: 'clamp(3.5rem, 11vw, 10rem)',
+                                fontSize: 'clamp(3rem, 15vw, 12rem)',
                             }}
                         />
                     </motion.div>
@@ -273,7 +262,7 @@ const Hero = () => {
                 FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-50 min-h-screen flex flex-col justify-between px-6 md:px-14 lg:px-20 pt-28 pb-10 pointer-events-none"
+                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-12 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
                 {/* ── Top row: greeting + available badge ── */}
@@ -282,7 +271,7 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-white text-sm md:text-base uppercase tracking-[0.35em] font-bold"
+                        className="text-white text-xs md:text-sm uppercase tracking-[0.35em] font-bold"
                     >
                         {t.hero.greeting}
                     </motion.p>
@@ -291,14 +280,14 @@ const Hero = () => {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="flex items-center gap-2 border border-white/20 px-4 py-2 backdrop-blur-sm bg-black/30 rounded-full"
+                        className="flex items-center gap-2 border border-white/10 px-4 py-2 backdrop-blur-md bg-white/5 rounded-full"
                     >
                         <motion.span
-                            animate={{ opacity: [1, 0.2, 1] }}
-                            transition={{ duration: 1.6, repeat: Infinity }}
-                            className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"
+                            animate={{ opacity: [1, 0.4, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] inline-block"
                         />
-                        <span className="text-white text-[11px] uppercase tracking-[0.3em] font-black">
+                        <span className="text-white text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-black">
                             {t.hero.available}
                         </span>
                     </motion.div>
@@ -306,7 +295,6 @@ const Hero = () => {
 
                 {/* ── Foreground Description ── */}
                 <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0 pointer-events-none invisible md:visible">
-                     {/* Placeholder to maintain spacing where the giant title was */}
                      <div style={{ height: 'clamp(7rem, 22vw, 20rem)' }}></div>
                 </div>
 
@@ -315,10 +303,10 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.3, duration: 0.8 }}
-                        className="flex flex-col gap-4 mt-6 max-w-[320px]"
+                        className="flex flex-col gap-4 mt-6 max-w-[280px] md:max-w-[320px]"
                     >
-                        <div className="h-px flex-grow-0 w-12 bg-white/30" />
-                        <p className="text-white/80 text-[10px] md:text-[11px] uppercase tracking-widest font-bold leading-[1.8] text-justify">
+                        <div className="h-[2px] flex-grow-0 w-16 bg-white" />
+                        <p className="text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-medium leading-[1.6] opacity-70">
                             Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
                         </p>
                     </motion.div>
@@ -332,62 +320,47 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.7, duration: 0.8 }}
-                        className="flex gap-6"
+                        className="flex gap-6 md:gap-12"
                     >
                         {stats.map((s, i) => (
                             <motion.div
                                 key={i}
-                                whileHover={{ scale: 1.05 }}
-                                className="border border-white/15 hover:border-white/50 backdrop-blur-sm px-5 py-3 text-center transition-all duration-300"
+                                whileHover={{ y: -5 }}
+                                className="flex flex-col items-start transition-all duration-300"
                             >
-                                <div className="text-white font-black text-2xl leading-none">{s.value}</div>
-                                <div className="text-white/50 text-[9px] uppercase tracking-widest mt-1 font-bold">{s.label}</div>
+                                <div className="text-white font-black text-3xl md:text-5xl leading-none tracking-tighter">{s.value}</div>
+                                <div className="text-white/40 text-[10px] uppercase tracking-[0.2em] mt-2 font-bold">{s.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
 
                     {/* CTAs + socials */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.9, duration: 0.8 }}
-                        className="flex flex-col gap-5"
-                    >
+                    <div className="flex flex-col gap-6 items-start md:items-end">
                         {/* CTA buttons */}
-                        <div className="flex flex-wrap gap-3 pointer-events-auto relative z-30">
+                        <div className="flex flex-wrap gap-4 pointer-events-auto relative z-30">
                             <motion.button
-                                whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-white text-white font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-4 px-8 py-4 bg-white text-black font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full"
                             >
                                 {t.hero.viewProjects}
-                                <motion.span
-                                    animate={{ x: [0, 4, 0] }}
-                                    transition={{ duration: 1.4, repeat: Infinity }}
-                                >
-                                    <FaArrowRight className="text-[10px]" />
-                                </motion.span>
+                                <FaArrowRight className="text-[10px]" />
                             </motion.button>
 
                             <motion.button
-                                whileHover={{ backgroundColor: 'rgba(255,255,255,0.08)', scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileHover={{ backgroundColor: 'rgba(255,255,255,0.1)', scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={scrollToContact}
-                                className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white/70 font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                                className="flex items-center gap-4 px-8 py-4 border border-white/20 text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full backdrop-blur-md"
                             >
                                 {t.hero.contactMe}
-                                <motion.span
-                                    animate={{ x: [0, 4, 0] }}
-                                    transition={{ duration: 1.4, repeat: Infinity, delay: 0.3 }}
-                                >
-                                    <FaArrowRight className="text-[10px]" />
-                                </motion.span>
+                                <FaArrowRight className="text-[10px]" />
                             </motion.button>
                         </div>
 
                         {/* Social icons */}
-                        <div className="flex gap-5 relative z-30 pointer-events-auto">
+                        <div className="flex gap-6 relative z-30 pointer-events-auto">
                             {[
                                 { icon: FaGithub,   link: socialLinks.github,              label: 'GitHub' },
                                 { icon: FaLinkedin, link: socialLinks.linkedin,            label: 'LinkedIn' },
@@ -401,13 +374,13 @@ const Hero = () => {
                                     aria-label={s.label}
                                     whileHover={{ y: -4, color: '#ffffff' }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-white/40 transition-colors text-lg"
+                                    className="text-white/30 hover:text-white transition-colors text-xl"
                                 >
                                     <s.icon />
                                 </motion.a>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </motion.div>
 
@@ -426,7 +399,6 @@ const Hero = () => {
                     style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }}
                 />
             </motion.div>
-
 
         </section>
     );

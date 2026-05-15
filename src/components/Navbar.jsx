@@ -50,15 +50,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
     return (
         <>
-            {/* Floating Header */}
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.6, ease: [0.6, 0.05, 0.01, 0.9] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4' : 'pt-8'}`}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'py-4' : 'pt-10'}`}
             >
-                <div className={`max-w-[1400px] mx-auto px-6 md:px-12 transition-all duration-500`}>
-                    <div className={`flex items-center justify-between p-4 rounded-3xl transition-all duration-500 ${scrolled ? 'bg-black/40 dark:bg-white/5 backdrop-blur-xl border border-white/10' : 'bg-transparent border-transparent'}`}>
+                <div className="max-w-[1440px] mx-auto px-6 md:px-12 transition-all duration-700">
+                    <div className={`flex items-center justify-between px-8 py-5 rounded-[2rem] transition-all duration-700 ${scrolled ? 'bg-black/80 dark:bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl' : 'bg-transparent border-transparent'}`}>
                         {/* Logo */}
                         <motion.div
                             whileHover={{ scale: 1.05 }}
@@ -86,20 +85,20 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </motion.nav>
 
             {/* Vertical Right Navigation (Floating Glass Pill) */}
-            <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-5 z-50 bg-black/30 dark:bg-black/50 backdrop-blur-xl border border-white/10 dark:border-white/20 rounded-full py-6 px-3 shadow-2xl">
+            <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-[60] bg-black/50 dark:bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full py-8 px-4 shadow-3xl hidden sm:flex">
                 {navLinks.map((link, index) => {
                     const isActive = activeSection === link.href.substring(1);
                     return (
                         <div key={index} className="group relative flex items-center justify-center">
                             <motion.button
-                                whileHover={{ scale: 1.2 }}
-                                whileTap={{ scale: 0.9 }}
+                                whileHover={{ scale: 1.5 }}
+                                whileTap={{ scale: 0.8 }}
                                 onClick={() => scrollToSection(link.href)}
-                                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${isActive ? 'bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'bg-white/30 hover:bg-white/80'}`}
+                                className={`w-2 h-2 rounded-full transition-all duration-500 ${isActive ? 'bg-white scale-150 shadow-[0_0_15px_rgba(255,255,255,1)]' : 'bg-white/20 hover:bg-white/60'}`}
                             />
                             {/* Hover Tooltip */}
-                            <div className="absolute right-8 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-300">
-                                <div className="bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-sm whitespace-nowrap shadow-lg">
+                            <div className="absolute right-10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-500">
+                                <div className="bg-white text-black text-[9px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-lg whitespace-nowrap shadow-2xl">
                                     {link.name}
                                 </div>
                             </div>

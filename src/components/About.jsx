@@ -41,7 +41,7 @@ const About = () => {
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
             
             {/* 1. Profile Card & Terminal Biography (2-Column Layout) */}
-            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
                 
                 {/* Left Column: Animated Sticky Profile Card */}
                 <div className="w-full lg:w-1/3 flex-shrink-0 relative">
@@ -52,28 +52,28 @@ const About = () => {
                         className="sticky top-32"
                     >
                         <motion.div 
-                            whileHover={{ scale: 1.05, rotateY: 15, rotateX: 5, z: 50 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            className="rounded-[2.5rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative group cursor-pointer"
-                            style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+                            whileHover={{ scale: 1.02, rotateY: 5, rotateX: 2, z: 50 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                            className="rounded-[3rem] overflow-hidden border border-gray-100 dark:border-white/5 shadow-3xl relative group cursor-pointer bg-zinc-900"
+                            style={{ transformStyle: "preserve-3d", perspective: 1200 }}
                         >
                             <img 
                                 src={profileImg} 
                                 alt={personalInfo.name} 
-                                className="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                className="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out"
                             />
                             {/* Inner Shadow / Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700" />
                             
                             <motion.div 
-                                style={{ transform: "translateZ(40px)" }}
-                                className="absolute bottom-8 left-8 right-8 flex flex-col gap-2"
+                                style={{ transform: "translateZ(60px)" }}
+                                className="absolute bottom-10 left-10 right-10 flex flex-col gap-3"
                             >
-                                <div className="w-12 h-1 bg-white mb-2 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                                <h3 className="text-white text-3xl font-black uppercase tracking-widest leading-none">
+                                <div className="w-16 h-[2px] bg-white mb-2 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                                <h3 className="text-white text-4xl font-black uppercase tracking-tighter leading-[0.9]">
                                     {personalInfo.name.split(' ')[0]} <br/> {personalInfo.name.split(' ')[1]}
                                 </h3>
-                                <p className="text-white/60 text-xs font-bold uppercase tracking-[0.3em] mt-2">
+                                <p className="text-white/50 text-[10px] font-black uppercase tracking-[0.4em] mt-2">
                                     Software Engineer
                                 </p>
                             </motion.div>
@@ -105,13 +105,14 @@ const About = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white mb-6 tracking-tighter">
-                        {t.about.title} <span className="opacity-30 italic">{t.about.titleHighlight}</span>
+                    <h2 className="text-5xl md:text-8xl font-black text-black dark:text-white mb-8 tracking-tighter leading-none">
+                        {t.about.title} <br/>
+                        <span className="opacity-10 italic">{t.about.titleHighlight}</span>
                     </h2>
-                    <div className="w-20 h-2 bg-black dark:bg-white mx-auto mb-8"></div>
-                    <p className="text-gray-500 dark:text-gray-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                    <div className="w-24 h-[2px] bg-black dark:bg-white mx-auto mb-10"></div>
+                    <p className="text-gray-500 dark:text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
                         {t.about.subtitle}
                     </p>
                 </motion.div>
@@ -154,7 +155,7 @@ const About = () => {
 
                 {/* 3. Logical Dynamic Stats (Full Width) */}
                 <div className="mt-40">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-900 overflow-hidden rounded-3xl shadow-2xl dark:shadow-[0_0_80px_rgba(255,255,255,0.15)]">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-900 overflow-hidden rounded-[3rem] shadow-3xl">
                         <StatItem
                             number={internalProjectsCount}
                             label={t.about.stats.projects}
@@ -181,7 +182,7 @@ const NavButton = ({ onClick, disabled, icon }) => (
     <button
         onClick={onClick}
         disabled={disabled}
-        className={`p-4 md:p-6 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white pointer-events-auto transition-all duration-500 shadow-[4px_4px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.1)] md:dark:shadow-[8px_8px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none ${disabled ? 'opacity-0 scale-50' : 'opacity-100 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] md:hover:shadow-[12px_12px_0px_rgba(0,0,0,1)]'
+        className={`p-5 md:p-8 bg-white dark:bg-black border border-black/10 dark:border-white/10 text-black dark:text-white pointer-events-auto transition-all duration-500 rounded-full shadow-xl ${disabled ? 'opacity-0 scale-50' : 'opacity-100 hover:scale-110 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
             }`}
     >
         {icon}
@@ -209,9 +210,9 @@ const TimelineCard = ({ item }) => {
     const isExp = item.type === 'experience';
 
     return (
-        <div className="relative p-6 md:p-20 bg-gray-50 dark:bg-gray-900/50 border-2 border-black dark:border-white shadow-[10px_10px_0px_rgba(0,0,0,1)] md:shadow-[20px_20px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_rgba(255,255,255,0.1)] md:dark:shadow-[20px_20px_0px_rgba(255,255,255,0.1)] overflow-hidden">
-            <div className="absolute -top-10 -right-10 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
-                {isExp ? <FaBriefcase size={200} className="md:size-[300px]" /> : <FaGraduationCap size={200} className="md:size-[300px]" />}
+        <div className="relative p-8 md:p-24 bg-zinc-50 dark:bg-zinc-900/30 border border-black/5 dark:border-white/5 rounded-[3rem] overflow-hidden group">
+            <div className="absolute -top-20 -right-20 opacity-[0.02] dark:opacity-[0.04] pointer-events-none transition-transform duration-1000 group-hover:scale-110">
+                {isExp ? <FaBriefcase size={300} className="md:size-[500px]" /> : <FaGraduationCap size={300} className="md:size-[500px]" />}
             </div>
 
             <div className="relative z-10">

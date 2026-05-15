@@ -86,14 +86,14 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
-                        Me <span className="text-black dark:text-white">Contacter</span>
+                    <h4 className="text-zinc-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Get in touch</h4>
+                    <h2 className="text-5xl md:text-8xl font-black text-black dark:text-white mb-8 tracking-tighter leading-none">
+                        Me <span className="text-zinc-300 dark:text-zinc-800 italic">Contacter</span>
                     </h2>
-                    <div className="w-24 h-1 bg-black dark:bg-white mx-auto"></div>
-                    <p className="text-gray-600 dark:text-gray-400 mt-6 text-lg max-w-2xl mx-auto">
+                    <div className="w-24 h-[2px] bg-black dark:bg-white mx-auto mb-10"></div>
+                    <p className="text-gray-500 dark:text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
                         N'hésitez pas à me contacter pour toute opportunité ou collaboration
                     </p>
                 </motion.div>
@@ -108,23 +108,23 @@ const Contact = () => {
                         className="space-y-8"
                     >
                         <div>
-                            <h3 className="text-2xl font-bold text-black dark:text-white mb-6">
-                                Informations de contact
+                            <h3 className="text-2xl font-black text-black dark:text-white mb-10 uppercase tracking-tighter">
+                                Contact Channels
                             </h3>
-                            <div className="space-y-4">
+                            <div className="space-y-6">
                                 {contactInfo.map((info, index) => (
                                     <motion.a
                                         key={index}
                                         whileHover={{ x: 10 }}
                                         href={info.link}
-                                        className="flex items-center gap-4 p-4 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors group"
+                                        className="flex items-center gap-6 p-6 bg-white dark:bg-zinc-900/50 border border-zinc-100 dark:border-white/5 hover:border-black dark:hover:border-white transition-all rounded-3xl group shadow-sm hover:shadow-2xl"
                                     >
-                                        <div className="p-4 bg-black dark:bg-white text-white dark:text-black">
-                                            <info.icon size={24} />
+                                        <div className="p-5 bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white rounded-2xl group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
+                                            <info.icon size={28} />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">{info.title}</p>
-                                            <p className="font-semibold text-black dark:text-white">{info.value}</p>
+                                            <p className="text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-black mb-1">{info.title}</p>
+                                            <p className="text-lg font-black text-black dark:text-white tracking-tight">{info.value}</p>
                                         </div>
                                     </motion.a>
                                 ))}
@@ -132,9 +132,9 @@ const Contact = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div>
-                            <h3 className="text-xl font-bold text-black dark:text-white mb-4">
-                                Réseaux sociaux
+                        <div className="pt-10">
+                            <h3 className="text-xl font-black text-black dark:text-white mb-6 uppercase tracking-tighter">
+                                Connect with me
                             </h3>
                             <div className="flex gap-4">
                                 {[
@@ -144,12 +144,12 @@ const Contact = () => {
                                 ].map((social, index) => (
                                     <motion.a
                                         key={index}
-                                        whileHover={{ y: -5 }}
+                                        whileHover={{ y: -5, scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                         href={social.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="p-4 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all"
+                                        className="p-5 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all rounded-2xl shadow-sm hover:shadow-xl"
                                     >
                                         <social.icon size={24} />
                                     </motion.a>
@@ -165,39 +165,41 @@ const Contact = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div>
-                                <label className="block text-sm font-bold text-black dark:text-white mb-2 uppercase tracking-wider">
-                                    Nom complet
-                                </label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white focus:border-black dark:focus:border-white transition-colors outline-none"
-                                    placeholder="Votre nom"
-                                />
+                        <form onSubmit={handleSubmit} className="space-y-8 bg-white dark:bg-zinc-900/50 p-8 md:p-12 rounded-[3rem] border border-zinc-100 dark:border-white/5 shadow-2xl">
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div className="space-y-3">
+                                    <label className="block text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] ml-2">
+                                        Nom complet
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-6 py-4 bg-zinc-50 dark:bg-zinc-800/50 border border-transparent focus:border-black dark:focus:border-white text-black dark:text-white transition-all outline-none rounded-2xl"
+                                        placeholder="Votre nom"
+                                    />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <label className="block text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] ml-2">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-6 py-4 bg-zinc-50 dark:bg-zinc-800/50 border border-transparent focus:border-black dark:focus:border-white text-black dark:text-white transition-all outline-none rounded-2xl"
+                                        placeholder="votre@email.com"
+                                    />
+                                </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-bold text-black dark:text-white mb-2 uppercase tracking-wider">
-                                    Email
-                                </label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white focus:border-black dark:focus:border-white transition-colors outline-none"
-                                    placeholder="votre@email.com"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-bold text-black dark:text-white mb-2 uppercase tracking-wider">
+                            <div className="space-y-3">
+                                <label className="block text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] ml-2">
                                     Sujet
                                 </label>
                                 <input
@@ -206,13 +208,13 @@ const Contact = () => {
                                     value={formData.subject}
                                     onChange={handleChange}
                                     required
-                                    className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white focus:border-black dark:focus:border-white transition-colors outline-none"
+                                    className="w-full px-6 py-4 bg-zinc-50 dark:bg-zinc-800/50 border border-transparent focus:border-black dark:focus:border-white text-black dark:text-white transition-all outline-none rounded-2xl"
                                     placeholder="Sujet du message"
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-bold text-black dark:text-white mb-2 uppercase tracking-wider">
+                            <div className="space-y-3">
+                                <label className="block text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] ml-2">
                                     Message
                                 </label>
                                 <textarea
@@ -221,7 +223,7 @@ const Contact = () => {
                                     onChange={handleChange}
                                     required
                                     rows="5"
-                                    className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 text-black dark:text-white focus:border-black dark:focus:border-white transition-colors outline-none resize-none"
+                                    className="w-full px-6 py-4 bg-zinc-50 dark:bg-zinc-800/50 border border-transparent focus:border-black dark:focus:border-white text-black dark:text-white transition-all outline-none rounded-2xl resize-none"
                                     placeholder="Votre message..."
                                 ></textarea>
                             </div>
@@ -242,15 +244,15 @@ const Contact = () => {
 
                             {/* Submit Button */}
                             <motion.button
-                                whileHover={{ x: 5 }}
+                                whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 type="submit"
                                 disabled={loading}
-                                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-5 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-[0.2em] text-xs rounded-2xl flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-2xl"
                             >
                                 {loading ? (
                                     <>
-                                        <div className="loader w-5 h-5 border-2 border-white dark:border-black border-t-transparent"></div>
+                                        <div className="loader w-5 h-5 border-2 border-white dark:border-black border-t-transparent rounded-full animate-spin"></div>
                                         Envoi en cours...
                                     </>
                                 ) : (

@@ -123,25 +123,27 @@ const GitHubStats = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
-                        {t.github.titlePrefix} <span className="gradient-text">{t.github.titleHighlight}</span>
+                    <h4 className="text-zinc-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Open Source</h4>
+                    <h2 className="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-none">
+                        {t.github.titlePrefix} <span className="text-zinc-800 italic">{t.github.titleHighlight}</span>
                     </h2>
-                    <div className="w-24 h-1 bg-white mx-auto mb-6"></div>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-4">
+                    <div className="w-24 h-[2px] bg-white mx-auto mb-10"></div>
+                    <p className="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed mb-8">
                         {t.github.subtitle}
                     </p>
-                    <a
+                    <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href={`https://github.com/${username}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+                        className="inline-flex items-center gap-4 px-8 py-4 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-full transition-all"
                     >
-                        <FaGithub className="text-2xl" />
-                        <span className="font-semibold">@{username}</span>
-                    </a>
+                        <FaGithub size={20} />
+                        @{username}
+                    </motion.a>
                 </motion.div>
 
                 {/* Stats Grid */}
@@ -149,38 +151,25 @@ const GitHubStats = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+                    className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-900 border border-zinc-900 overflow-hidden rounded-[3rem] shadow-3xl mb-24"
                 >
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            className="relative bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-6 group overflow-hidden"
+                            className="relative bg-black p-10 flex flex-col items-center group overflow-hidden"
                         >
-                            {/* Background Icon */}
-                            <stat.icon
-                                className="absolute -right-4 -top-4 text-8xl opacity-5 group-hover:opacity-10 transition-opacity"
-                                style={{ color: stat.color }}
-                            />
-
-                            {/* Content */}
-                            <div className="relative z-10">
-                                <stat.icon
-                                    className="text-4xl mb-3"
-                                    style={{ color: stat.color }}
-                                />
-                                <div className="text-4xl font-black text-white mb-2">
+                            <div className="relative z-10 text-center">
+                                <div className="text-5xl md:text-6xl font-black text-white mb-4 tracking-tighter">
                                     {index === 0 ? `${stat.value}+` : stat.value}
                                 </div>
-                                <div className="text-sm text-gray-400 uppercase tracking-wider">
+                                <div className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-black">
                                     {stat.label}
                                 </div>
                             </div>
 
                             {/* Glow Effect */}
                             <div
-                                className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl"
+                                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-3xl pointer-events-none"
                                 style={{ background: stat.color }}
                             />
                         </motion.div>
@@ -192,64 +181,58 @@ const GitHubStats = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-16 bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 p-8 rounded-2xl"
+                    className="bg-zinc-900/50 border border-white/5 p-12 rounded-[3rem] backdrop-blur-3xl"
                 >
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                            <FaCodeBranch className="text-3xl text-green-400" />
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                        <h3 className="text-2xl font-black text-white uppercase tracking-tighter flex items-center gap-4">
+                            <FaCodeBranch className="text-3xl" />
                             {t.github.topLanguages}
                         </h3>
-                        <div className="text-xs font-mono text-gray-500 bg-gray-800/50 px-3 py-1 rounded-full border border-gray-700">
+                        <div className="text-[9px] font-black text-zinc-500 bg-white/5 px-6 py-3 rounded-full border border-white/5 uppercase tracking-[0.2em]">
                             Dynamic Analysis of {repos.length} Repositories
                         </div>
                     </div>
 
                     {/* Single Segmented Bar */}
-                    <div className="w-full h-4 bg-gray-800 rounded-full overflow-hidden flex mb-10 shadow-inner">
+                    <div className="w-full h-[6px] bg-white/5 rounded-full overflow-hidden flex mb-12">
                         {topLanguages.map((lang, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ width: 0 }}
                                 whileInView={{ width: `${lang.percentage}%` }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 1, delay: index * 0.1 }}
+                                transition={{ duration: 1.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                                 style={{ backgroundColor: lang.color }}
                                 className="h-full first:rounded-l-full last:rounded-r-full group relative"
-                            >
-                                {/* Mini Tooltip on Hover */}
-                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-gray-700">
-                                    {lang.name}: {lang.percentage}%
-                                </div>
-                            </motion.div>
+                            />
                         ))}
                     </div>
 
                     {/* Legend Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
                         {topLanguages.map((lang, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
                                 className="flex flex-col"
                             >
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span
-                                        className="w-3 h-3 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.5)]"
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div
+                                        className="w-3 h-3 rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                                         style={{ backgroundColor: lang.color }}
-                                    ></span>
-                                    <span className="text-white font-bold tracking-tight">
+                                    ></div>
+                                    <span className="text-white font-black text-sm uppercase tracking-tighter">
                                         {lang.name}
                                     </span>
                                 </div>
-                                <div className="flex items-end gap-2">
-                                    <span className="text-2xl font-black text-white leading-none">
+                                <div className="flex items-end gap-3">
+                                    <span className="text-4xl font-black text-white leading-none tracking-tighter">
                                         {lang.percentage}%
                                     </span>
-                                    <span className="text-[10px] text-gray-500 uppercase tracking-tighter mb-0.5">
+                                    <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-black mb-1">
                                         Usage
                                     </span>
                                 </div>

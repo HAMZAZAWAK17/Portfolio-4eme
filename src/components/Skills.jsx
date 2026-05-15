@@ -47,62 +47,66 @@ const Skills = () => {
         <section id="skills" className="py-24 bg-white dark:bg-[#050505] transition-colors duration-500 overflow-hidden select-none">
             <div className="max-w-[100vw]">
                 {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-6 md:px-14 lg:px-20 max-w-7xl mx-auto">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24 px-6 md:px-14 lg:px-20 max-w-7xl mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="max-w-2xl"
+                        className="max-w-3xl"
                     >
-                        <div className="flex items-center gap-2 text-zinc-500 uppercase tracking-[0.3em] text-xs font-bold mb-4">
-                            <span className="w-8 h-[1px] bg-zinc-300 dark:bg-zinc-800" />
-                            My Expertise
-                        </div>
-                        <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white leading-tight">
-                            {t.skills.title} <span className="opacity-30 italic">{t.skills.titleHighlight}</span>
+                        <h4 className="text-zinc-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">My Stack</h4>
+                        <h2 className="text-5xl md:text-8xl font-black text-black dark:text-white leading-[0.9] tracking-tighter">
+                            {t.skills.title} <br/>
+                            <span className="text-zinc-300 dark:text-zinc-800 italic">{t.skills.titleHighlight}</span>
                         </h2>
                     </motion.div>
 
                     <motion.p
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-gray-500 dark:text-gray-400 text-lg md:text-xl max-w-sm md:text-right"
+                        className="text-gray-500 dark:text-gray-400 text-lg md:text-2xl max-w-md md:text-right font-medium leading-relaxed"
                     >
                         {t.skills.subtitle}
                     </motion.p>
                 </div>
 
                 {/* Infinite Marquee Container */}
-                <div className="relative flex overflow-hidden py-10">
+                <div className="relative flex overflow-hidden py-20 bg-zinc-50/50 dark:bg-zinc-900/10 border-y border-zinc-100 dark:border-white/5">
                     <motion.div 
-                        className="flex whitespace-nowrap gap-12 md:gap-20"
+                        className="flex whitespace-nowrap gap-16 md:gap-32 px-16"
                         animate={{ x: ["0%", "-50%"] }}
                         transition={{ 
-                            duration: 30, 
+                            duration: 40, 
                             repeat: Infinity, 
                             ease: "linear" 
                         }}
                     >
                         {marqueeSkills.map((skill, index) => (
-                            <div key={index} className="flex flex-col items-center gap-6 group">
-                                {/* Icon Container (Squircle Style) */}
-                                <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-50 dark:bg-zinc-900/50 rounded-[2rem] border border-gray-100 dark:border-white/5 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-zinc-800 group-hover:shadow-2xl">
+                            <div key={index} className="flex flex-col items-center gap-8 group cursor-pointer">
+                                {/* Icon Container (Premium Squircle) */}
+                                <div className="w-28 h-28 md:w-40 md:h-40 bg-white dark:bg-zinc-900/50 rounded-[3rem] border border-zinc-100 dark:border-white/5 flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:bg-black group-hover:border-black dark:group-hover:bg-white dark:group-hover:border-white group-hover:shadow-3xl relative overflow-hidden">
                                     <img 
                                         src={skill.image} 
                                         alt={skill.name}
-                                        className="w-12 h-12 md:w-16 md:h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-500" 
+                                        className="w-14 h-14 md:w-20 md:h-20 object-contain grayscale group-hover:grayscale-0 group-hover:invert dark:group-hover:invert-0 transition-all duration-700 relative z-10" 
                                     />
+                                    {/* Reveal Circle on Hover */}
+                                    <div className="absolute inset-0 bg-white dark:bg-black opacity-0 group-hover:opacity-10 scale-0 group-hover:scale-150 transition-all duration-700 rounded-full" />
                                 </div>
                                 
                                 {/* Label */}
-                                <div className="text-center flex flex-col gap-1">
-                                    <span className="text-xs md:text-sm font-black uppercase tracking-widest text-black dark:text-white">
+                                <div className="text-center flex flex-col gap-2">
+                                    <span className="text-xs md:text-sm font-black uppercase tracking-[0.3em] text-black dark:text-white transition-all group-hover:italic group-hover:tracking-[0.4em]">
                                         {skill.name}
                                     </span>
-                                    <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600">
-                                        Technology
-                                    </span>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <div className="w-4 h-[1px] bg-zinc-300 dark:bg-zinc-800" />
+                                        <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600">
+                                            TECH
+                                        </span>
+                                        <div className="w-4 h-[1px] bg-zinc-300 dark:bg-zinc-800" />
+                                    </div>
                                 </div>
                             </div>
                         ))}

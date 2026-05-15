@@ -10,14 +10,14 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-black dark:bg-white text-white dark:text-black relative border-t-2 border-white dark:border-black">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 relative z-10">
+        <footer className="bg-black text-white relative border-t border-white/5">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 relative z-10">
                 <div className="grid md:grid-cols-3 gap-8 mb-8">
                     {/* About */}
-                    <div>
-                        <h3 className="text-3xl font-black mb-4">EH.</h3>
-                        <p className="text-gray-400 dark:text-gray-600 mb-4">
-                            Développeur Full-Stack passionné par la création de solutions web modernes et performantes.
+                    <div className="md:col-span-1">
+                        <h3 className="text-4xl font-black mb-6 tracking-tighter uppercase">EH.</h3>
+                        <p className="text-zinc-500 mb-8 max-w-sm text-sm leading-relaxed font-medium">
+                            Développeur Full-Stack passionné par la création de solutions web modernes, performantes et centrées sur l'utilisateur.
                         </p>
                         <div className="flex gap-4">
                             {[
@@ -27,11 +27,11 @@ const Footer = () => {
                             ].map((social, index) => (
                                 <motion.a
                                     key={index}
-                                    whileHover={{ y: -3 }}
+                                    whileHover={{ y: -5, scale: 1.1 }}
                                     href={social.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-3 bg-white dark:bg-black text-black dark:text-white border-2 border-white dark:border-black hover:bg-transparent hover:text-white dark:hover:bg-transparent dark:hover:text-black transition-colors"
+                                    className="p-4 bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black transition-all rounded-xl"
                                 >
                                     <social.icon size={20} />
                                 </motion.a>
@@ -41,13 +41,13 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-lg font-bold mb-4 uppercase tracking-wider">Liens rapides</h4>
-                        <ul className="space-y-2">
+                        <h4 className="text-[10px] font-black mb-6 uppercase tracking-[0.4em] text-zinc-600">Navigation</h4>
+                        <ul className="space-y-4">
                             {['Accueil', 'À propos', 'Compétences', 'Projets', 'Contact'].map((link, index) => (
                                 <li key={index}>
                                     <a
                                         href={`#${link.toLowerCase().replace('à propos', 'about').replace('compétences', 'skills').replace('projets', 'projects').replace('accueil', 'home')}`}
-                                        className="text-gray-400 dark:text-gray-600 hover:text-white dark:hover:text-black transition-colors underline-effect"
+                                        className="text-white font-black uppercase text-[11px] tracking-widest hover:italic transition-all opacity-60 hover:opacity-100"
                                     >
                                         {link}
                                     </a>
@@ -58,23 +58,23 @@ const Footer = () => {
 
                     {/* Contact Info */}
                     <div>
-                        <h4 className="text-lg font-bold mb-4 uppercase tracking-wider">Contact</h4>
-                        <ul className="space-y-2 text-gray-400 dark:text-gray-600">
-                            <li className="hover:text-white dark:hover:text-black transition-colors">{personalInfo.email}</li>
-                            <li className="hover:text-white dark:hover:text-black transition-colors">{personalInfo.phone}</li>
-                            <li className="hover:text-white dark:hover:text-black transition-colors">{personalInfo.location}</li>
+                        <h4 className="text-[10px] font-black mb-6 uppercase tracking-[0.4em] text-zinc-600">Contact</h4>
+                        <ul className="space-y-4">
+                            <li className="text-white font-black uppercase text-[11px] tracking-widest opacity-60">{personalInfo.email}</li>
+                            <li className="text-white font-black uppercase text-[11px] tracking-widest opacity-60">{personalInfo.phone}</li>
+                            <li className="text-white font-black uppercase text-[11px] tracking-widest opacity-60">{personalInfo.location}</li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Divider */}
-                <div className="border-t-2 border-gray-800 dark:border-gray-200 pt-8">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-gray-400 dark:text-gray-600 text-sm">
-                            © {currentYear} {personalInfo.name}. Tous droits réservés.
+                <div className="border-t border-white/5 pt-12">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">
+                            © {currentYear} {personalInfo.name}. All Rights Reserved.
                         </p>
-                        <p className="text-gray-400 dark:text-gray-600 text-sm flex items-center gap-2">
-                            Fait avec <FaHeart className="text-white dark:text-black" /> et ReactJS
+                        <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-3">
+                            Built with <FaHeart className="text-white" /> by Hamza
                         </p>
                     </div>
                 </div>
@@ -82,12 +82,12 @@ const Footer = () => {
 
             {/* Scroll to Top Button */}
             <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={scrollToTop}
-                className="absolute bottom-8 right-8 p-4 bg-white dark:bg-black text-black dark:text-white border-2 border-white dark:border-black hover:bg-transparent hover:text-white dark:hover:bg-transparent dark:hover:text-black transition-colors"
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white text-black flex items-center justify-center rounded-full shadow-2xl transition-all hover:bg-zinc-200"
             >
-                <FaArrowUp size={20} />
+                <FaArrowUp size={24} />
             </motion.button>
         </footer>
     );
