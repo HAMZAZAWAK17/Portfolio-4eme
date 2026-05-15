@@ -56,7 +56,7 @@ const TerminalTyping = ({ text, speed = 50 }) => {
                     </div>
                 </div>
 
-                {/* Terminal Body */}
+                    {/* Terminal Body */}
                 <div className="p-8 md:p-12 font-mono text-lg md:text-2xl flex-grow overflow-y-auto custom-scrollbar">
                     {/* Command Prompt */}
                     <div className="flex items-start gap-4 mb-6">
