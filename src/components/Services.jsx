@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaCode, FaMobileAlt, FaShoppingCart, FaLaptopCode, FaRocket, FaPalette } from 'react-icons/fa';
+import { FaCode, FaMobileAlt, FaShoppingCart, FaLaptopCode, FaRocket, FaPalette, FaArrowRight } from 'react-icons/fa';
 import { MdWeb } from 'react-icons/md';
 import { useLanguage } from '../LanguageContext';
 
