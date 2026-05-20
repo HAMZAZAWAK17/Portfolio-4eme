@@ -262,7 +262,7 @@ const Hero = () => {
                 FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-28 md:pb-32 pointer-events-none"
+                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-12 md:pb-16 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
                 {/* ── Top row removed as requested ── */}
