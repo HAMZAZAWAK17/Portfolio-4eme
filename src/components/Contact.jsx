@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import emailjs from 'emailjs-com';
 import toast from 'react-hot-toast';
@@ -94,50 +94,50 @@ const Contact = () => {
     ];
 
     return (
-        <section id="contact" className="relative py-32 bg-gray-50 dark:bg-black overflow-hidden transition-colors duration-500 min-h-screen flex items-center justify-center">
+        <section id="contact" className="relative py-24 md:py-32 bg-white dark:bg-black overflow-hidden transition-colors duration-500 min-h-screen flex items-center justify-center">
             
-            {/* --- Glowing Orb Background --- */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-emerald-500/10 dark:bg-emerald-900/20 blur-[120px] rounded-full pointer-events-none z-0" />
+            {/* --- Glowing Emerald Orb Background --- */}
+            <div className="absolute top-[2%] left-1/2 -translate-x-1/2 w-[90vw] md:w-[60vw] h-[400px] bg-teal-500/20 dark:bg-[#1a4a38] blur-[100px] md:blur-[150px] rounded-full pointer-events-none z-0 opacity-60 dark:opacity-40" />
 
-            {/* --- Massive Blurred Background Text --- */}
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="absolute top-[10%] left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none z-0"
-            >
-                <h1 className="text-[18vw] font-black uppercase tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-b from-black/5 to-transparent dark:from-white/10 dark:to-transparent blur-[8px] md:blur-[12px]">
+            {/* --- Massive Faded Background Text --- */}
+            <div className="absolute top-[5%] left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none z-0">
+                <motion.h1 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="text-[20vw] font-black uppercase tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-b from-black/20 to-transparent dark:from-white/30 dark:to-transparent blur-[6px] md:blur-[8px]"
+                >
                     CONTACT
-                </h1>
-            </motion.div>
+                </motion.h1>
+            </div>
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10 w-full mt-10">
+            <div className="max-w-6xl mx-auto px-6 relative z-10 w-full mt-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                     
                     {/* --- Left Column: Info --- */}
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="flex flex-col mt-4"
+                        className="flex flex-col pt-4"
                     >
                         {/* Pill Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-md w-fit mb-8 shadow-sm">
-                            <div className="w-4 h-4 rounded-full bg-gray-200 dark:bg-white/20 flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white" />
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 dark:border-[#222] bg-white dark:bg-[#0a0a0a] shadow-sm mb-6 w-fit">
+                            <div className="w-[18px] h-[18px] rounded-full flex items-center justify-center bg-gray-100 dark:bg-[#1a1a1a] border border-gray-200 dark:border-[#333]">
+                                <div className="w-[6px] h-[6px] rounded-full bg-gray-400 dark:bg-gray-500" />
                             </div>
-                            <span className="text-xs font-bold text-gray-800 dark:text-gray-200 tracking-wide pr-1">
+                            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 pr-1">
                                 Contact
                             </span>
                         </div>
 
                         {/* Title & Subtitle */}
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black dark:text-white tracking-tight leading-tight mb-4">
+                        <h2 className="text-4xl md:text-[3rem] font-bold text-black dark:text-white tracking-tight leading-tight mb-3">
                             Get in touch
                         </h2>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base mb-12 max-w-sm">
+                        <p className="text-gray-500 dark:text-[#888] text-[15px] mb-10 max-w-[320px] leading-relaxed">
                             Have questions or ready to transform your business with AI automation?
                         </p>
 
@@ -147,31 +147,31 @@ const Contact = () => {
                                 <motion.a
                                     key={index}
                                     href={info.link}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
                                     whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.99 }}
-                                    className="group flex items-center p-4 rounded-2xl bg-white dark:bg-[#0f0f11] border border-gray-100 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 transition-all cursor-pointer"
+                                    className="group flex items-center p-3 md:p-4 rounded-[1.25rem] bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#1a1a1a] hover:border-gray-300 dark:hover:border-[#333] transition-all cursor-pointer"
                                 >
                                     {/* Icon Box */}
-                                    <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 text-gray-600 dark:text-gray-300 transition-colors">
-                                        <info.icon size={18} />
+                                    <div className="w-12 h-12 flex items-center justify-center rounded-[12px] bg-white dark:bg-[#161616] border border-gray-100 dark:border-[#222] text-gray-600 dark:text-gray-300 transition-colors shadow-sm">
+                                        <info.icon size={16} />
                                     </div>
                                     
                                     {/* Text Info */}
-                                    <div className="ml-5 flex-1">
-                                        <p className="text-sm font-bold text-black dark:text-white mb-0.5 tracking-wide">
+                                    <div className="ml-4 flex-1">
+                                        <p className="text-[13px] font-bold text-black dark:text-white mb-0.5 tracking-wide">
                                             {info.title}
                                         </p>
-                                        <p className="text-xs font-medium text-gray-500 dark:text-gray-500">
+                                        <p className="text-[13px] font-medium text-gray-500 dark:text-[#888]">
                                             {info.value}
                                         </p>
                                     </div>
 
                                     {/* Arrow Button */}
-                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/10 text-gray-400 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-4">
+                                    <div className="w-9 h-9 flex items-center justify-center rounded-full bg-white dark:bg-[#161616] border border-gray-100 dark:border-[#222] text-gray-400 dark:text-gray-500 group-hover:text-black dark:group-hover:text-white transition-colors ml-4 shadow-sm">
                                         <FaArrowRightLong size={12} className="-rotate-45" />
                                     </div>
                                 </motion.a>
@@ -179,16 +179,20 @@ const Contact = () => {
                         </div>
                     </motion.div>
 
-                    {/* --- Right Column: Form --- */}
+                    {/* --- Right Column: Form Container --- */}
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="relative"
                     >
+                        {/* Outer Glow for Form (Matches image) */}
+                        <div className="absolute -inset-1 bg-gradient-to-b from-gray-200/50 to-transparent dark:from-white/5 dark:to-transparent rounded-[2rem] blur-sm z-0"></div>
+                        
                         <form 
                             onSubmit={handleSubmit} 
-                            className="bg-white/80 dark:bg-[#0f0f11]/80 backdrop-blur-2xl p-6 md:p-8 rounded-3xl border border-gray-200 dark:border-white/5 shadow-2xl flex flex-col gap-3"
+                            className="relative z-10 bg-white dark:bg-[#050505] p-3 md:p-3.5 rounded-[1.75rem] border border-gray-200 dark:border-[#222] shadow-2xl flex flex-col gap-2"
                         >
                             <input
                                 type="text"
@@ -197,7 +201,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Name"
-                                className="w-full bg-gray-50 dark:bg-[#161618] border border-transparent rounded-2xl px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-white/10 transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm font-medium"
+                                className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
                             />
                             
                             <input
@@ -207,7 +211,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Email"
-                                className="w-full bg-gray-50 dark:bg-[#161618] border border-transparent rounded-2xl px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-white/10 transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm font-medium"
+                                className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
                             />
                             
                             <textarea
@@ -217,7 +221,7 @@ const Contact = () => {
                                 required
                                 rows="6"
                                 placeholder="Message"
-                                className="w-full bg-gray-50 dark:bg-[#161618] border border-transparent rounded-2xl px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-white/10 transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm font-medium resize-none"
+                                className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium resize-none"
                             ></textarea>
 
                             <motion.button
@@ -225,7 +229,7 @@ const Contact = () => {
                                 whileTap={{ scale: 0.99 }}
                                 type="submit"
                                 disabled={loading}
-                                className="w-full mt-2 py-4 bg-black dark:bg-white text-white dark:text-black font-black text-sm rounded-2xl flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-70"
+                                className="w-full mt-1 py-4 bg-black dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-[1rem] flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-70"
                             >
                                 {loading ? (
                                     <div className="w-5 h-5 border-2 border-white dark:border-black border-t-transparent rounded-full animate-spin"></div>
