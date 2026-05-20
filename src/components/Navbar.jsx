@@ -10,6 +10,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     // Active section state for highlighting the current section in the vertical nav
     const [activeSection, setActiveSection] = useState('home');
     const [scrolled, setScrolled] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -118,7 +119,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 className={`p-2.5 rounded-full transition-all duration-500 ${
                                     scrolled
                                         ? 'text-white/70 hover:text-white bg-white/5 border border-white/10 hover:bg-white/10'
-                                        : 'text-white mix-blend-difference'
+                                        : 'text-white bg-black/20 backdrop-blur-md border border-white/10'
                                 }`}
                             >
                                 {darkMode ? <FaSun size={16} /> : <FaMoon size={16} />}
@@ -137,10 +138,68 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 <FaEnvelope size={10} />
                                 Hire me
                             </motion.button>
+                            {/* Mobile Hamburger Button */}
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                className={`md:hidden p-2.5 rounded-full transition-all duration-500 flex items-center justify-center ${
+                                    scrolled
+                                        ? 'text-white/70 hover:text-white bg-white/5 border border-white/10 hover:bg-white/10'
+                                        : 'text-white bg-black/20 backdrop-blur-md border border-white/10'
+                                }`}
+                            >
+                                {mobileMenuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
+                            </motion.button>
                         </div>
                     </div>
                 </div>
             </motion.nav>
+
+            {/* Mobile Menu Dropdown */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-x-4 top-24 z-40 bg-black/95 dark:bg-zinc-900/95 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 shadow-2xl md:hidden"
+                    >
+                        <div className="flex flex-col gap-2">
+                            {navLinks.map((link, index) => {
+                                const isActive = activeSection === link.href.substring(1);
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => {
+                                            scrollToSection(link.href);
+                                            setMobileMenuOpen(false);
+                                        }}
+                                        className={`px-4 py-4 text-xs font-black uppercase tracking-[0.2em] rounded-xl text-left transition-all ${
+                                            isActive
+                                                ? 'bg-white text-black'
+                                                : 'text-white/50 hover:bg-white/10 hover:text-white'
+                                        }`}
+                                    >
+                                        {link.name}
+                                    </button>
+                                );
+                            })}
+                            <button
+                                onClick={() => {
+                                    scrollToSection('#contact');
+                                    setMobileMenuOpen(false);
+                                }}
+                                className="mt-4 px-4 py-4 bg-white text-black font-black text-xs uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-3 transition-colors hover:bg-zinc-200"
+                            >
+                                <FaEnvelope size={14} />
+                                Hire me
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Vertical Right Navigation removed as requested */}
         </>

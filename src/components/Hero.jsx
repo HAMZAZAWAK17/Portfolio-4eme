@@ -167,7 +167,7 @@ const Hero = () => {
             <div className="absolute inset-0 z-0 bg-black transition-colors duration-300" />
 
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
-            <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none">
+            <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none pb-[35vh] md:pb-0">
                 <motion.div
                     className="relative w-full h-full max-w-[700px]"
                     style={{
@@ -262,15 +262,16 @@ const Hero = () => {
                 FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-12 md:pb-16 pointer-events-none"
+                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-8 md:pb-16 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
-                {/* ── Top row removed as requested ── */}
-
                 {/* ── Foreground Description ── */}
-                <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0 pointer-events-none invisible md:visible">
+                <div className="hidden md:block mt-auto mb-auto">
                      <div style={{ height: 'clamp(7rem, 22vw, 20rem)' }}></div>
                 </div>
+
+                {/* Spacer for mobile to push things down */}
+                <div className="flex-1 md:hidden" />
 
                 <div className="flex flex-col gap-2 pointer-events-auto">
                     <motion.div
@@ -279,28 +280,28 @@ const Hero = () => {
                         transition={{ delay: 1.3, duration: 0.8 }}
                         className="flex flex-col gap-4 mt-6 max-w-[280px] md:max-w-[320px]"
                     >
-                        <div className="h-[2px] flex-grow-0 w-16 bg-white" />
-                        <p className="text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-medium leading-[1.6] opacity-70">
+                        <div className="h-[2px] flex-grow-0 w-16 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                        <p className="text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-medium leading-[1.6] opacity-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                             Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* ── Bottom row: stats + CTAs + social ── */}
-                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 mt-10">
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10 mt-10 w-full bg-black/60 md:bg-transparent backdrop-blur-2xl md:backdrop-blur-none p-8 md:p-0 rounded-[2rem] md:rounded-none border border-white/10 md:border-transparent">
 
                     {/* Stats pills */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.7, duration: 0.8 }}
-                        className="flex gap-6 md:gap-12"
+                        className="flex justify-between md:justify-start w-full md:w-auto gap-4 md:gap-12"
                     >
                         {stats.map((s, i) => (
                             <motion.div
                                 key={i}
                                 whileHover={{ y: -5 }}
-                                className="flex flex-col items-start transition-all duration-300"
+                                className="flex flex-col items-center md:items-start transition-all duration-300"
                             >
                                 <div className="text-white font-black text-3xl md:text-5xl leading-none tracking-tighter">{s.value}</div>
                                 <div className="text-white/40 text-[10px] uppercase tracking-[0.2em] mt-2 font-bold">{s.label}</div>
@@ -309,14 +310,14 @@ const Hero = () => {
                     </motion.div>
 
                     {/* CTAs + socials */}
-                    <div className="flex flex-col gap-6 items-start md:items-end">
+                    <div className="flex flex-col gap-8 items-center md:items-end w-full md:w-auto">
                         {/* CTA buttons */}
-                        <div className="flex flex-wrap gap-4 pointer-events-auto relative z-30">
+                        <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-4 pointer-events-auto relative z-30 w-full">
                             <motion.button
                                 whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center gap-4 px-8 py-4 bg-white text-black font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full"
+                                className="flex items-center justify-center gap-4 px-8 py-4 bg-white text-black font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full w-full sm:w-auto"
                             >
                                 {t.hero.viewProjects}
                                 <FaArrowRight className="text-[10px]" />
@@ -326,7 +327,7 @@ const Hero = () => {
                                 whileHover={{ backgroundColor: 'rgba(255,255,255,0.1)', scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={scrollToContact}
-                                className="flex items-center gap-4 px-8 py-4 border border-white/20 text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full backdrop-blur-md"
+                                className="flex items-center justify-center gap-4 px-8 py-4 border border-white/20 text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full backdrop-blur-md w-full sm:w-auto"
                             >
                                 {t.hero.contactMe}
                                 <FaArrowRight className="text-[10px]" />
@@ -334,7 +335,7 @@ const Hero = () => {
                         </div>
 
                         {/* Social icons */}
-                        <div className="flex gap-6 relative z-30 pointer-events-auto mr-4 md:mr-20">
+                        <div className="flex justify-center md:justify-end gap-8 md:gap-6 relative z-30 pointer-events-auto md:mr-20">
                             {[
                                 { icon: FaGithub,   link: socialLinks.github,              label: 'GitHub' },
                                 { icon: FaLinkedin, link: socialLinks.linkedin,            label: 'LinkedIn' },
@@ -348,7 +349,7 @@ const Hero = () => {
                                     aria-label={s.label}
                                     whileHover={{ y: -4, color: '#ffffff' }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-white/30 hover:text-white transition-colors text-xl"
+                                    className="text-white/30 hover:text-white transition-colors text-2xl md:text-xl"
                                 >
                                     <s.icon />
                                 </motion.a>
