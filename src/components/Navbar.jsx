@@ -142,28 +142,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 </div>
             </motion.nav>
 
-            {/* Vertical Right Navigation (Floating Glass Pill) */}
-            <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-[60] bg-black/50 dark:bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full py-8 px-4 shadow-3xl hidden sm:flex">
-                {navLinks.map((link, index) => {
-                    const isActive = activeSection === link.href.substring(1);
-                    return (
-                        <div key={index} className="group relative flex items-center justify-center">
-                            <motion.button
-                                whileHover={{ scale: 1.5 }}
-                                whileTap={{ scale: 0.8 }}
-                                onClick={() => scrollToSection(link.href)}
-                                className={`w-2 h-2 rounded-full transition-all duration-500 ${isActive ? 'bg-white scale-150 shadow-[0_0_15px_rgba(255,255,255,1)]' : 'bg-white/20 hover:bg-white/60'}`}
-                            />
-                            {/* Hover Tooltip */}
-                            <div className="absolute right-10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-500">
-                                <div className="bg-white text-black text-[9px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-lg whitespace-nowrap shadow-2xl">
-                                    {link.name}
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+            {/* Vertical Right Navigation removed as requested */}
         </>
     );
 };

@@ -334,7 +334,7 @@ const Hero = () => {
                         </div>
 
                         {/* Social icons */}
-                        <div className="flex gap-6 relative z-30 pointer-events-auto">
+                        <div className="flex gap-6 relative z-30 pointer-events-auto mr-4 md:mr-20">
                             {[
                                 { icon: FaGithub,   link: socialLinks.github,              label: 'GitHub' },
                                 { icon: FaLinkedin, link: socialLinks.linkedin,            label: 'LinkedIn' },

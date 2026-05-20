@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCommentDots, FaTimes, FaPaperPlane } from 'react-icons/fa';
-import { personalInfo } from '../data/portfolioData';
+import { personalInfo, skills, projects, certifications, socialLinks } from '../data/portfolioData';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,14 +32,27 @@ const Chatbot = () => {
       let botResponse = "I'm still learning! But you can always contact Hamza directly at " + personalInfo.email;
       const lowerInput = input.toLowerCase();
       
-      if (lowerInput.includes('experience') || lowerInput.includes('skills')) {
-        botResponse = "Hamza is a Full-Stack Developer with expertise in ReactJS, Laravel, Node.js, and Flutter. He has over 3 years of experience and 9+ projects!";
-      } else if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('phone')) {
-        botResponse = `You can reach him directly at ${personalInfo.email} or by phone at ${personalInfo.phone}.`;
-      } else if (lowerInput.includes('project')) {
-        botResponse = "Hamza has built several amazing projects including web and mobile applications. Feel free to check out the 'Projects' section to see his work!";
-      } else if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-        botResponse = "Hello! How can I help you explore Hamza's portfolio today?";
+      if (lowerInput.includes('experience') || lowerInput.includes('skill') || lowerInput.includes('technolog')) {
+        const allSkills = [...skills.frontend, ...skills.backend, ...skills.tools].map(s => s.name).join(', ');
+        botResponse = `Hamza is skilled in: ${allSkills}. He's a Full-Stack developer!`;
+      } else if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('phone') || lowerInput.includes('reach')) {
+        botResponse = `You can email Hamza at ${personalInfo.email} or call him at ${personalInfo.phone}.`;
+      } else if (lowerInput.includes('project') || lowerInput.includes('portfolio') || lowerInput.includes('work')) {
+        const projectNames = projects.map(p => p.title).join(', ');
+        botResponse = `Hamza has built ${projects.length} amazing projects, including: ${projectNames}. You can view them in the Projects section!`;
+      } else if (lowerInput.includes('certificat') || lowerInput.includes('training')) {
+        const certs = certifications.map(c => c.title).join(', ');
+        botResponse = `Hamza holds certifications in: ${certs}.`;
+      } else if (lowerInput.includes('who') || lowerInput.includes('about') || lowerInput.includes('hamza') || lowerInput.includes('description')) {
+        botResponse = personalInfo.description;
+      } else if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hey')) {
+        botResponse = "Hello! How can I help you explore Hamza's portfolio today? You can ask about his skills, projects, or contact info.";
+      } else if (lowerInput.includes('social') || lowerInput.includes('linkedin') || lowerInput.includes('github')) {
+        botResponse = `You can find him on LinkedIn: ${socialLinks.linkedin} and GitHub: ${socialLinks.github}.`;
+      } else if (lowerInput.includes('location') || lowerInput.includes('where')) {
+        botResponse = `Hamza is located in ${personalInfo.location}.`;
+      } else {
+        botResponse = "I might not have the exact answer for that, but you can explore the portfolio sections or email Hamza at " + personalInfo.email + " for more details!";
       }
 
       setMessages(prev => [...prev, { text: botResponse, sender: 'bot' }]);
@@ -55,7 +68,7 @@ const Chatbot = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-8 right-8 z-50 p-4 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-[0_10px_40px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_rgba(255,255,255,0.15)] flex items-center justify-center transition-all ${isOpen ? 'hidden' : 'block'}`}
+        className={`fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-[0_10px_40px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_rgba(255,255,255,0.15)] flex items-center justify-center transition-all ${isOpen ? 'hidden' : 'block'}`}
       >
         <FaCommentDots size={24} />
       </motion.button>
@@ -67,7 +80,7 @@ const Chatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-24 right-4 md:right-8 z-50 w-[350px] flex flex-col bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#222] rounded-[1.5rem] shadow-2xl overflow-hidden"
+            className="fixed bottom-24 right-4 md:right-8 z-50 w-[320px] h-[420px] flex flex-col bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#222] rounded-[1.5rem] shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-[#1a1a1a] bg-gray-50 dark:bg-[#111]">
@@ -92,7 +105,7 @@ const Chatbot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 p-4 overflow-y-auto h-[350px] flex flex-col gap-3 bg-white dark:bg-[#050505]">
+            <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-white dark:bg-[#050505] scroll-smooth">
               {messages.map((msg, index) => (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
