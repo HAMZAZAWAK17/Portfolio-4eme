@@ -14,7 +14,7 @@ import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 
 import { Toaster } from 'react-hot-toast';
-import VoiceCommands from './components/VoiceCommands';
+import Chatbot from './components/Chatbot';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -71,7 +71,7 @@ function App() {
       />
       <ScrollProgress />
       <ScrollToTop />
-      <VoiceCommands darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Chatbot />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
