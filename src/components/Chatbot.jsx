@@ -68,7 +68,7 @@ const Chatbot = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-[0_10px_40px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_rgba(255,255,255,0.15)] flex items-center justify-center transition-all ${isOpen ? 'hidden' : 'block'}`}
+        className={`fixed bottom-8 md:bottom-8 right-4 md:right-8 z-[100] w-14 h-14 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-[0_10px_40px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_rgba(255,255,255,0.15)] flex items-center justify-center transition-all ${isOpen ? 'hidden' : 'block'}`}
       >
         <FaCommentDots size={24} />
       </motion.button>
@@ -80,7 +80,7 @@ const Chatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-24 right-4 md:right-8 z-50 w-[320px] h-[420px] flex flex-col bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#222] rounded-[1.5rem] shadow-2xl overflow-hidden"
+            className="fixed bottom-[10vh] md:bottom-24 right-4 md:right-8 z-[100] w-[calc(100vw-32px)] md:w-[320px] h-[60vh] md:h-[420px] flex flex-col bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-[#222] rounded-[1.5rem] shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-[#1a1a1a] bg-gray-50 dark:bg-[#111]">

@@ -55,7 +55,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'py-3' : 'pt-10'}`}
+                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 w-full ${scrolled ? 'py-3' : 'pt-6 md:pt-10'}`}
             >
                 <div className="max-w-[1440px] mx-auto px-6 md:px-12 transition-all duration-700">
                     <div className={`flex items-center justify-between px-6 md:px-8 py-4 rounded-[2rem] transition-all duration-700 ${
@@ -143,13 +143,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className={`md:hidden p-2.5 rounded-full transition-all duration-500 flex items-center justify-center ${
+                                className={`md:hidden p-3 rounded-full transition-all duration-500 flex items-center justify-center pointer-events-auto shadow-lg ${
                                     scrolled
                                         ? 'text-white/70 hover:text-white bg-white/5 border border-white/10 hover:bg-white/10'
-                                        : 'text-white bg-black/20 backdrop-blur-md border border-white/10'
+                                        : 'text-white bg-black/40 backdrop-blur-xl border border-white/10'
                                 }`}
                             >
-                                {mobileMenuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
+                                {mobileMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
                             </motion.button>
                         </div>
                     </div>
