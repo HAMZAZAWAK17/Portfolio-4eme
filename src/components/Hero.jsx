@@ -262,36 +262,10 @@ const Hero = () => {
                 FOREGROUND CONTENT (Interactive Layer)
             ═══════════════════════════════════════ */}
             <motion.div
-                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-12 pointer-events-none"
+                className="relative z-50 min-h-[100svh] flex flex-col justify-between container-custom pt-32 pb-28 md:pb-32 pointer-events-none"
                 style={{ y: textY, opacity: textOpacity }}
             >
-                {/* ── Top row: greeting + available badge ── */}
-                <div className="flex items-center justify-between pointer-events-auto">
-                    <motion.p
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-white text-xs md:text-sm uppercase tracking-[0.35em] font-bold"
-                    >
-                        {t.hero.greeting}
-                    </motion.p>
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6, duration: 0.8 }}
-                        className="flex items-center gap-2 border border-white/10 px-4 py-2 backdrop-blur-md bg-white/5 rounded-full"
-                    >
-                        <motion.span
-                            animate={{ opacity: [1, 0.4, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] inline-block"
-                        />
-                        <span className="text-white text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-black">
-                            {t.hero.available}
-                        </span>
-                    </motion.div>
-                </div>
+                {/* ── Top row removed as requested ── */}
 
                 {/* ── Foreground Description ── */}
                 <div className="flex flex-col gap-2 mt-auto mb-auto pt-16 md:pt-0 pointer-events-none invisible md:visible">
