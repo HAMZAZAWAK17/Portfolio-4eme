@@ -6,7 +6,6 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Services from './components/Services';
 import Certificates from './components/Certificates';
-import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Location from './components/Location';
 import Footer from './components/Footer';
@@ -14,6 +13,7 @@ import Loader from './components/Loader';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 
+import { Toaster } from 'react-hot-toast';
 import VoiceCommands from './components/VoiceCommands';
 
 function App() {
@@ -57,7 +57,18 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
-
+      <Toaster 
+        position="bottom-right" 
+        toastOptions={{
+          className: 'dark:bg-zinc-900 dark:text-white bg-white text-black border border-zinc-200 dark:border-zinc-800 rounded-2xl font-semibold',
+          style: {
+            borderRadius: '1rem',
+            background: darkMode ? '#18181b' : '#ffffff',
+            color: darkMode ? '#ffffff' : '#000000',
+            border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #e4e4e7',
+          }
+        }} 
+      />
       <ScrollProgress />
       <ScrollToTop />
       <VoiceCommands darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -69,7 +80,6 @@ function App() {
         <Projects />
         <Services />
         <Certificates />
-        <GitHubStats />
         <Contact />
         <Location />
       </main>

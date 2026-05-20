@@ -320,7 +320,7 @@ const Projects = () => {
         <section id="projects" className="section-padding bg-zinc-50 dark:bg-black border-t border-gray-200 dark:border-zinc-900 transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Section Title */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -328,7 +328,7 @@ const Projects = () => {
                         className="max-w-2xl"
                     >
                         <h4 className="text-black dark:text-white/40 font-black uppercase tracking-[0.4em] text-xs mb-4">Case Studies</h4>
-                        <h2 className="text-5xl md:text-7xl font-black text-black dark:text-white uppercase tracking-tighter leading-none">
+                        <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white uppercase tracking-tighter leading-none">
                             {t.projects.title} <br/>
                             <span className="text-zinc-300 dark:text-zinc-800 italic">{t.projects.titleHighlight}</span>
                         </h2>

@@ -57,9 +57,6 @@ const VoiceCommands = ({ darkMode, toggleDarkMode }) => {
         } else if (command.includes('certificate')) {
             scrollToSection('certificates');
             showFeedbackMessage('🏆 Going to Certificates');
-        } else if (command.includes('github')) {
-            scrollToSection('github');
-            showFeedbackMessage('🐙 Going to GitHub Stats');
         } else if (command.includes('contact')) {
             scrollToSection('contact');
             showFeedbackMessage('📧 Going to Contact');

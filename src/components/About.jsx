@@ -41,7 +41,7 @@ const About = () => {
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
             
             {/* 1. Profile Card & Terminal Biography (2-Column Layout) */}
-            <div className="py-24 px-6 md:px-12 max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
+            <div className="py-10 px-6 md:px-12 max-w-[80rem] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-14">
                 
                 {/* Left Column: Animated Sticky Profile Card */}
                 <div className="w-full lg:w-1/3 flex-shrink-0 relative">
@@ -67,10 +67,10 @@ const About = () => {
                             
                             <motion.div 
                                 style={{ transform: "translateZ(60px)" }}
-                                className="absolute bottom-10 left-10 right-10 flex flex-col gap-3"
+                                className="absolute bottom-6 left-6 right-6 flex flex-col gap-3"
                             >
                                 <div className="w-16 h-[2px] bg-white mb-2 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
-                                <h3 className="text-white text-4xl font-black uppercase tracking-tighter leading-[0.9]">
+                                <h3 className="text-white text-3xl font-black uppercase tracking-tighter leading-[0.9]">
                                     {personalInfo.name.split(' ')[0]} <br/> {personalInfo.name.split(' ')[1]}
                                 </h3>
                                 <p className="text-white/50 text-[10px] font-black uppercase tracking-[0.4em] mt-2">
@@ -100,19 +100,19 @@ const About = () => {
             </div>
 
             {/* 2. Horizontal Interactive Timeline (Full Width) */}
-            <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+            <div className="py-16 px-6 md:px-12 max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-24"
+                    className="text-center mb-16"
                 >
-                    <h2 className="text-5xl md:text-8xl font-black text-black dark:text-white mb-8 tracking-tighter leading-none">
+                    <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-6 tracking-tighter leading-none">
                         {t.about.title} <br/>
                         <span className="opacity-10 italic">{t.about.titleHighlight}</span>
                     </h2>
-                    <div className="w-24 h-[2px] bg-black dark:bg-white mx-auto mb-10"></div>
-                    <p className="text-gray-500 dark:text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
+                    <div className="w-16 h-[2px] bg-black dark:bg-white mx-auto mb-6"></div>
+                    <p className="text-gray-500 dark:text-gray-400 text-base md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
                         {t.about.subtitle}
                     </p>
                 </motion.div>
@@ -124,7 +124,7 @@ const About = () => {
                         <NavButton onClick={nextStep} disabled={currentIndex === combinedTimeline.length - 1} icon={<FaChevronRight />} />
                     </div>
 
-                    <div className="min-h-[450px] md:min-h-[500px] flex items-center justify-center relative">
+                    <div className="min-h-[380px] md:min-h-[420px] flex items-center justify-center relative">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentIndex}
@@ -210,7 +210,7 @@ const TimelineCard = ({ item }) => {
     const isExp = item.type === 'experience';
 
     return (
-        <div className="relative p-8 md:p-24 bg-zinc-50 dark:bg-zinc-900/30 border border-black/5 dark:border-white/5 rounded-[3rem] overflow-hidden group">
+        <div className="relative p-8 md:p-12 bg-zinc-50 dark:bg-zinc-900/30 border border-black/5 dark:border-white/5 rounded-[3rem] overflow-hidden group">
             <div className="absolute -top-20 -right-20 opacity-[0.02] dark:opacity-[0.04] pointer-events-none transition-transform duration-1000 group-hover:scale-110">
                 {isExp ? <FaBriefcase size={300} className="md:size-[500px]" /> : <FaGraduationCap size={300} className="md:size-[500px]" />}
             </div>
@@ -229,16 +229,16 @@ const TimelineCard = ({ item }) => {
                     </div>
                 </div>
 
-                <h3 className="text-2xl md:text-6xl font-black text-black dark:text-white mb-4 tracking-tighter leading-tight md:leading-none">
+                <h3 className="text-2xl md:text-4xl font-black text-black dark:text-white mb-4 tracking-tighter leading-tight md:leading-none">
                     {item.title}
                 </h3>
 
-                <div className="flex items-center gap-3 md:gap-4 text-base md:text-2xl font-bold text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
+                <div className="flex items-center gap-3 md:gap-4 text-sm md:text-xl font-bold text-gray-600 dark:text-gray-300 mb-4 md:mb-6">
                     <div className="w-8 md:w-12 h-1 bg-black dark:bg-white" />
                     {isExp ? item.company : item.institution}
                 </div>
 
-                <p className="text-gray-500 dark:text-gray-400 text-sm md:text-xl leading-relaxed mb-8 md:mb-10 max-w-3xl font-medium">
+                <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed mb-6 md:mb-8 max-w-3xl font-medium">
                     {item.description}
                 </p>
 

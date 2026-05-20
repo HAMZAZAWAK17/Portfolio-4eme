@@ -169,7 +169,7 @@ const Hero = () => {
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
             <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none">
                 <motion.div
-                    className="relative w-full h-full max-w-[850px]"
+                    className="relative w-full h-full max-w-[700px]"
                     style={{
                         x: mxSlow,
                         y: mySlow,
@@ -244,14 +244,14 @@ const Hero = () => {
                             text="EZ-ZOUEK"
                             delay={0.5}
                             className="block font-black uppercase leading-[0.8] tracking-tighter w-full"
-                            style={{ fontSize: 'clamp(3rem, 15vw, 12rem)' }}
+                            style={{ fontSize: 'clamp(2.5rem, 12vw, 9rem)' }}
                         />
                         <SplitText
                             text="HAMZA"
                             delay={0.7}
                             className="block font-black uppercase leading-[0.8] tracking-tighter w-full"
                             style={{
-                                fontSize: 'clamp(3rem, 15vw, 12rem)',
+                                fontSize: 'clamp(2.5rem, 12vw, 9rem)',
                             }}
                         />
                     </motion.div>
