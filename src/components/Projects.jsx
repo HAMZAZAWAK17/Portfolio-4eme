@@ -4,11 +4,11 @@ import {
     FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
     FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
     FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight, FaTimes, FaChevronRight, FaChevronLeft,
-    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt
+    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt, FaJs, FaHtml5, FaCss3Alt, FaJava, FaAndroid
 } from 'react-icons/fa';
 import { 
     SiFlutter, SiReact, SiNodedotjs, SiExpress, SiMysql, SiLaravel, SiPhp, 
-    SiTailwindcss, SiGit, SiFirebase, SiDart, SiNextdotjs, SiMongodb, SiSpringboot 
+    SiTailwindcss, SiGit, SiFirebase, SiDart, SiNextdotjs, SiMongodb, SiSpringboot, SiTypescript
 } from 'react-icons/si';
 import { projects, socialLinks } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
@@ -17,8 +17,13 @@ const techIconMap = {
     // Frontend
     'ReactJS': SiReact,
     'React.js': SiReact,
+    'React': SiReact,
     'Next.js': SiNextdotjs,
     'TailwindCSS': SiTailwindcss,
+    'JavaScript': FaJs,
+    'HTML': FaHtml5,
+    'CSS': FaCss3Alt,
+    'TypeScript': SiTypescript,
     // Backend
     'Node.js': SiNodedotjs,
     'Express.js': SiExpress,
@@ -26,6 +31,7 @@ const techIconMap = {
     'Laravel': SiLaravel,
     'PHP': SiPhp,
     'Spring Boot': SiSpringboot,
+    'Java': FaJava,
     // Database
     'MySQL': SiMysql,
     'MongoDB': SiMongodb,
@@ -33,6 +39,7 @@ const techIconMap = {
     // Mobile
     'Flutter': SiFlutter,
     'Dart': SiDart,
+    'Android': FaAndroid,
     // Tools
     'Git': SiGit,
 };
@@ -211,8 +218,8 @@ const ProjectFolder = ({ project, index }) => {
                             </div>
 
                             {/* Right Side: Details */}
-                            <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-16 flex flex-col justify-between bg-zinc-900">
-                                <div>
+                            <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-16 flex flex-col bg-zinc-900 overflow-y-auto no-scrollbar scroll-smooth">
+                                <div className="flex-1">
                                     <div className="flex items-center gap-4 mb-8">
                                         <div className="w-16 h-16 bg-white flex items-center justify-center rounded-2xl">
                                             <IconComponent className="text-3xl text-black" />
