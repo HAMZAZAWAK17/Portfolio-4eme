@@ -103,45 +103,49 @@ const ProjectFolder = ({ project, index }) => {
 
                     {/* Folder Front Face (Dark & Professional) */}
                     <motion.div 
-                        className="absolute inset-0 z-10 bg-[#1a1a1a] dark:bg-[#0a0a0a] p-8 flex flex-col justify-between shadow-[-5px_0_30px_rgba(0,0,0,0.6)] rounded-2xl border border-white/10 origin-bottom"
+                        className="absolute inset-0 z-10 bg-[#1a1a1a] dark:bg-[#0a0a0a] p-6 lg:p-8 flex flex-col shadow-[-5px_0_30px_rgba(0,0,0,0.6)] rounded-2xl border border-white/10 origin-bottom"
                         style={{ backfaceVisibility: 'hidden' }}
                         initial={{ rotateX: 0 }}
                         whileHover={{ rotateX: -20 }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     >
-                        <div>
-                            <div className="flex items-center justify-between mb-6">
+                        {/* Top Content: Flex-1 to take available space and prevent text from overlapping the bottom */}
+                        <div className="flex-1 overflow-hidden flex flex-col mb-4">
+                            <div className="flex items-center justify-between mb-4 lg:mb-6 shrink-0">
                                 <div className="p-3 bg-white/5 border border-white/10 text-white rounded-xl">
-                                    <IconComponent className="text-2xl" />
+                                    <IconComponent className="text-xl lg:text-2xl" />
                                 </div>
                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
                                     CASE_{project.id.toString().padStart(2, '0')}
                                 </span>
                             </div>
                             
-                            <h3 className="text-2xl md:text-3xl font-black text-white uppercase leading-[0.9] mb-4 tracking-tighter">
+                            <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white uppercase leading-[0.9] mb-3 tracking-tighter shrink-0">
                                 {project.title}
                             </h3>
-                            <p className="text-white/40 text-[11px] md:text-xs line-clamp-3 font-medium leading-relaxed italic">
+                            <p className="text-white/40 text-[11px] lg:text-xs line-clamp-2 md:line-clamp-3 font-medium leading-relaxed italic">
                                 "{project.description}"
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-3 mt-6">
-                            {project.technologies.slice(0, 3).map((tech, i) => {
-                                const TechIcon = techIconMap[tech];
-                                return (
-                                    <div key={i} className="group/tech relative p-3 bg-white/5 border border-white/10 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all shadow-md">
-                                        {TechIcon ? <TechIcon className="text-lg" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
-                                    </div>
-                                );
-                            })}
-                        </div>
-
-                        {/* Interactive Hint */}
-                        <div className="absolute bottom-5 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="flex items-center gap-2 text-white font-black text-[9px] uppercase tracking-[0.3em] bg-white/10 px-3 py-1.5 rounded-full border border-white/10">
-                                View Case <FaChevronRight className="text-[8px]" />
+                        {/* Bottom Row: Fixed at the bottom, won't overlap with text */}
+                        <div className="flex items-end justify-between shrink-0 h-12">
+                            <div className="flex flex-wrap gap-2 lg:gap-3">
+                                {project.technologies.slice(0, 3).map((tech, i) => {
+                                    const TechIcon = techIconMap[tech];
+                                    return (
+                                        <div key={i} className="group/tech relative p-2 lg:p-3 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all shadow-md">
+                                            {TechIcon ? <TechIcon className="text-sm lg:text-lg" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            
+                            {/* Interactive Hint */}
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="flex items-center gap-2 text-white font-black text-[9px] uppercase tracking-[0.3em] bg-white/10 px-3 lg:px-4 py-2 rounded-full border border-white/10 whitespace-nowrap">
+                                    View Case <FaChevronRight className="text-[8px]" />
+                                </div>
                             </div>
                         </div>
                     </motion.div>
