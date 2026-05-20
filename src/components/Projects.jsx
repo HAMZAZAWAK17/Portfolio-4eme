@@ -127,12 +127,12 @@ const ProjectFolder = ({ project, index }) => {
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 mt-6">
+                        <div className="flex flex-wrap gap-3 mt-6">
                             {project.technologies.slice(0, 3).map((tech, i) => {
                                 const TechIcon = techIconMap[tech];
                                 return (
-                                    <div key={i} className="group/tech relative p-2 bg-white/5 border border-white/10 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all">
-                                        {TechIcon ? <TechIcon className="text-xs" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
+                                    <div key={i} className="group/tech relative p-3 bg-white/5 border border-white/10 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all shadow-md">
+                                        {TechIcon ? <TechIcon className="text-lg" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
                                     </div>
                                 );
                             })}
@@ -140,20 +140,20 @@ const ProjectFolder = ({ project, index }) => {
 
                         {/* Team Members (Collaborative Projects) */}
                         {project.team && (
-                            <div className="mt-4 flex items-center -space-x-3 overflow-visible">
+                            <div className="absolute -bottom-5 left-8 flex items-center -space-x-3 z-30">
                                 {project.team.map((member, i) => (
                                     <div key={i} className="group/member relative">
                                         <img 
                                             src={member.image} 
                                             alt={member.name}
-                                            className="w-8 h-8 rounded-full border-2 border-[#222] object-cover hover:z-30 transition-transform hover:scale-125"
+                                            className="w-10 h-10 rounded-full border-[3px] border-[#0a0a0a] object-cover hover:z-40 transition-transform hover:scale-110 shadow-lg"
                                         />
                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-white text-black text-[8px] font-black uppercase tracking-tighter rounded opacity-0 group-hover/member:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                                             {member.name}
                                         </div>
                                     </div>
                                 ))}
-                                <span className="ml-5 text-[8px] font-black text-white/20 uppercase tracking-widest">Team Project</span>
+                                <span className="ml-5 text-[9px] font-black text-white/30 uppercase tracking-[0.2em] drop-shadow-md">Team Project</span>
                             </div>
                         )}
                         
