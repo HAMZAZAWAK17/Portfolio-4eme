@@ -138,25 +138,6 @@ const ProjectFolder = ({ project, index }) => {
                             })}
                         </div>
 
-                        {/* Team Members (Collaborative Projects) */}
-                        {project.team && (
-                            <div className="absolute -bottom-5 left-8 flex items-center -space-x-3 z-30">
-                                {project.team.map((member, i) => (
-                                    <div key={i} className="group/member relative">
-                                        <img 
-                                            src={member.image} 
-                                            alt={member.name}
-                                            className="w-10 h-10 rounded-full border-[3px] border-[#0a0a0a] object-cover hover:z-40 transition-transform hover:scale-110 shadow-lg"
-                                        />
-                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-white text-black text-[8px] font-black uppercase tracking-tighter rounded opacity-0 group-hover/member:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                                            {member.name}
-                                        </div>
-                                    </div>
-                                ))}
-                                <span className="ml-5 text-[9px] font-black text-white/30 uppercase tracking-[0.2em] drop-shadow-md">Team Project</span>
-                            </div>
-                        )}
-                        
                         {/* Interactive Hint */}
                         <div className="absolute bottom-5 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
                             <div className="flex items-center gap-2 text-white font-black text-[9px] uppercase tracking-[0.3em] bg-white/10 px-3 py-1.5 rounded-full border border-white/10">
