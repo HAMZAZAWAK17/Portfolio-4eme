@@ -185,32 +185,44 @@ const Contact = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="relative"
+                        className="relative mt-4 md:mt-8"
                     >
                         {/* Outer Glow for Form (Matches image) */}
                         <div className="absolute -inset-1 bg-gradient-to-b from-gray-200/50 to-transparent dark:from-white/5 dark:to-transparent rounded-[2rem] blur-sm z-0"></div>
                         
                         <form 
                             onSubmit={handleSubmit} 
-                            className="relative z-10 bg-white dark:bg-[#050505] p-3 md:p-3.5 rounded-[1.75rem] border border-gray-200 dark:border-[#222] shadow-2xl flex flex-col gap-2"
+                            className="relative z-10 bg-white dark:bg-[#050505] p-3 md:p-4 rounded-[1.75rem] border border-gray-200 dark:border-[#222] shadow-2xl flex flex-col gap-2.5"
                         >
+                            <div className="grid md:grid-cols-2 gap-2.5">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Name"
+                                    className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
+                                />
+                                
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Email"
+                                    className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
+                                />
+                            </div>
+
                             <input
                                 type="text"
-                                name="name"
-                                value={formData.name}
+                                name="subject"
+                                value={formData.subject}
                                 onChange={handleChange}
                                 required
-                                placeholder="Name"
-                                className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
-                            />
-                            
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                placeholder="Email"
+                                placeholder="Subject"
                                 className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium"
                             />
                             
@@ -219,7 +231,7 @@ const Contact = () => {
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
-                                rows="6"
+                                rows="5"
                                 placeholder="Message"
                                 className="w-full bg-gray-50 dark:bg-[#111111] border border-transparent dark:border-[#1a1a1a] rounded-[1rem] px-5 py-4 focus:outline-none focus:border-gray-300 dark:focus:border-[#333] transition-colors text-black dark:text-white placeholder-gray-400 dark:placeholder-[#666] text-sm font-medium resize-none"
                             ></textarea>
