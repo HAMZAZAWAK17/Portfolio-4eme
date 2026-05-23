@@ -156,28 +156,26 @@ export const projects = [
     {
         id: 10,
         title: "CrowdDebug",
-        description: `J'ai conçu et développé CrowdDebug — une plateforme communautaire de débogage collaboratif en temps réel.
+        description: `CrowdDebug est une plateforme collaborative en temps réel conçue pour permettre aux développeurs de résoudre leurs bugs ensemble, de manière interactive et instantanée. Pensé comme un espace communautaire dynamique, ce projet full-stack réinvente le concept du forum d'entraide classique grâce à une expérience utilisateur interactive en live.
 
-💡 L'idée : Et si les développeurs pouvaient résoudre leurs bugs ensemble, instantanément, comme sur un forum mais en live ?
+💡 L'Approche :
+Associer la puissance de la communication en temps réel (WebSockets) à une interface utilisateur moderne pour accélérer la résolution des problèmes techniques au sein de la communauté.
 
-🎯 Objectif du projet : Maîtriser une stack moderne full-stack en construisant quelque chose de concret et ambitieux — de la base de données jusqu'au WebSocket en passant par le design UI premium.
+🛠️ Stack & Architecture :
+• ⚙️ Core Backend : Laravel 12 & PHP 8.2 (MVC, relations polymorphiques complexes, Eloquent ORM, Middlewares de sécurité)
+• ⚡ Live Engine : Laravel Reverb (Serveur WebSocket natif assurant une communication instantanée)
+• 🎨 Interface : Tailwind CSS v4.0 (Design premium ultra-fluide avec effet Glassmorphism, Dark Mode natif et responsive design)
+• 🔍 Code Display : Prism.js (Coloration syntaxique avancée pour un partage de code lisible et structuré)
+• 📊 Dashboard : Chart.js (Panneau d'administration avec visualisation des métriques d'activité en temps réel)
+• 🗄️ Database : MySQL 8.0 (Relations pivot avancées, modélisation optimisée)
 
-🛠️ Stack technique :
-• ⚙️ Laravel 12 + PHP 8.2 — Architecture MVC, Eloquent ORM, middlewares, système de réputation automatique
-• ⚡ Laravel Reverb — Serveur WebSocket natif pour le chat en direct et les notifications instantanées
-• 🎨 Tailwind CSS v4.0 — UI moderne avec Dark Mode, effets Glassmorphism, design responsive
-• 📊 Chart.js — Dashboard admin avec graphiques d'activité en temps réel
-• 🔍 Prism.js — Coloration syntaxique du code pour une meilleure lisibilité entre pairs
-• 🗄️ MySQL 8.0 — Gestion des relations complexes (polymorphiques, pivot)
+✨ Fonctionnalités Majeures :
+→ Partage de bugs enrichi : Soumission de rapports de bug avec snippets de code colorés et fichiers joints.
+→ Chat collaboratif en direct : Espaces de discussion en temps réel avec indicateur de présence et notifications instantanées.
+→ Système de réputation : Valorisation des contributeurs par un système de votes (+5 par vote positif, +20 pour une solution validée).
+→ Monitoring Admin : Dashboard analytique complet pour suivre l'activité et le dynamisme de la plateforme.
 
-✨ Fonctionnalités clés :
-→ Soumission de bugs avec code snippet et pièces jointes
-→ Chat en live par fil de discussion (présence en temps réel)
-→ Système de votes et de réputation (+5 upvote, +20 solution acceptée)
-→ Dashboard admin avec analytics de la plateforme
-→ Notifications en temps réel
-
-Ce projet m'a permis de passer d'une compréhension théorique des WebSockets à une implémentation production-ready, et de construire une vraie expérience utilisateur de bout en bout.`,
+Ce projet m'a permis de maîtriser l'architecture des applications temps réel à grande échelle, de la gestion des connexions WebSocket persistantes jusqu'à l'implémentation d'une UI/UX de niveau professionnel.`,
         image: "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
         gallery: [
             "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",

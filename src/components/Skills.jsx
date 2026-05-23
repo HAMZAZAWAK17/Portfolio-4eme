@@ -89,7 +89,7 @@ const Skills = () => {
                                     <img 
                                         src={skill.image} 
                                         alt={skill.name}
-                                        className="w-14 h-14 md:w-20 md:h-20 object-contain grayscale group-hover:grayscale-0 group-hover:invert dark:group-hover:invert-0 transition-all duration-700 relative z-10" 
+                                        className="w-14 h-14 md:w-20 md:h-20 object-contain grayscale group-hover:grayscale-0 transition-all duration-700 relative z-10" 
                                     />
                                     {/* Reveal Circle on Hover */}
                                     <div className="absolute inset-0 bg-white dark:bg-black opacity-0 group-hover:opacity-10 scale-0 group-hover:scale-150 transition-all duration-700 rounded-full" />
