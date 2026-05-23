@@ -136,7 +136,7 @@ export const projects = [
     {
         id: 8,
         title: "Rate Limiter",
-        description: "Middleware de limitation de débit pour Express API.",
+        description: "Developed a backend security feature using Node.js, Express.js, and express-rate-limit to protect API endpoints from excessive requests and potential abuse. Implemented IP-based rate limiting to restrict users to a fixed number of requests within a defined time window, improving server stability, performance, and basic protection against spam or brute-force attacks.",
         image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&h=300&fit=crop",
         icon: "FaShieldAlt",
         technologies: ["JavaScript", "Node.js"],
