@@ -156,26 +156,7 @@ export const projects = [
     {
         id: 10,
         title: "CrowdDebug",
-        description: `CrowdDebug est une plateforme collaborative en temps réel conçue pour permettre aux développeurs de résoudre leurs bugs ensemble, de manière interactive et instantanée. Pensé comme un espace communautaire dynamique, ce projet full-stack réinvente le concept du forum d'entraide classique grâce à une expérience utilisateur interactive en live.
-
-💡 L'Approche :
-Associer la puissance de la communication en temps réel (WebSockets) à une interface utilisateur moderne pour accélérer la résolution des problèmes techniques au sein de la communauté.
-
-🛠️ Stack & Architecture :
-• ⚙️ Core Backend : Laravel 12 & PHP 8.2 (MVC, relations polymorphiques complexes, Eloquent ORM, Middlewares de sécurité)
-• ⚡ Live Engine : Laravel Reverb (Serveur WebSocket natif assurant une communication instantanée)
-• 🎨 Interface : Tailwind CSS v4.0 (Design premium ultra-fluide avec effet Glassmorphism, Dark Mode natif et responsive design)
-• 🔍 Code Display : Prism.js (Coloration syntaxique avancée pour un partage de code lisible et structuré)
-• 📊 Dashboard : Chart.js (Panneau d'administration avec visualisation des métriques d'activité en temps réel)
-• 🗄️ Database : MySQL 8.0 (Relations pivot avancées, modélisation optimisée)
-
-✨ Fonctionnalités Majeures :
-→ Partage de bugs enrichi : Soumission de rapports de bug avec snippets de code colorés et fichiers joints.
-→ Chat collaboratif en direct : Espaces de discussion en temps réel avec indicateur de présence et notifications instantanées.
-→ Système de réputation : Valorisation des contributeurs par un système de votes (+5 par vote positif, +20 pour une solution validée).
-→ Monitoring Admin : Dashboard analytique complet pour suivre l'activité et le dynamisme de la plateforme.
-
-Ce projet m'a permis de maîtriser l'architecture des applications temps réel à grande échelle, de la gestion des connexions WebSocket persistantes jusqu'à l'implémentation d'une UI/UX de niveau professionnel.`,
+        description: "Plateforme communautaire de débogage collaboratif en temps réel avec chat live, système de réputation et dashboard analytique.",
         image: "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
         gallery: [
             "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
