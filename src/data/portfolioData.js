@@ -126,7 +126,7 @@ export const projects = [
     {
         id: 7,
         title: "Email Sender API",
-        description: "API backend pour l'envoi d'emails avec Node.js.",
+        description: "Developed a backend email-sending service using Node.js, Express.js, and Nodemailer that allows users to send emails through a REST API endpoint. The system processes JSON requests containing recipient details, subject, and message content, then securely sends emails via Gmail SMTP integration. Implemented request handling, asynchronous email delivery, and error management for reliable communication services.",
         image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=300&fit=crop",
         icon: "FaPaperPlane",
         technologies: ["JavaScript", "Node.js", "Express"],
