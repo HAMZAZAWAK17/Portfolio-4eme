@@ -153,6 +153,49 @@ export const projects = [
         github: "https://github.com/HAMZAZAWAK17/AppSqlliteTp",
         category: "mobile",
     },
+    {
+        id: 10,
+        title: "CrowdDebug",
+        description: `J'ai conçu et développé CrowdDebug — une plateforme communautaire de débogage collaboratif en temps réel.
+
+💡 L'idée : Et si les développeurs pouvaient résoudre leurs bugs ensemble, instantanément, comme sur un forum mais en live ?
+
+🎯 Objectif du projet : Maîtriser une stack moderne full-stack en construisant quelque chose de concret et ambitieux — de la base de données jusqu'au WebSocket en passant par le design UI premium.
+
+🛠️ Stack technique :
+• ⚙️ Laravel 12 + PHP 8.2 — Architecture MVC, Eloquent ORM, middlewares, système de réputation automatique
+• ⚡ Laravel Reverb — Serveur WebSocket natif pour le chat en direct et les notifications instantanées
+• 🎨 Tailwind CSS v4.0 — UI moderne avec Dark Mode, effets Glassmorphism, design responsive
+• 📊 Chart.js — Dashboard admin avec graphiques d'activité en temps réel
+• 🔍 Prism.js — Coloration syntaxique du code pour une meilleure lisibilité entre pairs
+• 🗄️ MySQL 8.0 — Gestion des relations complexes (polymorphiques, pivot)
+
+✨ Fonctionnalités clés :
+→ Soumission de bugs avec code snippet et pièces jointes
+→ Chat en live par fil de discussion (présence en temps réel)
+→ Système de votes et de réputation (+5 upvote, +20 solution acceptée)
+→ Dashboard admin avec analytics de la plateforme
+→ Notifications en temps réel
+
+Ce projet m'a permis de passer d'une compréhension théorique des WebSockets à une implémentation production-ready, et de construire une vraie expérience utilisateur de bout en bout.`,
+        image: "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
+        gallery: [
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073628.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073646.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073714.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073841.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073856.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083629.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083654.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083800.png",
+            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083816.png",
+        ],
+        icon: "FaBug",
+        technologies: ["Laravel", "PHP", "TailwindCSS", "MySQL"],
+        github: "https://github.com/HAMZAZAWAK17/CrowdDebug",
+        category: "fullstack",
+    },
 ];
 
 export const certifications = [

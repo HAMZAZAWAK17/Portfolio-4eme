@@ -4,7 +4,7 @@ import {
     FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
     FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
     FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight, FaTimes, FaChevronRight, FaChevronLeft,
-    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt, FaJs, FaHtml5, FaCss3Alt, FaJava, FaAndroid
+    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt, FaJs, FaHtml5, FaCss3Alt, FaJava, FaAndroid, FaBug
 } from 'react-icons/fa';
 import { 
     SiFlutter, SiReact, SiNodedotjs, SiExpress, SiMysql, SiLaravel, SiPhp, 
@@ -54,6 +54,7 @@ const iconMap = {
     FaPaperPlane: FaPaperPlane,
     FaShieldAlt: FaShieldAlt,
     FaDatabase: FaDatabase,
+    FaBug: FaBug,
 };
 
 /* ─────────────────────────────────────────
@@ -220,7 +221,7 @@ const ProjectFolder = ({ project, index }) => {
                                     <div className="space-y-8">
                                         <div>
                                             <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">About the project</h5>
-                                            <p className="text-white/70 text-lg leading-relaxed">
+                                            <p className="text-white/70 text-lg leading-relaxed whitespace-pre-line">
                                                 {project.description}
                                             </p>
                                         </div>
