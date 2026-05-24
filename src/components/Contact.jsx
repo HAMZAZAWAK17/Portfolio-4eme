@@ -28,19 +28,26 @@ const Contact = () => {
         e.preventDefault();
         setLoading(true);
 
+        // ==========================================
+        // CONFIGURATION EMAILJS
+        // Remplacez ces valeurs par vos propres clés EmailJS (https://dashboard.emailjs.com/)
+        // ==========================================
         const SERVICE_ID = 'YOUR_SERVICE_ID';
         const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
         const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
         const isConfigured = 
-            SERVICE_ID && SERVICE_ID !== 'YOUR_SERVICE_ID' &&
-            TEMPLATE_ID && TEMPLATE_ID !== 'YOUR_TEMPLATE_ID' &&
-            PUBLIC_KEY && PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+            SERVICE_ID && SERVICE_ID !== 'YOUR_SERVICE_ID' && SERVICE_ID.trim() !== '' &&
+            TEMPLATE_ID && TEMPLATE_ID !== 'YOUR_TEMPLATE_ID' && TEMPLATE_ID.trim() !== '' &&
+            PUBLIC_KEY && PUBLIC_KEY !== 'YOUR_PUBLIC_KEY' && PUBLIC_KEY.trim() !== '';
 
         if (!isConfigured) {
+            // Fallback: mailto link
             const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject || 'Contact from Portfolio')}&body=${encodeURIComponent(`Nom: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
             window.location.href = mailtoUrl;
-            toast.success(t.contact.form.success);
+            toast.success(
+                t.contact.form.success || "Ouverture de votre client e-mail..."
+            );
             setFormData({ name: '', email: '', subject: '', message: '' });
             setLoading(false);
             return;
@@ -63,10 +70,8 @@ const Contact = () => {
             toast.success(t.contact.form.success);
             setFormData({ name: '', email: '', subject: '', message: '' });
         } catch (error) {
-            const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject || 'Contact from Portfolio')}&body=${encodeURIComponent(`Nom: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-            window.location.href = mailtoUrl;
-            toast.success(t.contact.form.success);
-            setFormData({ name: '', email: '', subject: '', message: '' });
+            console.error('EmailJS Error:', error);
+            toast.error(t.contact.form.error);
         } finally {
             setLoading(false);
         }
