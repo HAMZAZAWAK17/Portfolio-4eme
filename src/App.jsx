@@ -74,7 +74,7 @@ function App() {
       <Chatbot />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
-        <Hero />
+        <Hero darkMode={darkMode} />
         <About />
         <Skills />
         <Projects />

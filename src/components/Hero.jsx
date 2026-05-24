@@ -49,7 +49,7 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
                         delay: delay + i * 0.04,
                         ease: [0.22, 1, 0.36, 1],
                     }}
-                    className={`inline-block ${ch.trim() ? 'bg-white text-black px-1 md:px-[6px] mx-[1px] md:mx-[2px]' : 'w-4 md:w-8'}`}
+                    className={`inline-block ${ch.trim() ? 'bg-zinc-950 dark:bg-white text-white dark:text-black px-1 md:px-[6px] mx-[1px] md:mx-[2px]' : 'w-4 md:w-8'}`}
                     style={{ whiteSpace: ch === ' ' ? 'pre' : 'normal' }}
                 >
                     {ch}
@@ -64,7 +64,7 @@ const SplitText = ({ text, className, style = {}, delay = 0 }) => {
 ───────────────────────────────────────── */
 const FloatingElement = ({ icon: Icon, x, y, delay = 0, duration = 4, size = 'text-2xl' }) => (
     <motion.div
-        className={`absolute z-30 pointer-events-none flex items-center justify-center bg-white/10 backdrop-blur-xl p-4 rounded-full border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)]`}
+        className={`absolute z-30 pointer-events-none flex items-center justify-center bg-white/80 dark:bg-white/10 backdrop-blur-xl p-4 rounded-full border border-zinc-200 dark:border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]`}
         style={{ left: x, top: y }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ 
@@ -80,7 +80,7 @@ const FloatingElement = ({ icon: Icon, x, y, delay = 0, duration = 4, size = 'te
             rotate: { duration: duration * 1.5, repeat: Infinity, ease: "easeInOut" }
         }}
     >
-        <div className={`${size} text-white`}>
+        <div className={`${size} text-zinc-800 dark:text-white`}>
             <Icon />
         </div>
     </motion.div>
@@ -112,8 +112,8 @@ const Marquee = ({ text, reverse = false }) => {
                 transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
             >
                 {[...items, ...items].map((item, i) => (
-                    <span key={i} className="text-white text-[11px] uppercase tracking-[0.4em] font-black">
-                        {item} <span className="text-white/50 mx-4">◆</span>
+                    <span key={i} className="text-zinc-950 dark:text-white text-[11px] uppercase tracking-[0.4em] font-black">
+                        {item} <span className="text-zinc-950/30 dark:text-white/50 mx-4">◆</span>
                     </span>
                 ))}
             </motion.div>
@@ -124,7 +124,7 @@ const Marquee = ({ text, reverse = false }) => {
 /* ─────────────────────────────────────────
    Main Hero Component
 ───────────────────────────────────────── */
-const Hero = () => {
+const Hero = ({ darkMode }) => {
     const { t } = useLanguage();
     const sectionRef = useRef(null);
     const mouse = useMouse();
@@ -154,17 +154,29 @@ const Hero = () => {
         { value: '5', label: 'Années' },
     ];
 
+    const bottomGradient = darkMode
+        ? 'linear-gradient(to top, #000 0%, #000 10%, transparent 50%)'
+        : 'linear-gradient(to top, #fff 0%, #fff 10%, transparent 50%)';
+
+    const radialGradient = darkMode
+        ? 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)'
+        : 'radial-gradient(circle at center, transparent 30%, rgba(255,255,255,0.7) 100%)';
+
+    const scrollLineBackground = darkMode
+        ? 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)'
+        : 'linear-gradient(to bottom, rgba(0,0,0,0.3), transparent)';
+
     return (
         <section
             id="home"
             ref={sectionRef}
-            className="relative min-h-[100svh] overflow-hidden bg-black transition-colors duration-300"
+            className="relative min-h-[100svh] overflow-hidden bg-white dark:bg-black transition-colors duration-300"
         >
             {/* ── Grain ── */}
             <NoiseOverlay />
 
             {/* ── Solid background base ── */}
-            <div className="absolute inset-0 z-0 bg-black transition-colors duration-300" />
+            <div className="absolute inset-0 z-0 bg-white dark:bg-black transition-colors duration-300" />
 
             {/* ── Center portrait image (z-40 puts it in front of text) ── */}
             <div className="absolute inset-0 z-40 flex justify-center items-end pointer-events-none pb-[35vh] md:pb-0">
@@ -179,7 +191,11 @@ const Hero = () => {
                         src={heroImage}
                         alt=""
                         aria-hidden="true"
-                        className="w-full h-full object-contain object-bottom drop-shadow-[0_0_1px_rgba(255,255,255,1)] drop-shadow-[0_0_3px_rgba(255,255,255,1)] drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                        className={`w-full h-full object-contain object-bottom transition-all duration-300 ${
+                            darkMode
+                                ? "drop-shadow-[0_0_1px_rgba(255,255,255,1)] drop-shadow-[0_0_3px_rgba(255,255,255,1)] drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                                : "drop-shadow-[0_0_1px_rgba(0,0,0,0.15)] drop-shadow-[0_0_3px_rgba(0,0,0,0.1)] drop-shadow-[0_0_12px_rgba(0,0,0,0.06)]"
+                        }`}
                         style={{
                             scale: imgScale,
                             opacity: imgOpacity,
@@ -202,21 +218,21 @@ const Hero = () => {
 
                     {/* Strong fade at the bottom to blend with background */}
                     <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{ background: 'linear-gradient(to top, #000 0%, #000 10%, transparent 50%)' }}
+                        className="absolute inset-0 pointer-events-none transition-all duration-300"
+                        style={{ background: bottomGradient }}
                     />
                 </motion.div>
                 
                 {/* Radial vignette for cinematic blackness around edges */}
                 <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)' }}
+                    className="absolute inset-0 pointer-events-none transition-all duration-300"
+                    style={{ background: radialGradient }}
                 />
             </div>
 
             {/* ── Horizontal scan-line accent ── */}
             <motion.div
-                className="absolute left-0 right-0 h-px bg-white/10 z-20"
+                className="absolute left-0 right-0 h-px bg-black/5 dark:bg-white/10 z-20"
                 style={{ top: '35%' }}
                 animate={{ scaleX: [0.6, 1, 0.6], opacity: [0.04, 0.12, 0.04] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
@@ -224,7 +240,7 @@ const Hero = () => {
 
             {/* ── Top marquee strip ── */}
             <motion.div
-                className="absolute top-0 left-0 right-0 py-3 border-b border-white/5 z-30"
+                className="absolute top-0 left-0 right-0 py-3 border-b border-black/5 dark:border-white/5 z-30"
                 style={{ y: marqueeY }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -280,15 +296,15 @@ const Hero = () => {
                         transition={{ delay: 1.3, duration: 0.8 }}
                         className="flex flex-col gap-4 mt-6 max-w-[280px] md:max-w-[320px]"
                     >
-                        <div className="h-[2px] flex-grow-0 w-16 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
-                        <p className="text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-medium leading-[1.6] opacity-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        <div className="h-[2px] flex-grow-0 w-16 bg-zinc-950 dark:bg-white shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                        <p className="text-zinc-900 dark:text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-medium leading-[1.6] opacity-90 dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                             Software Engineering Student, Web & Mobile Developer, Co-founder of W&H Agency.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* ── Bottom row: stats + CTAs + social ── */}
-                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10 mt-10 w-full bg-black/60 md:bg-transparent backdrop-blur-2xl md:backdrop-blur-none p-8 md:p-0 rounded-[2rem] md:rounded-none border border-white/10 md:border-transparent">
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10 mt-10 w-full bg-white/70 dark:bg-black/60 md:bg-transparent md:dark:bg-transparent backdrop-blur-2xl md:backdrop-blur-none p-8 md:p-0 rounded-[2rem] md:rounded-none border border-zinc-200 dark:border-white/10 md:border-transparent">
 
                     {/* Stats pills */}
                     <motion.div
@@ -303,8 +319,8 @@ const Hero = () => {
                                 whileHover={{ y: -5 }}
                                 className="flex flex-col items-center md:items-start transition-all duration-300"
                             >
-                                <div className="text-white font-black text-3xl md:text-5xl leading-none tracking-tighter">{s.value}</div>
-                                <div className="text-white/40 text-[10px] uppercase tracking-[0.2em] mt-2 font-bold">{s.label}</div>
+                                <div className="text-zinc-950 dark:text-white font-black text-3xl md:text-5xl leading-none tracking-tighter">{s.value}</div>
+                                <div className="text-zinc-950/40 dark:text-white/40 text-[10px] uppercase tracking-[0.2em] mt-2 font-bold">{s.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -314,20 +330,27 @@ const Hero = () => {
                         {/* CTA buttons */}
                         <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-4 pointer-events-auto relative z-30 w-full">
                             <motion.button
-                                whileHover={{ backgroundColor: '#ffffff', color: '#000000', scale: 1.05 }}
+                                whileHover={{ 
+                                    backgroundColor: darkMode ? '#ffffff' : '#18181b', 
+                                    color: darkMode ? '#000000' : '#ffffff', 
+                                    scale: 1.05 
+                                }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={scrollToProjects}
-                                className="flex items-center justify-center gap-4 px-8 py-4 bg-white text-black font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full w-full sm:w-auto"
+                                className="flex items-center justify-center gap-4 px-8 py-4 bg-zinc-950 dark:bg-white text-white dark:text-black font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full w-full sm:w-auto shadow-lg shadow-zinc-950/10 dark:shadow-none"
                             >
                                 {t.hero.viewProjects}
                                 <FaArrowRight className="text-[10px]" />
                             </motion.button>
 
                             <motion.button
-                                whileHover={{ backgroundColor: 'rgba(255,255,255,0.1)', scale: 1.05 }}
+                                whileHover={{ 
+                                    backgroundColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)', 
+                                    scale: 1.05 
+                                }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={scrollToContact}
-                                className="flex items-center justify-center gap-4 px-8 py-4 border border-white/20 text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full backdrop-blur-md w-full sm:w-auto"
+                                className="flex items-center justify-center gap-4 px-8 py-4 border border-zinc-900/20 dark:border-white/20 text-zinc-900 dark:text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full backdrop-blur-md w-full sm:w-auto"
                             >
                                 {t.hero.contactMe}
                                 <FaArrowRight className="text-[10px]" />
@@ -347,9 +370,9 @@ const Hero = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={s.label}
-                                    whileHover={{ y: -4, color: '#ffffff' }}
+                                    whileHover={{ y: -4, color: darkMode ? '#ffffff' : '#000000' }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-white/30 hover:text-white transition-colors text-2xl md:text-xl"
+                                    className="text-zinc-400 dark:text-white/30 hover:text-zinc-950 dark:hover:text-white transition-colors text-2xl md:text-xl"
                                 >
                                     <s.icon />
                                 </motion.a>
@@ -366,12 +389,12 @@ const Hero = () => {
                 transition={{ delay: 2.5 }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 hidden md:flex pointer-events-none"
             >
-                <span className="text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
+                <span className="text-zinc-950/30 dark:text-white/30 text-[9px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
                 <motion.div
                     animate={{ scaleY: [0, 1, 0], y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     className="w-px h-14 origin-top"
-                    style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }}
+                    style={{ background: scrollLineBackground }}
                 />
             </motion.div>
 
