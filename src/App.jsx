@@ -9,8 +9,6 @@ import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Location from './components/Location';
 import Footer from './components/Footer';
-import Loader from './components/Loader';
-import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 
 import { Toaster } from 'react-hot-toast';
@@ -21,7 +19,6 @@ function App() {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
   });
-  const [loading, setLoading] = useState(true);
 
   // Initialize dark mode from localStorage
   useEffect(() => {
@@ -38,22 +35,9 @@ function App() {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  // Simulate loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300 overflow-x-hidden w-full">
@@ -69,7 +53,7 @@ function App() {
           }
         }} 
       />
-      <ScrollProgress />
+      
       <ScrollToTop />
       <Chatbot />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
