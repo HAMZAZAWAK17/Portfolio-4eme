@@ -387,8 +387,8 @@ const Projects = () => {
                         <span className="text-4xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tighter group-hover:italic transition-all">
                             {t.github.viewAll}
                         </span>
-                        <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-black dark:border-white flex items-center justify-center group-hover:bg-black dark:group-hover:bg-white transition-all group-hover:rotate-45">
-                            <FaArrowRight className="text-2xl md:text-4xl text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-all" />
+                        <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-black dark:border-white flex items-center justify-center group-hover:bg-black dark:group-hover:bg-white transition-all group-hover:scale-110">
+                            <FaGithub className="text-2xl md:text-4xl text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-all" />
                         </div>
                     </a>
                     
