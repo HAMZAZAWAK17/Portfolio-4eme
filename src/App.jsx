@@ -56,7 +56,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
+    <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300 overflow-x-hidden w-full">
       <Toaster 
         position="bottom-right" 
         toastOptions={{

@@ -10,11 +10,15 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   background-color: #fff;
   color: #000;
 }
