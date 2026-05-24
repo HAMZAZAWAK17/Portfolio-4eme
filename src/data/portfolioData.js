@@ -107,7 +107,7 @@ export const projects = [
         id: 5,
         title: "Formateur Management",
         description: "Système de gestion pour formateurs.",
-        image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=500&h=300&fit=crop",
+        image: "/src/assets/gestionforma.png",
         icon: "FaChalkboardTeacher",
         technologies: ["JavaScript", "PHP", "MySQL"],
         github: "https://github.com/HAMZAZAWAK17/FormateurManagement-hamza-soufiane",
