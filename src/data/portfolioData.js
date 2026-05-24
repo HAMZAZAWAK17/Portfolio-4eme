@@ -1,11 +1,58 @@
+// Project Images
+import dentistCover from '../assets/Projects-images/Dentaire/coverprjt.png';
+import dentist1 from '../assets/Projects-images/Dentaire/image.png';
+import dentist2 from '../assets/Projects-images/Dentaire/image copy.png';
+import dentist3 from '../assets/Projects-images/Dentaire/image copy 2.png';
+import dentist4 from '../assets/Projects-images/Dentaire/image copy 3.png';
+import dentist5 from '../assets/Projects-images/Dentaire/image copy 4.png';
+
+import pcmCover from '../assets/Projects-images/PCM/valeryoncover.png';
+import pcm1 from '../assets/Projects-images/PCM/1774948086730.jpg';
+import pcm2 from '../assets/Projects-images/PCM/1774948086733.jpg';
+import pcm3 from '../assets/Projects-images/PCM/1774948087038.jpg';
+import pcm4 from '../assets/Projects-images/PCM/1774948087445.jpg';
+import pcm5 from '../assets/Projects-images/PCM/1774948087676.jpg';
+
+import profileSaad from '../assets/github-profiles/draissisaad.png';
+import profileHamza from '../assets/github-profiles/hamzazawak.jpg';
+import profileWissal from '../assets/github-profiles/wissalbadri.jpg';
+
+import weatherappImg from '../assets/weatherapp.png';
+import newsappImg from '../assets/newsapp.png';
+import gestionformaImg from '../assets/gestionforma.png';
+
+import crowdCover from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png';
+import crowd1 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073628.png';
+import crowd2 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073646.png';
+import crowd3 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073714.png';
+import crowd4 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073841.png';
+import crowd5 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073856.png';
+import crowd6 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083629.png';
+import crowd7 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083654.png';
+import crowd8 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083800.png';
+import crowd9 from '../assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083816.png';
+
+import hrCover from '../assets/hr_management/image.png';
+import hr1 from '../assets/hr_management/image copy.png';
+import hr2 from '../assets/hr_management/image copy 2.png';
+import hr3 from '../assets/hr_management/image copy 3.png';
+import hr4 from '../assets/hr_management/image copy 4.png';
+import hr5 from '../assets/hr_management/image copy 5.png';
+import hr6 from '../assets/hr_management/image copy 6.png';
+
+// General Images
+import personalImg from '../assets/Gemini_Generated_Image_2725dz2725dz2725.png';
+import certImg from '../assets/certificateorangepython.png';
+import certPdf from '../assets/PYTHONCERTIF.pdf';
+
 export const personalInfo = {
     name: "Ezzouek Hamza",
     title: "FULL-STACK DEVELOPER / SOFTWARE ENGINEERING STUDENT",
     description: "I am Ezzouek Hamza, a full-stack developer intern looking for internship opportunities to enrich my experience. Passionate about building complete web solutions, I aim to contribute and refine my skills in a stimulating professional environment.",
-    email: "ezzouekhamza2411@gmail.com",
+    email: "ezouekhamza2411@gmail.com",
     phone: "+212 640 347045",
     location: "Casablanca, Morocco",
-    image: "/src/assets/Gemini_Generated_Image_2725dz2725dz2725.png",
+    image: personalImg,
     cvLink: "#",
 };
 
@@ -47,13 +94,13 @@ export const projects = [
         id: 1,
         title: "Dentist Website",
         description: "Website for a modern dental clinic with appointment scheduling management.",
-        image: "/src/assets/Projects-images/Dentaire/coverprjt.png",
+        image: dentistCover,
         gallery: [
-            "/src/assets/Projects-images/Dentaire/image.png",
-            "/src/assets/Projects-images/Dentaire/image copy.png",
-            "/src/assets/Projects-images/Dentaire/image copy 2.png",
-            "/src/assets/Projects-images/Dentaire/image copy 3.png",
-            "/src/assets/Projects-images/Dentaire/image copy 4.png",
+            dentist1,
+            dentist2,
+            dentist3,
+            dentist4,
+            dentist5,
         ],
         icon: "FaTooth",
         technologies: ["JavaScript", "HTML", "CSS", "PHP"],
@@ -64,18 +111,18 @@ export const projects = [
         id: 2,
         title: "PCM - Collaborative Project",
         description: "Comprehensive management and communication solution for businesses, developed in a team.",
-        image: "/src/assets/Projects-images/PCM/valeryoncover.png",
+        image: pcmCover,
         gallery: [
-            "/src/assets/Projects-images/PCM/1774948086730.jpg",
-            "/src/assets/Projects-images/PCM/1774948086733.jpg",
-            "/src/assets/Projects-images/PCM/1774948087038.jpg",
-            "/src/assets/Projects-images/PCM/1774948087445.jpg",
-            "/src/assets/Projects-images/PCM/1774948087676.jpg",
+            pcm1,
+            pcm2,
+            pcm3,
+            pcm4,
+            pcm5,
         ],
         team: [
-            { name: "Saad Draissi", image: "/src/assets/github-profiles/draissisaad.png" },
-            { name: "Hamza Zawak", image: "/src/assets/github-profiles/hamzazawak.jpg" },
-            { name: "Wissal Badri", image: "/src/assets/github-profiles/wissalbadri.jpg" },
+            { name: "Saad Draissi", image: profileSaad },
+            { name: "Hamza Zawak", image: profileHamza },
+            { name: "Wissal Badri", image: profileWissal },
         ],
         icon: "FaTasks",
         technologies: ["React", "Node.js", "MongoDB", "Express"],
@@ -86,7 +133,7 @@ export const projects = [
         id: 3,
         title: "Weather Map App",
         description: "Interactive weather map application.",
-        image: "/src/assets/weatherapp.png",
+        image: weatherappImg,
         icon: "FaCloudSun",
         technologies: ["Dart", "Flutter"],
         github: "https://github.com/HAMZAZAWAK17/WethearMap",
@@ -96,7 +143,7 @@ export const projects = [
         id: 4,
         title: "News App",
         description: "Real-time news application.",
-        image: "/src/assets/newsapp.png",
+        image: newsappImg,
         icon: "FaRegNewspaper",
         technologies: ["Dart", "Flutter"],
         github: "https://github.com/HAMZAZAWAK17/News-app",
@@ -106,7 +153,7 @@ export const projects = [
         id: 5,
         title: "Formateur Management",
         description: "Management system for trainers.",
-        image: "/src/assets/gestionforma.png",
+        image: gestionformaImg,
         icon: "FaChalkboardTeacher",
         technologies: ["JavaScript", "PHP", "MySQL"],
         github: "https://github.com/HAMZAZAWAK17/FormateurManagement-hamza-soufiane",
@@ -146,18 +193,18 @@ export const projects = [
         id: 9,
         title: "CrowdDebug",
         description: "Community platform for collaborative debugging in real-time with live chat, reputation system, and analytical dashboard.",
-        image: "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
+        image: crowdCover,
         gallery: [
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073628.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073646.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073714.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073841.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073856.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083629.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083654.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083800.png",
-            "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 083816.png",
+            crowdCover,
+            crowd1,
+            crowd2,
+            crowd3,
+            crowd4,
+            crowd5,
+            crowd6,
+            crowd7,
+            crowd8,
+            crowd9,
         ],
         icon: "FaBug",
         technologies: ["Laravel", "PHP", "TailwindCSS", "MySQL"],
@@ -168,15 +215,15 @@ export const projects = [
         id: 10,
         title: "HR Management",
         description: "Comprehensive human resources management system to optimize the tracking of employees, contracts, and leaves.",
-        image: "/src/assets/hr_management/image.png",
+        image: hrCover,
         gallery: [
-            "/src/assets/hr_management/image.png",
-            "/src/assets/hr_management/image copy.png",
-            "/src/assets/hr_management/image copy 2.png",
-            "/src/assets/hr_management/image copy 3.png",
-            "/src/assets/hr_management/image copy 4.png",
-            "/src/assets/hr_management/image copy 5.png",
-            "/src/assets/hr_management/image copy 6.png",
+            hrCover,
+            hr1,
+            hr2,
+            hr3,
+            hr4,
+            hr5,
+            hr6,
         ],
         icon: "FaTasks",
         technologies: ["React", "Node.js", "Express", "MySQL"],
@@ -192,9 +239,9 @@ export const certifications = [
         platform: "Orange Digital Center",
         date: "February 04 - 05, 2026",
         description: "Certificate of active participation in the Python training program organized by Orange Digital Center Club Ben M'Sik.",
-        image: "/src/assets/certificateorangepython.png",
+        image: certImg,
         icon: "FaPython",
-        link: "/src/assets/PYTHONCERTIF.pdf",
+        link: certPdf,
     },
 ];
 
