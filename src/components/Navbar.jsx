@@ -55,13 +55,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 w-full flex items-center ${scrolled ? 'h-[70px] md:py-3' : 'h-[70px] md:pt-6 lg:pt-10'}`}
+                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 w-full flex items-center ${scrolled ? 'h-[70px] md:py-3' : 'pt-10 md:pt-12 lg:pt-16'}`}
             >
                 <div className="w-full max-w-[1440px] mx-auto px-0 md:px-6 lg:px-12 transition-all duration-300">
                     <div className={`w-full flex items-center justify-between transition-all duration-300 ${
                         scrolled
                             ? 'h-[70px] md:h-auto px-6 md:px-8 py-0 md:py-4 rounded-none md:rounded-[2rem] bg-white/75 dark:bg-black/75 backdrop-blur-[12px] md:backdrop-blur-2xl border-b border-zinc-200/50 dark:border-white/10 md:border md:shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-                            : 'h-[70px] md:h-auto px-6 md:px-8 py-0 md:py-4 rounded-none md:rounded-[2rem] bg-transparent border-b border-transparent md:border-transparent'
+                            : 'h-auto py-2 md:py-4 px-6 md:px-8 rounded-none md:rounded-[2rem] bg-transparent border-b border-transparent md:border-transparent'
                     }`}>
 
                         {/* Logo */}
