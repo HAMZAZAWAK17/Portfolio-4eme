@@ -68,7 +68,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`text-xl md:text-2xl font-black cursor-pointer tracking-tighter transition-colors duration-500 flex items-center gap-2 ${scrolled ? 'text-white' : 'text-white mix-blend-difference'}`}
+                            className={`text-xl md:text-2xl font-black cursor-pointer tracking-tighter transition-colors duration-500 flex items-center gap-2 ${scrolled ? 'text-white' : 'text-zinc-950 dark:text-white'}`}
                             onClick={() => scrollToSection('#home')}
                         >
                             <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] inline-block" />
