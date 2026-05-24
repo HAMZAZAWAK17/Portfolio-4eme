@@ -165,6 +165,25 @@ export const projects = [
         github: "https://github.com/HAMZAZAWAK17/CrowdDebug",
         category: "fullstack",
     },
+    {
+        id: 10,
+        title: "Gestion RH",
+        description: "Système complet de gestion des ressources humaines pour optimiser le suivi des employés, des contrats et des congés.",
+        image: "/src/assets/hr_management/image.png",
+        gallery: [
+            "/src/assets/hr_management/image.png",
+            "/src/assets/hr_management/image copy.png",
+            "/src/assets/hr_management/image copy 2.png",
+            "/src/assets/hr_management/image copy 3.png",
+            "/src/assets/hr_management/image copy 4.png",
+            "/src/assets/hr_management/image copy 5.png",
+            "/src/assets/hr_management/image copy 6.png",
+        ],
+        icon: "FaTasks",
+        technologies: ["React", "Node.js", "Express", "MySQL"],
+        github: "https://github.com/HAMZAZAWAK17/HR-Management",
+        category: "fullstack",
+    },
 ];
 
 export const certifications = [
