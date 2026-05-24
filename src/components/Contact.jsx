@@ -32,9 +32,9 @@ const Contact = () => {
         // CONFIGURATION EMAILJS
         // Remplacez ces valeurs par vos propres clés EmailJS (https://dashboard.emailjs.com/)
         // ==========================================
-        const SERVICE_ID = 'YOUR_SERVICE_ID';
-        const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-        const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+        const SERVICE_ID = 'service_plctdge';
+        const TEMPLATE_ID = 'template_ph5o0em';
+        const PUBLIC_KEY = 'XTtJ9Dl5vnxRxnfs9';
 
         const isConfigured = 
             SERVICE_ID && SERVICE_ID !== 'YOUR_SERVICE_ID' && SERVICE_ID.trim() !== '' &&

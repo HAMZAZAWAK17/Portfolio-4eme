@@ -304,7 +304,7 @@ const Hero = ({ darkMode }) => {
                 </div>
 
                 {/* ── Bottom row: stats + CTAs + social ── */}
-                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10 mt-10 w-full bg-white/70 dark:bg-black/60 md:bg-transparent md:dark:bg-transparent backdrop-blur-2xl md:backdrop-blur-none p-8 md:p-0 rounded-[2rem] md:rounded-none border border-zinc-200 dark:border-white/10 md:border-transparent">
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10 mt-10 w-full bg-white/70 dark:bg-black/60 md:bg-transparent md:dark:bg-transparent backdrop-blur-2xl md:backdrop-blur-none p-8 md:p-0 rounded-[2rem] md:rounded-none">
 
                     {/* Stats pills */}
                     <motion.div
