@@ -1,11 +1,10 @@
-
 export const personalInfo = {
     name: "Ezzouek Hamza",
-    title: "DÉVELOPPEUR FULL-STACK / ÉTUDIANT EN GÉNIE LOGICIEL",
-    description: "Je suis Ezzouek Hamza, stagiaire en développement full-stack, à la recherche d'une opportunité de stage pour enrichir mon expérience. Passionné par la création de solutions web complètes, je souhaite contribuer et perfectionner mes compétences dans un environnement professionnel stimulant.",
+    title: "FULL-STACK DEVELOPER / SOFTWARE ENGINEERING STUDENT",
+    description: "I am Ezzouek Hamza, a full-stack developer intern looking for internship opportunities to enrich my experience. Passionate about building complete web solutions, I aim to contribute and refine my skills in a stimulating professional environment.",
     email: "ezouekhamza2411@gmail.com",
     phone: "+212 640 347045",
-    location: "Casablanca, Maroc",
+    location: "Casablanca, Morocco",
     image: "/src/assets/Gemini_Generated_Image_2725dz2725dz2725.png",
     cvLink: "#",
 };
@@ -46,8 +45,8 @@ export const skills = {
 export const projects = [
     {
         id: 1,
-        title: "Dentiste Site Web",
-        description: "Site web pour un cabinet dentaire moderne avec gestion des rendez-vous.",
+        title: "Dentist Website",
+        description: "Website for a modern dental clinic with appointment scheduling management.",
         image: "/src/assets/Projects-images/Dentaire/coverprjt.png",
         gallery: [
             "/src/assets/Projects-images/Dentaire/image.png",
@@ -63,8 +62,8 @@ export const projects = [
     },
     {
         id: 2,
-        title: "PCM - Projet Collaboratif",
-        description: "Solution complète de gestion et de communication pour les entreprises, développée en équipe.",
+        title: "PCM - Collaborative Project",
+        description: "Comprehensive management and communication solution for businesses, developed in a team.",
         image: "/src/assets/Projects-images/PCM/valeryoncover.png",
         gallery: [
             "/src/assets/Projects-images/PCM/1774948086730.jpg",
@@ -86,7 +85,7 @@ export const projects = [
     {
         id: 3,
         title: "Weather Map App",
-        description: "Application de carte météo interactive.",
+        description: "Interactive weather map application.",
         image: "/src/assets/weatherapp.png",
         icon: "FaCloudSun",
         technologies: ["Dart", "Flutter"],
@@ -96,7 +95,7 @@ export const projects = [
     {
         id: 4,
         title: "News App",
-        description: "Application d'actualités en temps réel.",
+        description: "Real-time news application.",
         image: "/src/assets/newsapp.png",
         icon: "FaRegNewspaper",
         technologies: ["Dart", "Flutter"],
@@ -106,7 +105,7 @@ export const projects = [
     {
         id: 5,
         title: "Formateur Management",
-        description: "Système de gestion pour formateurs.",
+        description: "Management system for trainers.",
         image: "/src/assets/gestionforma.png",
         icon: "FaChalkboardTeacher",
         technologies: ["JavaScript", "PHP", "MySQL"],
@@ -136,7 +135,7 @@ export const projects = [
     {
         id: 8,
         title: "App Sqlite TP",
-        description: "Application mobile Android utilisant SQLite.",
+        description: "Android mobile application using SQLite.",
         image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500&h=300&fit=crop",
         icon: "FaDatabase",
         technologies: ["Java", "Android"],
@@ -146,7 +145,7 @@ export const projects = [
     {
         id: 9,
         title: "CrowdDebug",
-        description: "Plateforme communautaire de débogage collaboratif en temps réel avec chat live, système de réputation et dashboard analytique.",
+        description: "Community platform for collaborative debugging in real-time with live chat, reputation system, and analytical dashboard.",
         image: "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
         gallery: [
             "/src/assets/Projects-images/crowd-debuging/Screenshot 2026-05-22 073601.png",
@@ -167,8 +166,8 @@ export const projects = [
     },
     {
         id: 10,
-        title: "Gestion RH",
-        description: "Système complet de gestion des ressources humaines pour optimiser le suivi des employés, des contrats et des congés.",
+        title: "HR Management",
+        description: "Comprehensive human resources management system to optimize the tracking of employees, contracts, and leaves.",
         image: "/src/assets/hr_management/image.png",
         gallery: [
             "/src/assets/hr_management/image.png",
@@ -191,25 +190,24 @@ export const certifications = [
         id: 1,
         title: "Python Training",
         platform: "Orange Digital Center",
-        date: "04 - 05 Février 2026",
-        description: "Certification de participation active au programme de formation Python organisé par Orange Digital Center Club Ben M'Sik.",
+        date: "February 04 - 05, 2026",
+        description: "Certificate of active participation in the Python training program organized by Orange Digital Center Club Ben M'Sik.",
         image: "/src/assets/certificateorangepython.png",
         icon: "FaPython",
         link: "/src/assets/PYTHONCERTIF.pdf",
     },
-
 ];
 
 export const languages = [
-    { name: "Arabe", level: "Langue maternelle", percentage: 100 },
-    { name: "Anglais", level: "Intermédiaire avancé", percentage: 75 },
-    { name: "Français", level: "Intermédiaire avancé", percentage: 75 },
+    { name: "Arabic", level: "Native language", percentage: 100 },
+    { name: "English", level: "Upper-Intermediate", percentage: 75 },
+    { name: "French", level: "Upper-Intermediate", percentage: 75 },
 ];
 
 export const interests = [
     { name: "Kickboxing", icon: "MdSportsKabaddi" },
     { name: "Football", icon: "MdSportsSoccer" },
-    { name: "Voyage", icon: "MdTravelExplore" },
+    { name: "Travel", icon: "MdTravelExplore" },
 ];
 
 export const socialLinks = {
