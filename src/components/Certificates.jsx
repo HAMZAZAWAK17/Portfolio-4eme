@@ -68,7 +68,7 @@ const Lightbox = ({ cert, onClose }) => {
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center gap-2 text-emerald-500 mb-2">
                             <FaCheckCircle size={16} />
-                            <span className="text-sm font-bold">Certificat Vérifié</span>
+                            <span className="text-sm font-bold">Verified Certificate</span>
                         </div>
                         <a
                             href={cert.link}
@@ -77,7 +77,7 @@ const Lightbox = ({ cert, onClose }) => {
                             className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-xl hover:opacity-90 transition-opacity"
                         >
                             <FaDownload />
-                            Télécharger
+                            Download
                         </a>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ const CertCard = ({ cert, index }) => {
                         </div>
                         <div className="flex items-center gap-1.5 text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-1 rounded-md">
                             <FaCheckCircle size={12} />
-                            <span className="text-xs font-bold uppercase tracking-wider">Vérifié</span>
+                            <span className="text-xs font-bold uppercase tracking-wider">Verified</span>
                         </div>
                     </div>
 
@@ -167,13 +167,13 @@ const Certificates = () => {
                 >
                     <div>
                         <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tighter leading-none mb-4">
-                            Mes <span className="text-gray-400 dark:text-gray-600 italic">Certifications</span>
+                            My <span className="text-gray-400 dark:text-gray-600 italic">Certifications</span>
                         </h2>
                         <div className="w-20 h-1.5 bg-black dark:bg-white mx-auto md:mx-0"></div>
                     </div>
                     
                     <p className="text-gray-600 dark:text-gray-400 max-w-md text-sm md:text-base font-medium">
-                        Validation continue de mes compétences à travers des formations certifiantes reconnues.
+                        Continuous validation of my skills through recognized certifying training courses.
                     </p>
                 </motion.div>
 

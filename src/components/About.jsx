@@ -155,21 +155,30 @@ const About = () => {
 
                 {/* 3. Logical Dynamic Stats (Full Width) */}
                 <div className="mt-40">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-900 overflow-hidden rounded-[3rem] shadow-3xl">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <StatItem
                             number={internalProjectsCount}
                             label={t.about.stats.projects}
                             icon={<FaRocket />}
+                            glowColor="from-teal-500/20 to-emerald-500/10"
+                            borderColor="group-hover:border-teal-500/50"
+                            iconColor="text-teal-400"
                         />
                         <StatItem
                             number={internShipsCount}
                             label={t.about.stats.internships}
                             icon={<FaBriefcase />}
+                            glowColor="from-blue-500/20 to-indigo-500/10"
+                            borderColor="group-hover:border-blue-500/50"
+                            iconColor="text-blue-400"
                         />
                         <StatItem
                             number="5"
                             label={t.about.stats.years}
                             icon={<FaCalendar />}
+                            glowColor="from-purple-500/20 to-violet-500/10"
+                            borderColor="group-hover:border-purple-500/50"
+                            iconColor="text-purple-400"
                         />
                     </div>
                 </div>
@@ -189,21 +198,40 @@ const NavButton = ({ onClick, disabled, icon }) => (
     </button>
 );
 
-const StatItem = ({ number, label, icon }) => (
-    <div className="bg-white dark:bg-black p-6 md:p-10 flex flex-col items-center justify-center group hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-500 relative overflow-hidden border-r last:border-r-0 border-gray-100 dark:border-gray-900 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
-        {/* Intensive White Ombre Fade (Dark Mode only) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.1] to-transparent opacity-0 dark:opacity-100 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-        <div className="text-gray-200 dark:text-gray-800 text-2xl md:text-3xl mb-4 transition-colors group-hover:text-black dark:group-hover:text-white relative z-10">
-            {icon}
+const StatItem = ({ number, label, icon, glowColor, borderColor, iconColor }) => (
+    <motion.div
+        whileHover={{ y: -8, scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="group relative bg-zinc-50/50 dark:bg-zinc-900/30 backdrop-blur-2xl p-10 flex flex-col rounded-[2.5rem] border border-zinc-200/50 dark:border-white/5 overflow-hidden transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]"
+    >
+        {/* Glow backdrop on hover */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${glowColor} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0`} />
+        
+        {/* Border accent glow */}
+        <div className={`absolute inset-x-0 bottom-0 h-[3px] bg-gradient-to-r ${glowColor.replace('/20', '').replace('/10', '')} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10`} />
+
+        <div className="flex items-center justify-between mb-8 relative z-10">
+            {/* Minimal Icon Box */}
+            <div className={`w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-zinc-100 dark:border-white/10 flex items-center justify-center ${iconColor} transition-colors group-hover:scale-110 duration-500 shadow-sm`}>
+                <div className="text-2xl">{icon}</div>
+            </div>
+            
+            {/* Subtle Label Tag */}
+            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 bg-zinc-100/50 dark:bg-white/5 px-4 py-2 rounded-full border border-zinc-200/20 dark:border-white/5">
+                Stat
+            </span>
         </div>
-        <div className="text-4xl md:text-6xl font-black text-black dark:text-white mb-2 tracking-tighter relative z-10">
+
+        {/* Big Number */}
+        <div className="text-5xl md:text-7xl font-black text-black dark:text-white mb-2 tracking-tighter leading-none relative z-10 group-hover:translate-x-1 transition-transform duration-500">
             {number}
         </div>
-        <div className="text-xs font-black uppercase tracking-[0.3em] text-gray-400 text-center relative z-10">
+
+        {/* Descriptive Label */}
+        <div className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 mt-2 relative z-10">
             {label}
         </div>
-    </div>
+    </motion.div>
 );
 
 const TimelineCard = ({ item }) => {
@@ -221,7 +249,7 @@ const TimelineCard = ({ item }) => {
                         {item.year}
                     </span>
                     <span className={`px-4 md:px-6 py-1.5 md:py-2 border-2 border-black dark:border-white font-black uppercase tracking-widest text-[9px] md:text-[10px] ${isExp ? 'text-blue-500' : 'text-purple-500'}`}>
-                        {isExp ? 'Expérience' : 'Formation'}
+                        {isExp ? 'Experience' : 'Education'}
                     </span>
                     <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-gray-400 ml-auto">
                         <FaMapMarkerAlt />

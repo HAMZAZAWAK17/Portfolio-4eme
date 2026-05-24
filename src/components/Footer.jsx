@@ -17,7 +17,7 @@ const Footer = () => {
                     <div className="md:col-span-1">
                         <h3 className="text-4xl font-black mb-6 tracking-tighter uppercase">EH.</h3>
                         <p className="text-zinc-500 mb-8 max-w-sm text-sm leading-relaxed font-medium">
-                            Développeur Full-Stack passionné par la création de solutions web modernes, performantes et centrées sur l'utilisateur.
+                            Full-Stack Developer passionate about building modern, high-performance, and user-centric web solutions.
                         </p>
                         <div className="flex gap-4">
                             {[
@@ -43,10 +43,10 @@ const Footer = () => {
                     <div>
                         <h4 className="text-[10px] font-black mb-6 uppercase tracking-[0.4em] text-zinc-600">Navigation</h4>
                         <ul className="space-y-4">
-                            {['Accueil', 'À propos', 'Compétences', 'Projets', 'Contact'].map((link, index) => (
+                            {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((link, index) => (
                                 <li key={index}>
                                     <a
-                                        href={`#${link.toLowerCase().replace('à propos', 'about').replace('compétences', 'skills').replace('projets', 'projects').replace('accueil', 'home')}`}
+                                        href={`#${link.toLowerCase()}`}
                                         className="text-white font-black uppercase text-[11px] tracking-widest hover:italic transition-all opacity-60 hover:opacity-100"
                                     >
                                         {link}
