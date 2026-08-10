@@ -38,6 +38,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         { name: t.nav.skills, href: '#skills' },
         { name: t.nav.projects, href: '#projects' },
         { name: t.nav.services, href: '#services' },
+        { name: t.nav.faq, href: '#faq' },
         { name: t.nav.contact, href: '#contact' },
     ];
 

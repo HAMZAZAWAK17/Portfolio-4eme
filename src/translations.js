@@ -7,6 +7,7 @@ export const translations = {
             skills: "Compétences",
             projects: "Projets",
             services: "Services",
+            faq: "FAQ",
             contact: "Contact",
             email: "Email",
         },
@@ -198,6 +199,40 @@ export const translations = {
             },
         },
 
+        // FAQ
+        faq: {
+            badge: "FAQ",
+            title: "Vos questions,",
+            titleHighlight: "mes réponses.",
+            subtitle: "Découvrez tout ce qu'il faut savoir sur mes compétences techniques, ma disponibilité et ma méthode de travail.",
+            questions: [
+                {
+                    q: "Quelles technologies maîtrisez-vous le plus ?",
+                    a: "Je suis spécialisé en développement Full-Stack avec ReactJS, Node.js, Express.js, PHP, et Laravel. Côté bases de données, j'utilise MySQL et MongoDB. J'ai aussi une expérience en développement mobile avec Flutter et Android Java."
+                },
+                {
+                    q: "Êtes-vous disponible pour un stage ou un emploi à plein temps ?",
+                    a: "Oui, absolument ! Je recherche actuellement des opportunités de stage de fin d'études, de poste à plein temps ou de projets en freelance. Je suis basé à Casablanca et ouvert au télétravail ou à une mobilité internationale."
+                },
+                {
+                    q: "Comment se déroule le développement d'un projet web ?",
+                    a: "Je suis une méthodologie Agile & Scrum : modélisation de l'architecture (UML/Figma), développement itératif du frontend et du backend, intégration sécurisée des API, phases de tests et livraison continue avec suivi."
+                },
+                {
+                    q: "Pouvez-vous vous intégrer à une équipe ou reprendre un projet existant ?",
+                    a: "Tout à fait. J'ai l'habitude de travailler en équipe avec Git (GitHub/GitLab), le découpage de tâches sur Trello/GanttProject, ainsi que le refactoring et l'optimisation de codebases existantes."
+                },
+                {
+                    q: "Quel est le délai moyen pour la réalisation d'un projet ?",
+                    a: "Les délais dépendent de l'envergure du projet. Une landing page ou un site vitrine nécessite entre 3 et 7 jours, tandis qu'une application web sur-mesure ou SaaS demande généralement entre 2 et 6 semaines."
+                },
+                {
+                    q: "Comment pouvons-nous démarrer une collaboration ?",
+                    a: "Vous pouvez m'envoyer un message via le formulaire de contact juste ci-dessous, m'écrire par e-mail à workh6403@gmail.com, ou me contacter sur LinkedIn pour discuter de vos besoins."
+                }
+            ]
+        },
+
         // Location & Availability
         location: {
             title: "Localisation &",
@@ -229,6 +264,7 @@ export const translations = {
             skills: "Skills",
             projects: "Projects",
             services: "Services",
+            faq: "FAQ",
             contact: "Contact",
             email: "Email",
         },
@@ -418,6 +454,40 @@ export const translations = {
                 phone: "Phone",
                 location: "Location",
             },
+        },
+
+        // FAQ
+        faq: {
+            badge: "FAQ",
+            title: "Your Guide to",
+            titleHighlight: "working together.",
+            subtitle: "Find quick answers to common questions about my technical skills, availability, and development process.",
+            questions: [
+                {
+                    q: "What technologies do you specialize in?",
+                    a: "I specialize in Full-Stack development using ReactJS, Node.js, Express.js, PHP, and Laravel. For databases, I work with MySQL and MongoDB. I also have mobile development experience with Flutter and Java for Android."
+                },
+                {
+                    q: "Are you available for full-time roles or internships?",
+                    a: "Yes, absolutely! I am currently looking for end-of-studies internships, full-time positions, or freelance opportunities. I am based in Casablanca, Morocco, and open to remote work or international relocation."
+                },
+                {
+                    q: "What is your approach to developing custom web applications?",
+                    a: "I follow an Agile & Scrum workflow: designing user interfaces in Figma, planning system architecture with UML, iterative frontend & backend development, secure API integrations, testing, and continuous deployment."
+                },
+                {
+                    q: "Can you collaborate with an existing team or code base?",
+                    a: "Definitely. I am experienced in team collaboration using Git (GitHub/GitLab), task breakdown on Trello/GanttProject, and reading, refactoring, or extending existing codebases cleanly."
+                },
+                {
+                    q: "What is the typical timeline for completing a project?",
+                    a: "Timelines depend on project complexity. A landing page or showcase website takes 3-7 days, while a full-stack web application or SaaS platform usually ranges from 2 to 6 weeks with regular progress updates."
+                },
+                {
+                    q: "How can we initiate a project or contact you?",
+                    a: "You can reach out directly using the contact form below, send an email to workh6403@gmail.com, or connect with me via LinkedIn to discuss your project requirements."
+                }
+            ]
         },
 
         // Location & Availability

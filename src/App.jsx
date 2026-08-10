@@ -6,6 +6,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Services from './components/Services';
 import Certificates from './components/Certificates';
+import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Location from './components/Location';
 import Footer from './components/Footer';
@@ -64,6 +65,7 @@ function App() {
         <Projects />
         <Services />
         <Certificates />
+        <Faq />
         <Contact />
         <Location />
       </main>
