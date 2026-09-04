@@ -39,7 +39,6 @@ const About = () => {
 
     return (
         <section id="about" className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-500 overflow-hidden">
-            
             {/* 1. Profile Card & Terminal Biography (2-Column Layout) */}
             <div className="py-10 px-6 md:px-12 max-w-[80rem] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-14">
                 

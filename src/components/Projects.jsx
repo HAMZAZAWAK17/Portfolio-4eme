@@ -1,20 +1,19 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-    FaGithub, FaExternalLinkAlt, FaClock, FaTooth,
+    FaGithub, FaExternalLinkAlt, FaTooth,
     FaCloudSun, FaRegNewspaper, FaChalkboardTeacher,
-    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaArrowRight, FaTimes, FaChevronRight, FaChevronLeft,
-    FaLaravel, FaPhp, FaNodeJs, FaReact, FaGitAlt, FaJs, FaHtml5, FaCss3Alt, FaJava, FaAndroid, FaBug
+    FaTasks, FaPaperPlane, FaShieldAlt, FaDatabase, FaTimes, FaArrowRight,
+    FaJs, FaHtml5, FaCss3Alt, FaJava, FaAndroid, FaBug
 } from 'react-icons/fa';
-import { 
-    SiFlutter, SiReact, SiNodedotjs, SiExpress, SiMysql, SiLaravel, SiPhp, 
+import {
+    SiFlutter, SiReact, SiNodedotjs, SiExpress, SiMysql, SiLaravel, SiPhp,
     SiTailwindcss, SiGit, SiFirebase, SiDart, SiNextdotjs, SiMongodb, SiSpringboot, SiTypescript
 } from 'react-icons/si';
 import { projects, socialLinks } from '../data/portfolioData';
 import { useLanguage } from '../LanguageContext';
 
 const techIconMap = {
-    // Frontend
     'ReactJS': SiReact,
     'React.js': SiReact,
     'React': SiReact,
@@ -24,7 +23,6 @@ const techIconMap = {
     'HTML': FaHtml5,
     'CSS': FaCss3Alt,
     'TypeScript': SiTypescript,
-    // Backend
     'Node.js': SiNodedotjs,
     'Express.js': SiExpress,
     'Express': SiExpress,
@@ -32,392 +30,387 @@ const techIconMap = {
     'PHP': SiPhp,
     'Spring Boot': SiSpringboot,
     'Java': FaJava,
-    // Database
     'MySQL': SiMysql,
     'MongoDB': SiMongodb,
     'Firebase': SiFirebase,
-    // Mobile
     'Flutter': SiFlutter,
     'Dart': SiDart,
     'Android': FaAndroid,
-    // Tools
     'Git': SiGit,
 };
 
 const iconMap = {
-    FaTooth: FaTooth,
-    SiFlutter: SiFlutter,
-    FaCloudSun: FaCloudSun,
-    FaRegNewspaper: FaRegNewspaper,
-    FaChalkboardTeacher: FaChalkboardTeacher,
-    FaTasks: FaTasks,
-    FaPaperPlane: FaPaperPlane,
-    FaShieldAlt: FaShieldAlt,
-    FaDatabase: FaDatabase,
-    FaBug: FaBug,
+    FaTooth,
+    SiFlutter,
+    FaCloudSun,
+    FaRegNewspaper,
+    FaChalkboardTeacher,
+    FaTasks,
+    FaPaperPlane,
+    FaShieldAlt,
+    FaDatabase,
+    FaBug,
 };
 
-/* ─────────────────────────────────────────
-   PROJECT FOLDER COMPONENT
-───────────────────────────────────────── */
-const ProjectFolder = ({ project, index }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const { t } = useLanguage();
+const ProjectCard = ({ project, index, onOpen, categoryLabel }) => {
     const IconComponent = iconMap[project.icon] || FaTasks;
+    const caseNumber = String(project.id).padStart(2, '0');
 
     return (
-        <>
-            <motion.div
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setIsOpen(true)}
-                className="group relative cursor-pointer pt-6"
+        <motion.article
+            layout
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ delay: index * 0.05, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="h-full"
+        >
+            <button
+                type="button"
+                onClick={() => onOpen(project)}
+                className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_24px_48px_-24px_rgba(0,0,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 dark:border-white/10 dark:bg-[#0c0c0c] dark:hover:border-white/20 dark:focus-visible:ring-white/40"
             >
-                {/* Folder Back with Tab (Reference Style) */}
-                <div className="relative aspect-[4/3] bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-2xl rounded-tl-none border border-white/5 shadow-2xl">
-                    {/* Tab with rounded corner transition */}
-                    <div className="absolute -top-5 left-0 h-5 w-32 bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-t-xl border-t border-l border-r border-white/5" />
-                    
-                    {/* Peeking "Feuille" (Sheet of Paper) */}
-                    <div className="absolute inset-x-5 top-0 h-40 z-0">
-                        <motion.div 
-                            className="w-full h-full bg-white rounded-t-sm shadow-2xl p-2 relative overflow-hidden"
-                            initial={{ y: 30, opacity: 0, rotate: 0 }}
-                            whileHover={{ y: -45, opacity: 1, rotate: -2 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                        >
-                            <div className="w-full h-full overflow-hidden rounded-t-sm border border-zinc-200 relative">
-                                <motion.img 
-                                    src={project.image} 
-                                    alt={project.title} 
-                                    className="w-full absolute top-0 left-0 object-top grayscale group-hover:grayscale-0 transition-all duration-700"
-                                    initial={{ y: "0%" }}
-                                    whileHover={{ y: "-60%" }}
-                                    transition={{ duration: 5, ease: "linear" }}
-                                />
-                            </div>
-                        </motion.div>
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                    <img
+                        src={project.image}
+                        alt=""
+                        className="h-full w-full object-cover object-top grayscale-[0.35] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-80 dark:from-black/70" />
+
+                    <div className="absolute left-4 top-4 flex items-center gap-2">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/90 backdrop-blur-md">
+                            <IconComponent className="text-[11px]" aria-hidden />
+                            {categoryLabel}
+                        </span>
                     </div>
 
-                    {/* Folder Front Face (Dark & Professional) */}
-                    <motion.div 
-                        className="absolute inset-0 z-10 bg-[#1a1a1a] dark:bg-[#0a0a0a] p-6 lg:p-8 flex flex-col shadow-[-5px_0_30px_rgba(0,0,0,0.6)] rounded-2xl border border-white/10 origin-bottom"
-                        style={{ backfaceVisibility: 'hidden' }}
-                        initial={{ rotateX: 0 }}
-                        whileHover={{ rotateX: -20 }}
-                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                    >
-                        {/* Top Content: Flex-1 to take available space and prevent text from overlapping the bottom */}
-                        <div className="flex-1 overflow-hidden flex flex-col mb-4">
-                            <div className="flex items-center justify-between mb-4 lg:mb-6 shrink-0">
-                                <div className="p-3 bg-white/5 border border-white/10 text-white rounded-xl">
-                                    <IconComponent className="text-xl lg:text-2xl" />
-                                </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
-                                    CASE_{project.id.toString().padStart(2, '0')}
+                    <span className="absolute right-4 top-4 font-mono text-[11px] font-medium tracking-widest text-white/70">
+                        {caseNumber}
+                    </span>
+
+                    <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-lg transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2">
+                        <FaArrowRight className="text-xs -rotate-45" aria-hidden />
+                    </div>
+                </div>
+
+                <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
+                    <h3 className="font-['Outfit'] text-lg font-semibold leading-snug tracking-tight text-zinc-900 line-clamp-2 dark:text-white md:text-xl">
+                        {project.title}
+                    </h3>
+                    <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                        {project.description}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between pt-3">
+                        <div className="flex items-center gap-1.5">
+                            {project.technologies.slice(0, 4).map((tech) => {
+                                const TechIcon = techIconMap[tech];
+                                return (
+                                    <span
+                                        key={tech}
+                                        title={tech}
+                                        className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300"
+                                    >
+                                        {TechIcon ? <TechIcon className="text-sm" /> : <span className="text-[8px] font-bold uppercase">{tech.slice(0, 3)}</span>}
+                                    </span>
+                                );
+                            })}
+                            {project.technologies.length > 4 && (
+                                <span className="pl-1 text-[11px] font-medium text-zinc-400">
+                                    +{project.technologies.length - 4}
                                 </span>
+                            )}
+                        </div>
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-400 transition-colors group-hover:text-zinc-900 dark:group-hover:text-white">
+                            View
+                        </span>
+                    </div>
+                </div>
+            </button>
+        </motion.article>
+    );
+};
+
+const ProjectModal = ({ project, onClose, t, categoryLabel }) => {
+    const IconComponent = iconMap[project.icon] || FaTasks;
+    const shots = project.gallery?.length ? project.gallery : [project.image];
+
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [onClose]);
+
+    return (
+        <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`project-title-${project.id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-6 lg:p-10"
+        >
+            <button
+                type="button"
+                className="absolute inset-0 bg-black/70 backdrop-blur-md"
+                aria-label="Close project details"
+                onClick={onClose}
+            />
+
+            <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 24, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 280, damping: 32 }}
+                className="relative flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-t-3xl border border-white/10 bg-white dark:bg-[#0a0a0a] sm:h-auto sm:max-h-[88vh] sm:rounded-3xl"
+            >
+                <button
+                    type="button"
+                    onClick={onClose}
+                    className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-zinc-700 backdrop-blur-md transition hover:bg-zinc-100 dark:border-white/10 dark:bg-black/50 dark:text-white dark:hover:bg-white/10"
+                    aria-label="Close"
+                >
+                    <FaTimes />
+                </button>
+
+                <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[1.05fr_0.95fr]">
+                    <div className="min-h-[220px] overflow-y-auto bg-zinc-100 dark:bg-black">
+                        <div className="space-y-4 p-4 md:p-6">
+                            {shots.map((img, i) => (
+                                <img
+                                    key={i}
+                                    src={img}
+                                    alt={`${project.title} screenshot ${i + 1}`}
+                                    className="w-full rounded-xl border border-zinc-200 object-cover shadow-sm dark:border-white/5"
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="flex min-h-0 flex-col overflow-y-auto p-6 md:p-10">
+                        <div className="mb-6 flex items-center gap-3">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-900 text-white dark:bg-white dark:text-black">
+                                <IconComponent className="text-xl" />
                             </div>
-                            
-                            <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white uppercase leading-[0.9] mb-3 tracking-tighter shrink-0">
-                                {project.title}
-                            </h3>
-                            <p className="text-white/40 text-[11px] lg:text-xs line-clamp-2 md:line-clamp-3 font-medium leading-relaxed italic">
-                                "{project.description}"
-                            </p>
+                            <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
+                                    {categoryLabel} · {String(project.id).padStart(2, '0')}
+                                </p>
+                                <h2
+                                    id={`project-title-${project.id}`}
+                                    className="mt-1 font-['Outfit'] text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white md:text-3xl"
+                                >
+                                    {project.title}
+                                </h2>
+                            </div>
                         </div>
 
-                        {/* Bottom Row: Fixed at the bottom, won't overlap with text */}
-                        <div className="flex items-end justify-between shrink-0 h-12">
-                            <div className="flex flex-wrap gap-2 lg:gap-3">
-                                {project.technologies.slice(0, 3).map((tech, i) => {
-                                    const TechIcon = techIconMap[tech];
-                                    return (
-                                        <div key={i} className="group/tech relative p-2 lg:p-3 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all shadow-md">
-                                            {TechIcon ? <TechIcon className="text-sm lg:text-lg" /> : <span className="text-[9px] font-black uppercase">{tech}</span>}
-                                        </div>
-                                    );
-                                })}
+                        <div className="space-y-8">
+                            <div>
+                                <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                                    Overview
+                                </h3>
+                                <p className="whitespace-pre-line text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+                                    {project.description}
+                                </p>
                             </div>
-                            
-                            {/* Interactive Hint */}
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                <div className="flex items-center gap-2 text-white font-black text-[9px] uppercase tracking-[0.3em] bg-white/10 px-3 lg:px-4 py-2 rounded-full border border-white/10 whitespace-nowrap">
-                                    View Case <FaChevronRight className="text-[8px]" />
+
+                            <div>
+                                <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                                    Stack
+                                </h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {project.technologies.map((tech) => {
+                                        const TechIcon = techIconMap[tech];
+                                        return (
+                                            <span
+                                                key={tech}
+                                                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200"
+                                            >
+                                                {TechIcon && <TechIcon className="text-sm" />}
+                                                {tech}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             </div>
+
+                            {project.team && (
+                                <div>
+                                    <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                                        Team
+                                    </h3>
+                                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                        {project.team.map((member) => (
+                                            <div
+                                                key={member.name}
+                                                className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-2.5 dark:border-white/10 dark:bg-white/5"
+                                            >
+                                                <img
+                                                    src={member.image}
+                                                    alt=""
+                                                    className="h-9 w-9 rounded-full object-cover"
+                                                />
+                                                <span className="text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                                                    {member.name}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    </motion.div>
+
+                        <div className="mt-auto flex flex-col gap-3 pt-10 sm:flex-row">
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-zinc-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-black dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+                            >
+                                <FaGithub />
+                                {t.projects.viewCode}
+                            </a>
+                            {project.demo && (
+                                <a
+                                    href={project.demo}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-zinc-200 px-5 py-3.5 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5"
+                                >
+                                    <FaExternalLinkAlt className="text-xs" />
+                                    {t.projects.viewDemo}
+                                </a>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </motion.div>
-
-            {/* FULL SCREEN PROJECT DETAILS MODAL */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 lg:p-20 overflow-hidden"
-                    >
-                        {/* Backdrop */}
-                        <div className="absolute inset-0 bg-black/95 backdrop-blur-2xl" onClick={() => setIsOpen(false)} />
-                        
-                        {/* Close Button */}
-                        <button 
-                            onClick={() => setIsOpen(false)}
-                            className="absolute top-10 right-10 z-[110] text-white/50 hover:text-white transition-colors p-4"
-                        >
-                            <FaTimes size={32} />
-                        </button>
-
-                        <motion.div 
-                            layoutId={`project-${project.id}`}
-                            className="relative w-full max-w-7xl h-full bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 flex flex-col md:flex-row"
-                        >
-                            {/* Left Side: Image Gallery (The Swipe Up Animation) */}
-                            <div className="w-full md:w-1/2 h-1/2 md:h-full relative bg-black overflow-y-auto no-scrollbar scroll-smooth snap-y snap-mandatory">
-                                <div className="p-4 md:p-10 space-y-8">
-                                    {(project.gallery || [project.image]).map((img, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ y: 100, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            transition={{ delay: 0.2 + (i * 0.1), duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                                            className="snap-center"
-                                        >
-                                            <img 
-                                                src={img} 
-                                                alt={`${project.title} screenshot ${i}`}
-                                                className="w-full rounded-2xl shadow-2xl border border-white/5"
-                                            />
-                                        </motion.div>
-                                    ))}
-                                </div>
-                                
-                                {/* Floating Label for Gallery */}
-                                <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 text-[10px] text-white font-black uppercase tracking-[0.2em]">
-                                    Scroll to explore case
-                                </div>
-                            </div>
-
-                            {/* Right Side: Details */}
-                            <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-16 flex flex-col bg-zinc-900 overflow-y-auto no-scrollbar scroll-smooth">
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-4 mb-8">
-                                        <div className="w-16 h-16 bg-white flex items-center justify-center rounded-2xl">
-                                            <IconComponent className="text-3xl text-black" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-white/50 font-black uppercase tracking-widest text-xs mb-1">Project Overview</h4>
-                                            <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">
-                                                {project.title}
-                                            </h2>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-8">
-                                        <div>
-                                            <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">About the project</h5>
-                                            <p className="text-white/70 text-lg leading-relaxed whitespace-pre-line">
-                                                {project.description}
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">Technologies used</h5>
-                                            <div className="flex flex-wrap gap-3">
-                                                {project.technologies.map((tech, i) => {
-                                                    const TechIcon = techIconMap[tech];
-                                                    return (
-                                                        <div key={i} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white/90">
-                                                            {TechIcon && <TechIcon className="text-sm" />}
-                                                            <span className="text-xs font-bold uppercase tracking-widest">{tech}</span>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-
-                                        {project.team && (
-                                            <div>
-                                                <h5 className="text-white/30 font-bold uppercase tracking-widest text-[10px] mb-4">Project Team</h5>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    {project.team.map((member, i) => (
-                                                        <div key={i} className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-2xl">
-                                                            <img src={member.image} alt={member.name} className="w-10 h-10 rounded-full border border-white/20 object-cover" />
-                                                            <span className="text-white/90 text-[10px] font-black uppercase tracking-widest">{member.name}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Actions */}
-                                <div className="flex flex-wrap gap-4 mt-12 pt-10 border-t border-white/5">
-                                    <motion.a 
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        href={project.github} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-4 px-8 py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl transition-all duration-500"
-                                    >
-                                        <FaGithub size={20} />
-                                        {t.projects.viewCode}
-                                    </motion.a>
-                                    {project.demo && (
-                                        <motion.a 
-                                            whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.05)' }}
-                                            whileTap={{ scale: 0.98 }}
-                                            href={project.demo} 
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
-                                            className="flex-1 flex items-center justify-center gap-4 px-8 py-5 border border-white/10 text-white font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl transition-all duration-500"
-                                        >
-                                            <FaExternalLinkAlt size={18} />
-                                            {t.projects.viewDemo}
-                                        </motion.a>
-                                    )}
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
+        </motion.div>
     );
 };
 
 const Projects = () => {
     const { t } = useLanguage();
     const [filter, setFilter] = useState('all');
+    const [activeProject, setActiveProject] = useState(null);
 
     const categories = [
         { id: 'all', name: t.projects.all },
         { id: 'frontend', name: t.projects.frontend },
         { id: 'fullstack', name: t.projects.fullstack },
-        { id: 'mobile', name: t.projects.mobile || "Mobile" },
-        { id: 'backend', name: t.projects.backend || "Backend" },
+        { id: 'mobile', name: t.projects.mobile || 'Mobile' },
+        { id: 'backend', name: t.projects.backend || 'Backend' },
     ];
+
+    const categoryLabel = (id) => categories.find((c) => c.id === id)?.name || id;
 
     const filteredProjects = filter === 'all'
         ? projects
-        : projects.filter(project => project.category === filter);
+        : projects.filter((project) => project.category === filter);
 
     return (
-        <section id="projects" className="section-padding bg-zinc-50 dark:bg-black border-t border-gray-200 dark:border-zinc-900 transition-colors duration-500">
-            <div className="max-w-7xl mx-auto px-6">
-                {/* Section Title */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <section id="projects" className="section-padding border-t border-zinc-200 bg-zinc-50 transition-colors duration-500 dark:border-zinc-900 dark:bg-black">
+            <div className="mx-auto max-w-7xl px-6">
+                <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="max-w-2xl"
+                        className="max-w-xl"
                     >
-                        <h4 className="text-black dark:text-white/40 font-black uppercase tracking-[0.4em] text-xs mb-4">Case Studies</h4>
-                        <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white uppercase tracking-tighter leading-none">
-                            {t.projects.title} <br/>
-                            <span className="text-zinc-300 dark:text-zinc-800 italic">{t.projects.titleHighlight}</span>
+                        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-400">
+                            Selected work
+                        </p>
+                        <h2 className="font-['Outfit'] text-4xl font-semibold tracking-tight text-zinc-900 dark:text-white md:text-5xl">
+                            {t.projects.title}{' '}
+                            <span className="text-zinc-400 dark:text-zinc-600">{t.projects.titleHighlight}</span>
                         </h2>
+                        {t.projects.subtitle && (
+                            <p className="mt-4 max-w-md text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                                {t.projects.subtitle}
+                            </p>
+                        )}
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="flex flex-wrap gap-2"
-                    >
+                    <div className="flex flex-wrap gap-2" role="tablist" aria-label="Project categories">
                         {categories.map((category) => (
                             <button
                                 key={category.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={filter === category.id}
                                 onClick={() => setFilter(category.id)}
-                                className={`px-5 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-full transition-all duration-300 border ${
-                                    filter === category.id 
-                                    ? 'bg-black text-white dark:bg-white dark:text-black border-transparent' 
-                                    : 'bg-transparent text-zinc-500 border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-white'
+                                className={`rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
+                                    filter === category.id
+                                        ? 'border-zinc-900 bg-zinc-900 text-white dark:border-white dark:bg-white dark:text-black'
+                                        : 'border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-800 dark:bg-transparent dark:hover:border-zinc-500 dark:hover:text-white'
                                 }`}
                             >
                                 {category.name}
                             </button>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
 
-                {/* Projects Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-10">
+                <motion.div
+                    layout
+                    className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
+                >
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, idx) => (
-                            <ProjectFolder key={project.id} project={project} index={idx} />
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                index={idx}
+                                onOpen={setActiveProject}
+                                categoryLabel={categoryLabel(project.category)}
+                            />
                         ))}
                     </AnimatePresence>
-                </div>
+                </motion.div>
 
-                {/* No Projects Message */}
                 {filteredProjects.length === 0 && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-20"
-                    >
-                        <p className="text-gray-600 dark:text-gray-400 text-lg uppercase tracking-widest font-black">
-                            {t.projects.noProjects}
-                        </p>
-                    </motion.div>
+                    <p className="py-20 text-center text-sm uppercase tracking-[0.2em] text-zinc-400">
+                        {t.projects.noProjects}
+                    </p>
                 )}
 
-                {/* Discover All My Projects Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-32 pt-20 border-t border-zinc-200 dark:border-zinc-900 flex flex-col items-center"
-                >
+                <div className="mt-24 flex flex-col items-center border-t border-zinc-200 pt-16 dark:border-zinc-900">
                     <a
                         href={socialLinks.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-10"
+                        className="group inline-flex items-center gap-5"
                     >
-                        <span className="text-4xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tighter group-hover:italic transition-all">
+                        <span className="font-['Outfit'] text-3xl font-semibold tracking-tight text-zinc-900 transition group-hover:opacity-70 dark:text-white md:text-4xl">
                             {t.github.viewAll}
                         </span>
-                        <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-black dark:border-white flex items-center justify-center group-hover:bg-black dark:group-hover:bg-white transition-all group-hover:scale-110">
-                            <FaGithub className="text-2xl md:text-4xl text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-all" />
-                        </div>
+                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-900 text-zinc-900 transition group-hover:bg-zinc-900 group-hover:text-white dark:border-white dark:text-white dark:group-hover:bg-white dark:group-hover:text-black">
+                            <FaGithub className="text-xl" />
+                        </span>
                     </a>
-                    
-                    <div className="mt-10 flex gap-4 overflow-hidden">
-                         {[...Array(10)].map((_, i) => (
-                            <span key={i} className="text-zinc-200 dark:text-zinc-800 font-black uppercase text-[10px] tracking-[0.5em] whitespace-nowrap animate-marquee">
-                                +50 Repositories on GitHub • 
-                            </span>
-                         ))}
-                    </div>
-                </motion.div>
+                </div>
             </div>
 
-            <style jsx>{`
-                @keyframes marquee {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                .animate-marquee {
-                    animation: marquee 20s linear infinite;
-                }
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style>
+            <AnimatePresence>
+                {activeProject && (
+                    <ProjectModal
+                        project={activeProject}
+                        onClose={() => setActiveProject(null)}
+                        t={t}
+                        categoryLabel={categoryLabel(activeProject.category)}
+                    />
+                )}
+            </AnimatePresence>
         </section>
     );
 };
